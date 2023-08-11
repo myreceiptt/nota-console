@@ -16,8 +16,8 @@
 
 ```sh
 # 1. Clone the repo
-git clone https://github.com/0l1v3rr/0l1v3rr.github.io.git
-cd 0l1v3rr.github.io
+git clone https://github.com/myreceiptt/nota-console.git
+cd noto-console
 
 # 2. Install the necessary dependencies
 npm i
