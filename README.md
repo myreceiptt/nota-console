@@ -33,6 +33,4 @@ npm start
 > [init.straight-line.org](https://init.straight-line.org/)
 > 
 
-<!--
-**myreceiptt/myreceiptt** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on Prof. NOTA's GitHub profile.
--->
+
