@@ -8,20 +8,20 @@
   }
 
   .terminal-scrollbar::-webkit-scrollbar-track {
-    @apply bg-kali-black/[.75];
+    @apply bg-nota-black/[.75];
   }
 
   .terminal-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-kali-gray/[.15] rounded-md transition-all border-[3px] 
+    @apply bg-nota-gray/[.15] rounded-md transition-all border-[3px] 
       border-solid border-transparent bg-clip-content;
   }
 
   .terminal-link {
-    @apply cursor-default hover:underline;
+    @apply cursor-pointer hover:underline hover:text-nota-white;
   }
 
   .terminal-bold {
-    @apply font-bold text-kali-white;
+    @apply cursor-default font-bold text-nota-yellow;
   }
 }
 

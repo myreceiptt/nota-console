@@ -13,7 +13,7 @@ const Prompt: FC<PromptProps> = (props) => {
     const split = text.split(" ");
 
     if (cmdNames.includes(split[0])) {
-      split[0] = `<span class="text-kali-green-dark relative">${split[0]}</span>`;
+      split[0] = `<span class="text-kali-yellow relative">${split[0]}</span>`;
     }
 
     split[0] = `

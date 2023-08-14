@@ -67,20 +67,17 @@ export const getCommandNames = (): string[] => {
 
 export function motdText(): string {
   return `
-    Welcome to 0l1v3rr.github.io!<br>
-
-    <br>&nbsp;* GitHub: 
-    <a class="terminal-link" href="https://github.com/0l1v3rr" target="_blank" rel="noreferrer">
-      https://github.com/0l1v3rr
-    </a>
-
-    <br>&nbsp;* Repo: 
-    <a class="terminal-link" href="https://github.com/0l1v3rr/0l1v3rr.github.io" target="_blank" rel="noreferrer">
-      https://github.com/0l1v3rr/0l1v3rr.github.io
-    </a>
-
+    ==== Message of The Day =======<br>
     <br>
-    <br>&nbsp;* Type 'help' to see the list of available commands.
+    &nbsp;Hi, I'm <a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a>!<br>
+    <br>
+    This <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span> could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.<br>
+    <br>
+    To interact with this <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span>, type <span class="terminal-bold" title="Shout out to Prof. NOTA in a good way!">'!prof!'</span> and hit <span class="terminal-bold" title="Entering 0101 Universe where Prof. NOTA belongs.">'enter'</span> to see all available command prompts. Please only use all available command prompts. Have fun and enjoy it!<br>
+    <br>
+    &nbsp;Regards,<br>
+    &nbsp;<a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a><br>
+    <br>
   `;
 }
 
