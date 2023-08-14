@@ -78,6 +78,7 @@ export function motdText(): string {
     &nbsp;Regards,<br>
     &nbsp;<a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a><br>
     <br>
+    ==== 47 - !motd! =======
   `;
 }
 

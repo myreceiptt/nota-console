@@ -21,7 +21,7 @@
   }
 
   .terminal-bold {
-    @apply cursor-default font-bold text-nota-yellow;
+    @apply cursor-pointer font-bold text-nota-yellow;
   }
 }
 
