@@ -51,7 +51,7 @@ const Prompt: FC<PromptProps> = (props) => {
           before:-translate-y-[2px] select-none font-bold"
       >
         <span className="text-kali-blue">(</span>
-        <span className="text-kali-red">root💀kali</span>
+        <span className="text-kali-red">root💀nota</span>
         <span className="text-kali-blue">)-[</span>
         <span className="text-kali-gray">~</span>
         <span className="text-kali-blue">]</span>

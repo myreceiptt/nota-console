@@ -6,7 +6,7 @@ interface MainProps {
 
 const Main: FC<MainProps> = ({ children }) => {
   return (
-    <main className="h-[86%] w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%]">
+    <main className="h-[74%] w-[99%] md:w-[88%] lg:w-[77%] xl:w-[74%]">
       {children}
     </main>
   );
