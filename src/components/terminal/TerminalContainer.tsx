@@ -47,8 +47,8 @@ const TerminalContainer = () => {
 
   return (
     <section
-      className={`rounded-md w-full h-full bg-kali-gray-dark/[.96] 
-        border border-solid border-kali-border font-fira-code 
+      className={`rounded-md w-full h-full bg-nota-gray-dark/[.96] 
+        border border-solid border-nota-border font-nota 
         text-sm shadow-terminal flex flex-col overflow-hidden 
         cursor-default resize ${terminalClasses} transition-all duration-100`}
     >
@@ -57,12 +57,12 @@ const TerminalContainer = () => {
       />
 
       <div
-        className="px-1 text-kali-gray text-sm w-full h-full
+        className="px-1 text-nota-blue text-sm w-full h-full
           overflow-y-auto terminal-scrollbar pb-2 pt-1"
       >
         {isMobile && (
           <ResultDiv
-            text={`<span class="text-kali-red-dark">Err: This site does not work on devices without a physical keyboard.</span>`}
+            text={`<span class="text-nota-red-dark">Err: This site does not work on devices without a physical keyboard.</span>`}
           />
         )}
         {isMotdVisible && <ResultDiv text={motdText()} />}

@@ -51,10 +51,10 @@ const Prompt: FC<PromptProps> = (props) => {
           before:-translate-y-[2px] select-none font-bold"
       >
         <span className="text-nota-red">(</span>
-        <span className="text-nota-white">prof🤫nota</span>
-        <span className="text-kali-blue">)-[</span>
-        <span className="text-kali-gray">~</span>
-        <span className="text-kali-blue">]</span>
+        <span className="text-nota-white">root🤫nota</span>
+        <span className="text-nota-red">)-[</span>
+        <span className="text-nota-gray">~</span>
+        <span className="text-nota-red">]</span>
       </div>
 
       <div
@@ -62,14 +62,14 @@ const Prompt: FC<PromptProps> = (props) => {
           before:bg-nota-red before:absolute before:top-[75%] before:left-0.5
           before:-translate-y-[2px] flex items-center gap-0"
       >
-        <span className="text-kali-red ml-0.5 select-none font-bold">#</span>
+        <span className="text-nota-white ml-0.5 select-none font-bold">#</span>
 
         <div
-          className={`text-kali-gray text-sm relative 
+          className={`text-nota-gray text-sm relative 
             ${
               props.showCursor &&
               `after:content[''] after:h-4 after:w-2 after:absolute 
-              after:bg-kali-gray/[.8] after:translate-y-[10%] 
+              after:bg-nota-gray/[.8] after:translate-y-[10%] 
               after:animate-blink after:text-black`
             }`}
         >
