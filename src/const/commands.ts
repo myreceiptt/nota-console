@@ -1,54 +1,55 @@
-import { projects } from "./projects";
+// import { projects } from "./projects";
+import { links } from "./linklist";
 
 const commands: Map<string, string> = new Map<string, string>();
 
-commands.set("motd", motdText());
-commands.set("whoami", "root");
-commands.set("touch", "Why would you touch anything?");
-commands.set("rm", "Why would you remove anything?");
-commands.set("cat", "Here's a cute cat for you! 😊");
-commands.set("about", aboutText());
-commands.set("pwd", "/");
-commands.set("date", new Date().toLocaleString());
-commands.set("projects", projectsText());
-commands.set("kali", kaliLogo());
-commands.set("ls", projectsText());
-commands.set("github", openLink("https://github.com/0l1v3rr"));
-commands.set("linkedin", openLink("https://www.linkedin.com/in/0l1v3rr"));
-commands.set("repo", openLink("https://github.com/0l1v3rr/0l1v3rr.github.io"));
-commands.set("email", openLink("mailto:oliver.mrakovics@gmail.com"));
+commands.set("!motd!", motdText());
+commands.set("!whoami!", "root");
+commands.set("!touch!", "Why would you touch anything?");
+commands.set("!rm!", "Why would you remove anything?");
+commands.set("!cat!", "Here's a cute cat for you! 😊");
+commands.set("!about!", aboutText());
+commands.set("!pwd!", "/");
+commands.set("!date!", new Date().toLocaleString());
+commands.set("!links!", linksText());
+commands.set("!kali!", kaliLogo());
+commands.set("!ls!", linksText());
+commands.set("!github!", openLink("https://github.com/0l1v3rr"));
+commands.set("!linkedin!", openLink("https://www.linkedin.com/in/0l1v3rr"));
+commands.set("!repo!", openLink("https://github.com/0l1v3rr/0l1v3rr.github.io"));
+commands.set("!email!", openLink("mailto:oliver.mrakovics@gmail.com"));
 commands.set(
-  "codersrank",
+  "!codersrank!",
   openLink("https://profile.codersrank.io/user/0l1v3rr/")
 );
 commands.set(
-  "socials",
+  "!socials!",
   "Usage: [command]<br><br>github, linkedin, email, codersrank"
 );
-commands.set("help", helpText());
-commands.set("techstack", techStack());
+commands.set("!prof!", profText());
+commands.set("!techstack!", techStack());
 
 export const getCommandByName = (name: string): string => {
   name = name.trim().toLowerCase().split(" ")[0];
 
   // commands that require redirecting
   switch (name) {
-    case "github":
+    case "!github!":
       window.open("https://github.com/0l1v3rr", "_blank");
       break;
-    case "repo":
+    case "!repo!":
       window.open("https://github.com/0l1v3rr/0l1v3rr.github.io", "_blank");
       break;
-    case "linkedin":
+    case "!linkedin!":
       window.open("https://www.linkedin.com/in/0l1v3rr", "_blank");
       break;
-    case "email":
+    case "!email!":
       window.open("mailto:oliver.mrakovics@gmail.com", "_blank");
       break;
-    case "codersrank":
+    case "!codersrank!":
       window.open("https://profile.codersrank.io/user/0l1v3rr/", "_blank");
       break;
-    case "cat":
+    case "!cat!":
       window.open("https://cataas.com/cat/cute", "_blank");
       break;
   }
@@ -57,7 +58,7 @@ export const getCommandByName = (name: string): string => {
 };
 
 export const getCommandNames = (): string[] => {
-  const commandNames: string[] = ["clear"];
+  const commandNames: string[] = ["!clear!"];
   for (const entry of Array.from(commands.entries())) {
     commandNames.push(entry[0]);
   }
@@ -73,7 +74,7 @@ export function motdText(): string {
     <br>
     This <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span> could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.<br>
     <br>
-    To interact with this <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span>, type <span class="terminal-bold" title="Shout out to Prof. NOTA in a good way!">'!prof!'</span> and hit <span class="terminal-bold" title="Entering 0101 Universe where Prof. NOTA belongs.">'enter'</span> to see all available command prompts. Please only use all available command prompts. Have fun and enjoy it!<br>
+    To interact with this <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span>, type <span class="terminal-bold" title="Shout out to Prof. NOTA in a good way!">'!prof!'</span> and hit <span class="terminal-bold" title="Entering 0101 Universe where Prof. NOTA belongs.">'enter'</span> to see all available command prompts. Have fun and enjoy it!<br>
     <br>
     &nbsp;Regards,<br>
     &nbsp;<a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a><br>
@@ -82,8 +83,8 @@ export function motdText(): string {
   `;
 }
 
-function helpText(): string {
-  const commandNames: string[] = ["clear", "help"];
+function profText(): string {
+  const commandNames: string[] = ["!clear!", "!help!"];
   for (const entry of Array.from(commands.entries())) {
     commandNames.push(entry[0]);
   }
@@ -93,7 +94,7 @@ function helpText(): string {
     <br>
     <br>
 
-    ${commandNames.sort().join(", ")}
+    ${commandNames.sort().join("<br />")}
   `;
 }
 
@@ -130,19 +131,25 @@ function openLink(link: string): string {
     `;
 }
 
-function projectsText(): string {
+function linksText(): string {
   return `
-    ${projects
-      .map((project) => {
+    ==== Interesting Links List =======<br />
+    <span class="terminal-bold">Hint: Hover on each link to read the link information.</span><br />
+    <br />
+    ${links
+      .map((link) => {
         return `
         &#8226;&nbsp;<a 
-          class="project-${project.category}"
-          href="${project.link}"
+          class="project-${link.category}"
+          href="${link.link}"
+          title="${link.title}"
           target="_blank"
           rel="noreferrer"
-        >${project.name}</a>`;
+        >${link.name}</a>`;
       })
       .join("<br />")}
+    <br /><br />
+    ==== 47 - !tokens! =======
   `;
 }
 
