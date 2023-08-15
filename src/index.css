@@ -25,15 +25,15 @@
   }
 }
 
-.project-frontend {
-  @apply hover:underline text-kali-green cursor-default whitespace-nowrap;
+.project-domains {
+  @apply hover:underline text-nota-white cursor-pointer whitespace-nowrap font-bold;
 }
-.project-backend {
-  @apply hover:underline text-kali-white cursor-default whitespace-nowrap;
+.project-websites {
+  @apply hover:underline text-nota-cyan cursor-pointer whitespace-nowrap font-bold;
 }
-.project-fullstack {
-  @apply hover:underline text-kali-yellow cursor-default whitespace-nowrap;
+.project-socials {
+  @apply hover:underline text-nota-purple cursor-pointer whitespace-nowrap font-bold;
 }
-.project-other {
-  @apply hover:underline text-kali-cyan cursor-default whitespace-nowrap;
+.project-minisites {
+  @apply hover:underline text-nota-green cursor-pointer whitespace-nowrap font-bold;
 }

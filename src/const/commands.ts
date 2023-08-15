@@ -135,14 +135,14 @@ function projectsText(): string {
     ${projects
       .map((project) => {
         return `
-        <a 
+        &#8226;&nbsp;<a 
           class="project-${project.category}"
           href="${project.link}"
           target="_blank"
           rel="noreferrer"
         >${project.name}</a>`;
       })
-      .join("&nbsp;&nbsp;&nbsp;")}
+      .join("<br />")}
   `;
 }
 

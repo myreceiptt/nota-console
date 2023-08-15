@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        kali: "url('./assets/prof-nota-v.1.20.jpg')",
+        kali: "url('./assets/kali-layers.png')",
+        nota: "url('./assets/prof-nota-v.1.20.jpg')",
       },
       colors: {
         "kali-text-muted": "#7a7a7a",
@@ -70,6 +71,7 @@ module.exports = {
       fontFamily: {
         "fira-code": ["Fira Code", "monospace"],
         segoe: "Segoe UI",
+        nota: ["Fira Code", "monospace"],
       },
       keyframes: {
         blink: {
