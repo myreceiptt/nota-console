@@ -62,9 +62,14 @@ const TerminalContainer = () => {
       >
         {isMobile && (
           <ResultDiv
-            text={`<span class="terminal-error">Error: There is no physical keyboard on your device.</span><br />
+            text={`<span class="terminal-title">==== Error 47 =======</span><br />
             <br />
-            Since this NOTA's console can't work on devices without a physical keyboard, please change your device and revisit this NOTA's console.`}
+            <span class="terminal-error">Error: There is no physical keyboard on your device.</span><br />
+            <br />
+            &nbsp;Hint: Since this NOTA's console can't work on devices without a physical keyboard, please change your device and revisit this NOTA's console.<br />
+            <br />
+            <span class="terminal-title">==== Error 47 =======</span><br />
+            <br />`}
           />
         )}
         {isMotdVisible && <ResultDiv text={motdText()} />}
