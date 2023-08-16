@@ -17,23 +17,31 @@
   }
 
   .terminal-link {
-    @apply cursor-pointer hover:underline hover:text-nota-white;
+    @apply cursor-pointer font-bold text-nota-green hover:underline hover:text-nota-cyan;
   }
 
   .terminal-bold {
     @apply cursor-pointer font-bold text-nota-yellow;
   }
+
+  .terminal-title {
+    @apply font-bold text-nota-cyan;
+  }
+
+  .terminal-error {
+    @apply font-bold text-nota-red;
+  }
 }
 
 .project-domains {
-  @apply hover:underline text-nota-white cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-pink cursor-pointer whitespace-nowrap font-bold;
 }
 .project-websites {
-  @apply hover:underline text-nota-cyan cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-green cursor-pointer whitespace-nowrap font-bold;
 }
 .project-socials {
-  @apply hover:underline text-nota-purple cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-pink cursor-pointer whitespace-nowrap font-bold;
 }
 .project-minisites {
-  @apply hover:underline text-nota-green cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-green cursor-pointer whitespace-nowrap font-bold;
 }

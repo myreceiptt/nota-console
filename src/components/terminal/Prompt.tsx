@@ -45,21 +45,21 @@ const Prompt: FC<PromptProps> = (props) => {
     <div className="flex flex-col relative">
       <div
         className="ml-5 before:content[''] before:h-[2px] before:w-5 
-          before:bg-nota-red before:absolute before:top-1/4 before:left-0.5
-          after:content[''] after:h-1/2 after:w-[2px] after:bg-nota-red
+          before:bg-nota-blue before:absolute before:top-1/4 before:left-0.5
+          after:content[''] after:h-1/2 after:w-[2px] after:bg-nota-blue
           after:absolute after:left-0.5 after:translate-y-1/2 
           before:-translate-y-[2px] select-none font-bold"
       >
-        <span className="text-nota-red">(</span>
-        <span className="text-nota-white">root🤫nota</span>
-        <span className="text-nota-red">)-[</span>
-        <span className="text-nota-gray">~</span>
-        <span className="text-nota-red">]</span>
+        <span className="text-nota-blue">(</span>
+        <span className="text-nota-red">root🤫nota</span>
+        <span className="text-nota-blue">)-[</span>
+        <span className="text-nota-white">~</span>
+        <span className="text-nota-blue">]</span>
       </div>
 
       <div
         className="ml-3 before:content[''] before:h-[2px] before:w-3 
-          before:bg-nota-red before:absolute before:top-[75%] before:left-0.5
+          before:bg-nota-blue before:absolute before:top-[75%] before:left-0.5
           before:-translate-y-[2px] flex items-center gap-0"
       >
         <span className="text-nota-white ml-0.5 select-none font-bold">#</span>
@@ -69,7 +69,7 @@ const Prompt: FC<PromptProps> = (props) => {
             ${
               props.showCursor &&
               `after:content[''] after:h-4 after:w-2 after:absolute 
-              after:bg-nota-gray/[.8] after:translate-y-[10%] 
+              after:bg-nota-blue/[.8] after:translate-y-[10%] 
               after:animate-blink after:text-black`
             }`}
         >

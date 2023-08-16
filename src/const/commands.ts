@@ -15,7 +15,6 @@ commands.set("!links!", linksText());
 commands.set("!kali!", kaliLogo());
 commands.set("!ls!", linksText());
 commands.set("!github!", openLink("https://github.com/0l1v3rr"));
-commands.set("!linkedin!", openLink("https://www.linkedin.com/in/0l1v3rr"));
 commands.set("!repo!", openLink("https://github.com/0l1v3rr/0l1v3rr.github.io"));
 commands.set("!email!", openLink("mailto:oliver.mrakovics@gmail.com"));
 commands.set(
@@ -24,7 +23,7 @@ commands.set(
 );
 commands.set(
   "!socials!",
-  "Usage: [command]<br><br>github, linkedin, email, codersrank"
+  "Usage: [command]<br><br>!github!, !email!, !codersrank!"
 );
 commands.set("!prof!", profText());
 commands.set("!techstack!", techStack());
@@ -39,9 +38,6 @@ export const getCommandByName = (name: string): string => {
       break;
     case "!repo!":
       window.open("https://github.com/0l1v3rr/0l1v3rr.github.io", "_blank");
-      break;
-    case "!linkedin!":
-      window.open("https://www.linkedin.com/in/0l1v3rr", "_blank");
       break;
     case "!email!":
       window.open("mailto:oliver.mrakovics@gmail.com", "_blank");
@@ -68,18 +64,18 @@ export const getCommandNames = (): string[] => {
 
 export function motdText(): string {
   return `
-    ==== Message of The Day =======<br>
+    <span class="terminal-title">==== Message of The Day =======</span><br>
     <br>
-    &nbsp;Hi, I'm <a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a>!<br>
+    &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br>
     <br>
-    This <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span> could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.<br>
+    This <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.<br>
     <br>
-    To interact with this <span class="terminal-bold" title="NOTA's console could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.">NOTA's console</span>, type <span class="terminal-bold" title="Shout out to Prof. NOTA in a good way!">'!prof!'</span> and hit <span class="terminal-bold" title="Entering 0101 Universe where Prof. NOTA belongs.">'enter'</span> to see all available command prompts. Have fun and enjoy it!<br>
+    Type <span class="terminal-bold" title="Shout out to me in a good way!">'!prof!'</span> and hit <span class="terminal-bold" title="Entering 0101 Universe where I belong.">'enter'</span> to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Have fun and enjoy it!<br>
     <br>
     &nbsp;Regards,<br>
-    &nbsp;<a class="terminal-link terminal-bold" href="https://deeplinks.straight-line.org/" title="Prof. NOTA's Deep Links" target="_blank" rel="noreferrer">Prof. NOTA</a><br>
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br>
     <br>
-    ==== 47 - !motd! =======
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Showing message of the day from me.">!motd!</span> =======</span>
   `;
 }
 
@@ -133,13 +129,15 @@ function openLink(link: string): string {
 
 function linksText(): string {
   return `
-    ==== Interesting Links List =======<br />
-    <span class="terminal-bold">Hint: Hover on each link to read the link information.</span><br />
+    <span class="terminal-title">==== Interesting Links List =======</span><br />
+    <br>
+    Here is a list of some interesting links for you. Please hover on each link to read more information about the link.<br />
     <br />
     ${links
       .map((link) => {
         return `
-        &#8226;&nbsp;<a 
+          &nbsp;&#8226;
+          <a 
           class="project-${link.category}"
           href="${link.link}"
           title="${link.title}"
@@ -149,7 +147,9 @@ function linksText(): string {
       })
       .join("<br />")}
     <br /><br />
-    ==== 47 - !tokens! =======
+    Ps, I will not provide any other links other than the links above and the external links that I include on the web pages at the links above. So, please always double-check the link URL you are visiting. okay!!!!<br />
+    <br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Some interesting links from me.">!links!</span> =======</span>
   `;
 }
 
