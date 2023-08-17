@@ -23,7 +23,7 @@ const TerminalContainer = () => {
   ]);
 
   const handleEnterPress = () => {
-    if (promptText.trim().toLowerCase().split(" ")[0] === "clear") {
+    if (promptText.trim().toLowerCase().split(" ")[0] === "!clear!") {
       setPrompts([new PromptSession()]);
       setIsMotdVisible(false);
       return;
