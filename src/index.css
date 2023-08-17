@@ -21,7 +21,7 @@
   }
 
   .terminal-bold {
-    @apply cursor-pointer font-bold text-nota-yellow;
+    @apply cursor-pointer font-bold text-nota-yellow hover:text-nota-cyan;
   }
 
   .terminal-title {
@@ -29,7 +29,11 @@
   }
 
   .terminal-error {
-    @apply font-bold text-nota-red;
+    @apply cursor-pointer font-bold text-nota-red hover:text-nota-cyan;
+  }
+
+  .terminal-secret {
+    @apply cursor-pointer text-nota-blue hover:text-nota-cyan;
   }
 }
 

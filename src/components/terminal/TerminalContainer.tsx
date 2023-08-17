@@ -64,7 +64,7 @@ const TerminalContainer = () => {
           <ResultDiv
             text={`<span class="terminal-title">==== Error 47 Error =======</span><br />
             <br />
-            <span class="terminal-error">Error: There is no physical keyboard on your device.</span><br />
+            <span class="terminal-error" title="Please read the hint below for more information.">Error: There is no physical keyboard on your device.</span><br />
             <br />
             Hint: Since this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> can't work on devices without a physical keyboard, please change your device and revisit this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>.<br />
             <br />

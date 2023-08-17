@@ -73,19 +73,19 @@ export const links: Link[] = [
     category: "socials",
   },
   {
-    name: "My ROTY BROI's Twitter",
+    name: "My ROTY BROI's X - Twitter",
     title: "Twitter now is X and this is link to The ROTY BROI's X account. The Cap'n always there just for you OiOi!!!!",
     link: "https://twitter.com/TheRotyBroi",
     category: "socials",
   },
   {
-    name: "My AMANDA's Twitter",
+    name: "My AMANDA's X - Twitter",
     title: "Twitter now is X and this is link to AMANDA Wives' X account. They will always there just for you OiOi!!!!",
     link: "https://twitter.com/AMANDAwives",
     category: "socials",
   },
   {
-    name: "My deTHwiSH NFTs' Twitter",
+    name: "My deTHwiSH NFTs' X - Twitter",
     title: "Twitter now is X and this is link to the deTHwiSH NFTs' X account. I will always there to share any update regarding my deTHwiSH NFTs progress.",
     link: "https://twitter.com/deTHwiSH_NFTs",
     category: "socials",
