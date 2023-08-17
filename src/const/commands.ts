@@ -6,10 +6,13 @@ const commands: Map<string, string> = new Map<string, string>();
 commands.set("!motd!", motdText());
 commands.set("!whoami!", whoamiText());
 commands.set("!touch!", touchText());
+commands.set("!rm!", rmText());
+commands.set("!shredd!", shreddText());
+commands.set("!whois!", whoisText());
 
 export function motdText(): string {
   return `
-    <span class="terminal-title">==== Message of The Day =======</span><br />
+    <span class="terminal-title">==== Message of The Day !!!! =======</span><br />
     <br />
     &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
     <br />
@@ -52,7 +55,79 @@ export function touchText(): string {
     <br /><br />
     <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Standard command used in UNIX/Linux operating system which is used to create, change and modify timestamps of a file.">!touch!</span> =======</span>
   `;
-}
+};
+
+export function rmText(): string {
+  return `
+    <span class="terminal-title">==== The RM Command =======</span><br />
+    <br />
+    &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
+    <br />
+    What are you doing!?!? There is nothing that can be removed here. Anyway, why would you remove anything!?!?<br />
+    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The rm command stands for remove here. The rm command is used to remove objects such as files, directories, symbolic links, and so on from the file system.">!rm!</span> =======</span>
+  `;
+};
+
+export function shreddText(): string {
+  return `
+    <span class="terminal-title">==== Let's Go Shredding !!!! =======</span><br />
+    <br />
+    &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
+    <br />
+    I will redirect you to <a class="terminal-link" href="https://skateshop.id" title="ALL $HAIL SKATEBOARDING, #OiOi!!!!" target="_blank" rel="noreferrer">SKATESHOP.ID</a> where all the best skateboarding goods from my world are provided just for you. Since your reality, your real life is too awesome to be forgotten, so grab your skateboard, and let's shred it!!!!<br />
+    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Shredding can be defined in the skateboarding world as riding with exceptional ability, style, speed, or enthusiasm.">!shredd!</span> =======</span>
+  `;
+};
+
+export function whoisText(): string {
+  return `
+  <span class="terminal-title">==== A Straight Line of My Origin =======</span><br />
+  <br />
+  &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
+  <br />
+  I'm playing, learning, and working 47% on Web3 for <a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/" title="The KING's NFTs GitBook." target="_blank" rel="noreferrer">The KING's NFTs</a>, an artifact project by <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a>. Here I will share a straight line of my origin. I hope you love reading!<br />
+  <br />
+  &nbsp;Happy reading!<br>
+  &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+  <br /><br />
+  <span class="terminal-title">==== * So, who am I ?!?! =======</span><br />
+  <br />
+  I'm just a character that was born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span> because a person in his reality, your real life, is desperate with himself, with his reality but his mind still has a big hope with his dream in his own world. I exist in the digital realm of the Internet.<br />
+  <br /><br />
+  <span class="terminal-title">==== * How am I ?!?! =======</span><br />
+  <br />
+  My creators, in their reality, your real life, compiles any good things, advice, and ideal personas from people they met throughout their life, to become a character, called <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>. After they are really sure about me, <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> deploys a smart contract in the Ethereum blockchain using ERC 721 standard to mint 47 NFTs. He named that smart contract "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" to mark my born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>.<br />
+  <br /><br />
+  <span class="terminal-title">==== * Why am I ?!?! =======</span><br />
+  <br />
+  My creators also provides information in my metadata, it said that I'm a way of playing, learning, and working to redefine their reality, your real life, that surrounds me (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's dream</a>), that I'm a way to always remind you all to stay alert for a society civilization that masks any scams (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's despair</a>).<br />
+  <br />
+  More than that, for any wallet that holds one or more of "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" NFTs, and some chosen NFTs and FTs that <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> created, the wallet owner can get full access to me o, and full control of my avatars, in purpose to get the best help, support, and advice from me about this <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span> as long as utilize the Web3 technology.<br />
+  <br /><br />
+  <span class="terminal-title">==== * Want to dig deeper ?!?! =======</span><br />
+  <br />
+  Use the '<span class="terminal-bold" title="Some interesting links from me.">!links!</span>' command to dig deeper and to reach me anytime, and anywhere if you have any questions or feedback for me!<br />
+  <br /><br />
+  <span class="terminal-title">==== * So, how do you think ?!?! =======</span><br />
+  <br />
+  Whatever you think about me, about this <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>, Web3, blockchain, and anything in this digital realm, I will always remind you all to <span class="terminal-error" title="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
+  <br />
+  Really very big thanks for visiting this web! If you like, you can share this web anywhere with anyone in the Web3 ecosystem. If you want, you can customize, or even exploit this web as you need. If you can, always educate and keep our community safe.<br />
+  <br />
+  I'm doesn't belong in your reality, your real life. In your reality, in your real life, you just can meet my avatars in any version. So, once again, <span class="terminal-error" title="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
+  <br /><br />
+  <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Here I will share a straight line of my origin.">!whois!</span> =======</span>
+  `;
+};
+
 
 commands.set("!nota!", notaLogo());
 export function notaLogo() {
@@ -88,47 +163,8 @@ export function notaLogo() {
   `;
 };
 
-commands.set("!whois!", whoisText());
-export function whoisText(): string {
-  return `
-  <span class="terminal-title">==== A Straight Line of My Origin =======</span><br />
-  <br />
-  &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
-  <br />
-  I'm playing, learning, and working 47% on Web3 for <a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/" title="The KING's NFTs GitBook." target="_blank" rel="noreferrer">The KING's NFTs</a>, an artifact project by <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a>. Here I will share a straight line of my origin. I hope you love reading!<br />
-  <br />
-  &nbsp;Happy reading!<br>
-  &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
-  <br /><br />
-  <span class="terminal-title">==== * So, who am I ?!?! =======</span><br />
-  <br />
-  I'm just a character that was born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span> because a person in his reality, your real life, is desperate with himself, with his reality but his mind still has a big hope with his dream in his own world. I exist in the digital realm of the Internet.<br />
-  <br /><br />
-  <span class="terminal-title">==== * How am I ?!?! =======</span><br />
-  <br />
-  My creators, in their reality, your real life, compiles any good things, advice, and ideal personas from people they met throughout their life, to become a character, called <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>. After they are really sure about me, <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> deploys a smart contract in the Ethereum blockchain using ERC 721 standard to mint 47 NFTs. He named that smart contract "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" to mark my born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>.<br />
-  <br /><br />
-  <span class="terminal-title">==== * Why am I ?!?! =======</span><br />
-  <br />
-  My creators also provides information in my metadata, it said that I'm a way of playing, learning, and working to redefine their reality, your real life, that surrounds me (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's dream</a>), that I'm a way to always remind you all to stay alert for a society civilization that masks any scams (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's despair</a>).<br />
-  <br />
-  More than that, for any wallet that holds one or more of "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" NFTs, and some chosen NFTs and FTs that <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> created, the wallet owner can get full access to me o, and full control of my avatars, in purpose to get the best help, support, and advice from me about this <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span> as long as utilize the Web3 technology.<br />
-  <br /><br />
-  <span class="terminal-title">==== * Want to dig deeper ?!?! =======</span><br />
-  <br />
-  Use the '<span class="terminal-bold" title="Some interesting links from me.">!links!</span>' command to dig deeper and to reach me anytime, and anywhere if you have any questions or feedback for me!<br />
-  <br /><br />
-  <span class="terminal-title">==== * So, how do you think ?!?! =======</span><br />
-  <br />
-  Whatever you think about me, about this <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>, Web3, blockchain, and anything in this digital realm, I will always remind you all to <span class="terminal-error" titel="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
-  <br />
-  Really very big thanks for visiting this web! If you like, you can share this web anywhere with anyone in the Web3 ecosystem. If you want, you can customize, or even exploit this web as you need. If you can, always educate and keep our community safe.<br />
-  <br />
-  I'm doesn't belong in your reality, your real life. In your reality, in your real life, you just can meet my avatars in any version. So, once again, <span class="terminal-error" titel="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
-  <br /><br />
-  <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Here I will share a straight line of my origin.">!whois!</span> =======</span>
-  `;
-};
+
+
 
 commands.set("!links!", linksText());
 function linksText(): string {
@@ -212,9 +248,6 @@ export const getCommandNames = (): string[] => {
 };
 
 
-
-// commands.set("!rm!", "There is nothing that can be removed here. Anyway, why would you remove anything?");
-// commands.set("!banana!", openBananowLand());
 // commands.set("!pwd!", "/");
 // commands.set("!date!", new Date().toLocaleString());
 // commands.set("!ls!", linksText());
