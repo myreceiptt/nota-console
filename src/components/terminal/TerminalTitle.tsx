@@ -10,7 +10,7 @@ const TerminalTitle: FC<TerminalTitleProps> = (props) => {
   return (
     <div
       className="bg-nota-black/[.70] rounded-tl-md rounded-tr-md 
-        text-nota-blue font-nota font-semibold flex items-center 
+        text-nota-white font-nota font-semibold flex items-center 
         justify-between py-2.5 px-4 border-b-2 border-solid border-black/[.4]
         select-none shadow-sm relative"
     >
@@ -36,7 +36,7 @@ const TerminalTitle: FC<TerminalTitleProps> = (props) => {
         <button
           type="button"
           onClick={props.closeTerminal}
-          className="cursor-pointer text-black w-4 h-4 bg-nota-blue 
+          className="cursor-pointer text-black w-4 h-4 bg-nota-white 
             border border-solid border-black/[.5] rounded-full
             font-bold hover:bg-nota-red hover:text-nota-black
             transition-all duration-150 text-base relative"

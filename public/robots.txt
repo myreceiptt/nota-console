@@ -3,4 +3,3 @@ User-agent: *
 Disallow: /static/
 Disallow: /asset-manifest.json
 Disallow: /seedphrase.txt
- 

@@ -1,5 +1,6 @@
 // import { projects } from "./projects";
 import { links } from "./linklist";
+import { profs } from "./proflist";
 
 const commands: Map<string, string> = new Map<string, string>();
 
@@ -8,7 +9,14 @@ function bananaText(): string {
   return `
     <span class="terminal-title">==== Let's Go Banana Now! =======</span><br />
     <br />
-    Redirecting to <a class="terminal-link" href="https://bananow.land/" target="_blank" rel="noreferrer">BANANOW.LAND</a> where a healthy fruit available just for you! Let's go banana now! 😊
+    &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
+    <br />
+    I'm redirecting you to <a class="terminal-link" href="https://bananow.land" title="Let's go banana now, OiOi!!!!" target="_blank" rel="noreferrer">BANANOW.LAND</a> where a healthy fruit available just for you! Let's go banana now! 😊<br />
+    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="A healthy fruit just for you!">!banana!</span> =======</span>
   `;
 };
 
@@ -16,7 +24,7 @@ export const getCommandNames = (): string[] => {
   const commandNames: string[] = ["!clear!"];
   for (const entry of Array.from(commands.entries())) {
     commandNames.push(entry[0]);
-  }
+  };
   return commandNames.sort();
 };
 
@@ -25,7 +33,16 @@ export const getCommandNames = (): string[] => {
 commands.set("!help!", helpText());
 function helpText(): string {
   return`
-    Hmmmm... did you already read my message of the day?
+    <span class="terminal-title">==== The '!HELP!' Command =======</span><br />
+    <br />
+    &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
+    <br />
+    Are you kidding me? Did you already read the message of the day from me? Oh, come on!!!!<br />
+    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The '!help!' command provides information on any command prompts bundled with a console. But, here you should use the '!prof!' command to see all available command prompts.">!help!</span> =======</span>
   `;
 };
 
@@ -36,7 +53,7 @@ function linksText(): string {
     <br />
     &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
     <br />
-    Here is a list of some interesting links for you. Please hover on each link to read more information about the link.<br />
+    Here is a list of some interesting links for you. Please hover over each link to read more information about the link.<br />
     <br />
     ${links
       .map((link) => {
@@ -52,7 +69,7 @@ function linksText(): string {
       })
       .join("<br />")}
     <br /><br />
-    Ps, I will not provide any other links other than the links above and the external links that I include on the web pages at the links above. So, please always double-check the link URL you are visiting. okay!!!!<br />
+    Note it, I will not provide any other links other than the links above and the external links that I include on the web pages at the links above. So, please always double-check the link URL you are visiting. okay!!!!<br />
     <br />
     &nbsp;Regards,<br>
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
@@ -84,6 +101,10 @@ function notaLogo() {
   return `
     <span class="terminal-title">==== My NOTAble Signatures =======</span><br />
     <br />
+    &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
+    <br />
+    My signature is not an autograph that is specially handwritten by me. My signature not for a fan to keep. My signature is a sign for us all to keep playing, learning, and working together to keep our community safe.<br />
+    <br />
     &nbsp;My Signature v.1.47<br />
     <br />
     <span class="flex flex-col">
@@ -109,7 +130,9 @@ function notaLogo() {
       <span>${"STRAIGHT-LINE.ORG by ".replaceAll(" ", "&nbsp;")}<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>${" - ".replaceAll(" ", "&nbsp;")}<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">@MyReceipt</a>${"                                                  ".replaceAll(" ", "&nbsp;")}</span>
       <span>${"Deep Links: ".replaceAll(" ", "&nbsp;")}<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">https://deeplinks.straight-line.org/</a>${"                                              ".replaceAll(" ", "&nbsp;")}</span>
     </span><br />
-    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
     <span class="terminal-title">==== 47 - <span class="terminal-bold" title="My notable signature. Find it and collect it!">!nota!</span> =======</span>
   `;
 };
@@ -117,7 +140,16 @@ function notaLogo() {
 commands.set("!oioi!", oioiText());
 function oioiText(): string {
   return `
-    GM GM #OiOi!!!!
+    <span class="terminal-title">==== ALL $HAIL ENDHONESA !!!! =======</span><br />
+    <br />
+    &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
+    <br />
+    I'm redirecting you to <a class="terminal-link" href="https://endhonesa.com" title="ALL $HAIL ENDHONESA, #OiOi!!!!" target="_blank" rel="noreferrer">ENDHONESA.COM</a> where its citizens, that is <span class="terminal-error" title="'OiOi' is a nickname for ENDHONESA citizens. The citizens are all the holders of all the NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow citizens of ENDHONESA.">OiOi Community</span>, trade according to their own resulting value and revenue. Our trading life will be free since we are anonymous. We will be a legion if we do not forgive and we do not forget. But, please don’t expect me! Expect us!!!!<br />
+    <br />
+    &nbsp;Regards,<br />
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="'OiOi' is a nickname for ENDHONESA citizens. The citizens are all the holders of all the NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow citizens of ENDHONESA.">!oioi!</span> =======</span>
   `;
 };
 
@@ -149,7 +181,7 @@ function pwdText(): string {
 commands.set("!rm!", rmText());
 function rmText(): string {
   return `
-    <span class="terminal-title">==== The RM Command =======</span><br />
+    <span class="terminal-title">==== The '!RM!' Command =======</span><br />
     <br />
     &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
@@ -181,7 +213,7 @@ function shreddText(): string {
 commands.set("!touch!", touchText());
 function touchText(): string {
   return `
-    <span class="terminal-title">==== Touch is A Standard Command =======</span><br />
+    <span class="terminal-title">==== '!TOUCH!' is A Standard Command =======</span><br />
     <br />
     &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
@@ -190,7 +222,7 @@ function touchText(): string {
     &nbsp;Regards,<br />
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
     <br /><br />
-    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Standard command used in UNIX/Linux operating system which is used to create, change and modify timestamps of a file.">!touch!</span> =======</span>
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The 'touch' is a standard command used in UNIX/Linux operating system which is used to create, change and modify timestamps of a file.">!touch!</span> =======</span>
   `;
 };
 
@@ -254,28 +286,83 @@ function whoisText(): string {
 
 commands.set("!prof!", profText());
 function profText(): string {
-  const commandNames: string[] = ["!clear!", "!prof!"];
-  for (const entry of Array.from(commands.entries())) {
-    commandNames.push(entry[0]);
-  }
   return `
     <span class="terminal-title">==== All Command Prompts =======</span><br />
     <br />
-    Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There is no options for all command prompts.">no-options</span>]<br />
+    &nbsp;Hi, fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
-    ${commandNames.sort().join("<br />")}
-    <br /><br /><br />
+    Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please read the usage below and hover over each command, maybe there is more information about the command that you can read.<br />
+    <br />
+    &nbsp;Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There is no options for all command prompts.">no-options</span>]<br />
+    <br >
+    ${profs
+      .map((prof) => {
+        return `
+          &nbsp;&#8226;
+          <span 
+          class="terminal-bold"
+          title="${prof.title}"
+        >${prof.name}</span>`;
+      })
+      .join("<br />")}
+    <br /><br />
+    If you have any other command prompts that you want to use, you can try and maybe you will find it useful here.<br />
+    <br />
+    &nbsp;Regards,<br>
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
     <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span> =======</span>
+  `;
+};
+// function profText(): string {
+//   const commandNames: string[] = ["!clear!", "!prof!"];
+//   for (const entry of Array.from(commands.entries())) {
+//     commandNames.push(entry[0]);
+//   };
+//   return `
+//     <span class="terminal-title">==== All Command Prompts =======</span><br />
+//     <br />
+//     &nbsp;Hi, fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
+//     <br />
+//     Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please read the usage below and hover over each command, maybe there is more information about the command that you can read.<br />
+//     <br />
+//     &nbsp;Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There is no options for all command prompts.">no-options</span>]<br />
+//     <br />
+//     &nbsp;${commandNames.sort().join("<br />&nbsp;")}
+//     <br /><br /><br />
+//     <span class="terminal-title">==== 47 - <span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span> =======</span>
+//   `;
+// };
+
+commands.set("!ls!", lsText());
+function lsText(): string {
+  return `
+    <span class="terminal-title">==== Lists Directory Contents =======</span><br />
+    <br />
+    &nbsp;Hi, clever fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
+    <br />
+    You are in the '<span class="terminal-error" title="The working directory is 'root@nota' in 'home' directory.">/home/root@nota/</span>' directory. Below is the list of what is inside the directory:<br />
+    <br />
+    &nbsp;<a class="terminal-link" href="/asset-manifest.json">asset-manifest.json</a><br />
+    &nbsp;<a class="terminal-link" href="/index.html">index.html</a><br />
+    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.20.jpg">prof-nota-v.1.20.jpg</a><br />
+    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.47.png">prof-nota-v.1.47.png</a><br />
+    &nbsp;<a class="terminal-link" href="/robots.txt">robots.txt</a><br />
+    &nbsp;<a class="terminal-link" href="/seedphrase.txt">seedphrase.txt</a><br />
+    &nbsp;<a class="terminal-link" href="/static/">static/</a><br />
+    <br />
+
   `;
 };
 
 export const getCommandByName = (name: string): string => {
   name = name.trim().toLowerCase().split(" ")[0];
-
-  // commands that require redirecting
   switch (name) {
     case "!banana!":
       window.open("https://bananow.land/", "_blank");
+      break;
+    case "!nano!seedphrase.txt!":
+      window.open("https://prompt.straight-line.org/seedphrase.txt", "_blank");
       break;
     case "!oioi!":
       window.open("https://endhonesa.com/", "_blank");
@@ -283,13 +370,17 @@ export const getCommandByName = (name: string): string => {
     case "!shredd!":
       window.open("https://skateshop.id", "_blank");
       break;
-  }
-
-  return commands.get(name) || `${name}: command not found`;
+  };
+  return commands.get(name) || `
+    <span class="terminal-title">==== Error 74 Error =======</span><br />
+    <br />
+    <span class="terminal-error" title="Please read the hint below for more information.">${name}: command not found</span><br />
+    <br />
+    Hint: Since this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> work as a simulation with many limitation, please type '<span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span>' and hit '<span class="terminal-bold" title="Entering 0101 Universe where I belong.">enter</span>' to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>.<br />
+    <br /><br />
+    <span class="terminal-title">==== Error 74 Error =======</span><br />
+  `;
 };
-
-// commands.set("!ls!", lsText());
-// commands.set("!ls /var/www/html/!", lshtmlText());
 
 // function openLink(link: string): string {
 //   return `

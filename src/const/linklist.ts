@@ -164,7 +164,7 @@ export const links: Link[] = [
   },
   {
     name: "ROTY BROI's Rarity Rank",
-    title: "Check the rarity score and rank The ROTY BROI NFTs using this tools.",
+    title: "Check the rarity score and rank of The ROTY BROI NFTs using this tools.",
     link: "https://rotyrarity.endhonesa.com/",
     category: "minisites",
   },
