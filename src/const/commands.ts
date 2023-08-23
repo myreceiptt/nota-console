@@ -343,13 +343,13 @@ function lsText(): string {
     <br />
     You are in the '<span class="terminal-error" title="The working directory is 'root@nota' in 'home' directory.">/home/root@nota/</span>' directory. Below is the list of what is inside the directory:<br />
     <br />
-    &nbsp;<a class="terminal-link" href="/asset-manifest.json">asset-manifest.json</a><br />
-    &nbsp;<a class="terminal-link" href="/index.html">index.html</a><br />
-    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.20.jpg">prof-nota-v.1.20.jpg</a><br />
-    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.47.png">prof-nota-v.1.47.png</a><br />
-    &nbsp;<a class="terminal-link" href="/robots.txt">robots.txt</a><br />
-    &nbsp;<a class="terminal-link" href="/seedphrase.txt">seedphrase.txt</a><br />
-    &nbsp;<a class="terminal-link" href="/static/">static/</a><br />
+    &nbsp;<a class="terminal-link" href="/asset-manifest.json" target="_blank">asset-manifest.json</a><br />
+    &nbsp;<a class="terminal-link" href="/index.html" target="_blank">index.html</a><br />
+    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.20.jpg" target="_blank">prof-nota-v.1.20.jpg</a><br />
+    &nbsp;<a class="terminal-link" href="/prof-nota-v.1.47.png" target="_blank">prof-nota-v.1.47.png</a><br />
+    &nbsp;<a class="terminal-link" href="/robots.txt" target="_blank">robots.txt</a><br />
+    &nbsp;<a class="terminal-link" href="/seedphrase.txt" target="_blank">seedphrase.txt</a><br />
+    // &nbsp;<a class="terminal-link" href="/static/">static/</a><br />
     <br />
 
   `;
