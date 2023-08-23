@@ -38,7 +38,7 @@ export const profs: Prof[] = [
   {
     name: "!oioi!",
     noopt: "no-options",
-    title: "'OiOi' is a nickname for ENDHONESA citizens. The citizens are all the holders of all the NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow citizens of ENDHONESA.",
+    title: "'OiOi' is a nickname for the residents of ENDHONESA. 'OiOi' are all the holders of any NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow residents of ENDHONESA.",
   },
   {
     name: "!prof!",
@@ -53,7 +53,7 @@ export const profs: Prof[] = [
   {
     name: "!rm!",
     noopt: "no-options",
-    title: "The 'rm' command stands for 'remove here'. It used to remove objects such as files, directories, symbolic links, and so on from the file system.",
+    title: "The 'rm' command stands for 'remove here'. It is used to remove objects such as files, directories, symbolic links, and so on from the file system.",
   },
   {
     name: "!shredd!",
