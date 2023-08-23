@@ -87,7 +87,7 @@ export function motdText(): string {
     <br />
     This <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> could be a type of terminal, a window in which the text-mode programs are active, that is a physical terminal consisting of a single keyboard and monitor plugged into a dedicated serial console port on any computer device for low-level direct communication with the operating system that is directly connected to a machine.<br />
     <br />
-    Type '<span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span>' and hit '<span class="terminal-bold" title="Entering 0101 Universe where I belong.">enter</span>' to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Have fun and enjoy it!<br />
+    Type '<span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span>' and hit '<span class="terminal-bold" title="Entering 0101 Universe where I belong.">enter</span>' to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Have fun and enjoy it!<br />
     <br />
     &nbsp;Regards,<br />
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
@@ -144,12 +144,12 @@ function oioiText(): string {
     <br />
     &nbsp;Hi, I'm <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>!<br />
     <br />
-    I'm redirecting you to <a class="terminal-link" href="https://endhonesa.com" title="ALL $HAIL ENDHONESA, #OiOi!!!!" target="_blank" rel="noreferrer">ENDHONESA.COM</a> where its citizens, that is <span class="terminal-error" title="'OiOi' is a nickname for ENDHONESA citizens. The citizens are all the holders of all the NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow citizens of ENDHONESA.">OiOi Community</span>, trade according to their own resulting value and revenue. Our trading life will be free since we are anonymous. We will be a legion if we do not forgive and we do not forget. But, please don’t expect me! Expect us!!!!<br />
+    I'm redirecting you to <a class="terminal-link" href="https://endhonesa.com" title="ALL $HAIL ENDHONESA, #OiOi!!!!" target="_blank" rel="noreferrer">ENDHONESA.COM</a> where its residents, that is <span class="terminal-error" title="'OiOi' is a nickname for the residents of ENDHONESA. 'OiOi' are all the holders of any NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow residents of ENDHONESA.">OiOi Community</span>, trade according to their own resulting revenue and formed value. Our trading life will be free since we are anonymous. We will be a legion if we do not forgive and we do not forget. But, please don’t expect me! Expect us!!!!<br />
     <br />
     &nbsp;Regards,<br />
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
     <br /><br />
-    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="'OiOi' is a nickname for ENDHONESA citizens. The citizens are all the holders of all the NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow citizens of ENDHONESA.">!oioi!</span> =======</span>
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="'OiOi' is a nickname for the residents of ENDHONESA. 'OiOi' are all the holders of any NFTs and FTs part of The KING's NFTs project. 'OiOi' is also used as a word of greeting among fellow residents of ENDHONESA.">!oioi!</span> =======</span>
   `;
 };
 
@@ -160,7 +160,7 @@ function pwdText(): string {
     <br />
     &nbsp;Hi fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
-    Since this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> is a web console, so the working directory is depends on the techstack and how I setup the server. It could be any of the following:<br />
+    Since this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a> is a web console, so the working directory depends on the tech-stack and how I setup the server. It could be any of the following:<br />
     <br />
     &nbsp;* <span class="terminal-error" title="The working directory is 'root@nota' in 'home' directory.">/home/root@nota/</span><br />
     &nbsp;* <span class="terminal-error" title="The working directory is 'local' in 'usr' directory.">/usr/local/</span><br />
@@ -190,7 +190,7 @@ function rmText(): string {
     &nbsp;Regards,<br />
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
     <br /><br />
-    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The 'rm' command stands for 'remove here'. It used to remove objects such as files, directories, symbolic links, and so on from the file system.">!rm!</span> =======</span>
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The 'rm' command stands for 'remove here'. It is used to remove objects such as files, directories, symbolic links, and so on from the file system.">!rm!</span> =======</span>
   `;
 };
 
@@ -257,11 +257,11 @@ function whoisText(): string {
   <br /><br />
   &nbsp;How am I...<br />
   <br />
-  My creators, in their reality, your real life, compiles any good things, advice, and ideal personas from people they met throughout their life, to become a character, called <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>. After they are really sure about me, <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> deploys a smart contract in the Ethereum blockchain using ERC 721 standard to mint 47 NFTs. He named that smart contract "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" to mark my born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>.<br />
+  My creators, in their reality, your real life, compile any good things, advice, and ideal personas from people they met throughout their life, to become a character, called <a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a>. After they are really sure about me, <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> deploys a smart contract in the Ethereum blockchain using ERC 721 standard to mint 47 NFTs. He named that smart contract "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" to mark my born in the <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span>.<br />
   <br /><br />
   &nbsp;Why am I...<br />
   <br />
-  My creators also provides information in my metadata, it said that I'm a way of playing, learning, and working to redefine their reality, your real life, that surrounds me (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's dream</a>), that I'm a way to always remind you all to stay alert for a society civilization that masks any scams (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's despair</a>).<br />
+  My creators also provide information in my metadata, it said that I'm a way of playing, learning, and working to redefine their reality, your real life, that surrounds me (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's dream</a>), that I'm a way to always remind you all to stay alert for a society civilization that masks any scams (<a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt's despair</a>).<br />
   <br />
   More than that, for any wallet that holds one or more of "<a class="terminal-link" href="https://iqraa.straight-line.org/the-kings-nfts/02-the-creations.../waivfves-1/32.-prof.-nota-genesis" title="GitBook of Prof. NOTA The Genesis" target="_blank" rel="noreferrer">Prof. NOTA The Genesis</a>" NFTs, and some chosen NFTs and FTs that <a class="terminal-link" href="https://www.straight-line.org/" title="MyReceipt Rest in Proxy (R.I.P.)!!!!" target="_blank" rel="noreferrer">MyReceipt</a> created, the wallet owner can get full access to me (online), and full control of my avatars (offline in your reality, your real life), in purpose to get the best help, support, and advice from me about this <span class="terminal-error" title="...digital technology and the digital world on the Internet undoubtedly become everything for everyone...">0101 Universe</span> as long as utilize the Web3 technology.<br />
   <br /><br />
@@ -291,9 +291,9 @@ function profText(): string {
     <br />
     &nbsp;Hi, fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
-    Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please read the usage below and hover over each command, maybe there is more information about the command that you can read.<br />
+    Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please read the usage below and hover over each command, maybe there is more information about the command that you can read.<br />
     <br />
-    &nbsp;Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There is no options for all command prompts.">no-options</span>]<br />
+    &nbsp;Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There are no options for all command prompts.">no-options</span>]<br />
     <br >
     ${profs
       .map((prof) => {
@@ -376,7 +376,7 @@ export const getCommandByName = (name: string): string => {
     <br />
     <span class="terminal-error" title="Please read the hint below for more information.">${name}: command not found</span><br />
     <br />
-    Hint: Since this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a> work as a simulation with many limitation, please type '<span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span>' and hit '<span class="terminal-bold" title="Entering 0101 Universe where I belong.">enter</span>' to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on new tab." target="_blank" rel="noreferrer">NOTA's console</a>.<br />
+    Hint: Since this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a> work as a simulation with many limitation, please type '<span class="terminal-bold" title="Shout out to me in a good way!">!prof!</span>' and hit '<span class="terminal-bold" title="Entering 0101 Universe where I belong.">enter</span>' to see all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a>.<br />
     <br /><br />
     <span class="terminal-title">==== Error 74 Error =======</span><br />
   `;
