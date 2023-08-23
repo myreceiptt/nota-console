@@ -50,7 +50,7 @@ export const links: Link[] = [
   },
   {
     name: "My Online Store",
-    title: "Website of ENDHONESA Online Store. ENDHONESA is a name for the only country that was established in 0101 Universe. Its citizens trade according to their own resulting value and revenue.",
+    title: "Website of ENDHONESA Online Store. ENDHONESA is a name for the only country that was established in 0101 Universe. Its residents trade according to their own resulting value and formed revenue.",
     link: "https://endhonesa.com/",
     category: "websites",
   },
