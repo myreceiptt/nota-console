@@ -349,7 +349,6 @@ function lsText(): string {
     &nbsp;<a class="terminal-link" href="/prof-nota-v.1.47.png" target="_blank">prof-nota-v.1.47.png</a><br />
     &nbsp;<a class="terminal-link" href="/robots.txt" target="_blank">robots.txt</a><br />
     &nbsp;<a class="terminal-link" href="/seedphrase.txt" target="_blank">seedphrase.txt</a><br />
-    // &nbsp;<a class="terminal-link" href="/static/">static/</a><br />
     <br />
 
   `;
