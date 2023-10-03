@@ -1,21 +1,23 @@
 Clever!
 
-If you reach this, it's mean you should know what is "Seed Phrase".
+If you reach this, it's means you should know what is "Seed Phrase".
 If you know what is "Seed Phrase", you should keep it and don't tell anyone else.
-If you keep it and no one know it, congrats, all your asset should be save.
+If you keep it and no one knows it, congrats, all your assets should be saved.
 
-Thanks for reach my web!
+Thanks for reaching my web!
 If you like, you can share this web anywhere with anyone in this Web3 ecosystem.
 If you want, you can customize, or even exploit this web as you need.
 If you can, always educate and keep our community safe.
-Stay alert and BEWARE OF SCAMS!!!!
+Stay unrevealed, stay under the hood, stay alert, and "Beware of Scams!!!!"
 
 Regards,
 
 Prof. NOTA
 ==== 47 =======
 
-Ps, professor nota Play, Learn, and Work forty-Seven percent on Web Three for the Kingdom, the king's non-fungible Token as Artefact Project, Note it and
-Devote to it.
+P.S. The repo for this web can be found here: https://github.com/myreceiptt/nota-console
 
-Ps 2, the repo for this web can be found here: https://github.com/myreceiptt/nota-console
+P.P.S. The magic repo for those who are too lazy to think, and want to stay living the High Valuable Always Available Life, can be found here: https://prompt.straight-line.org/hvaal.sol
+
+P.P.P.S. professor nota Play, Learn, and Work forty-Seven percent on Web Three for the Kingdom, the king's non-fungible Token as Artefact Project, Note it and
+Devote to it.
