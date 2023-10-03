@@ -69,7 +69,7 @@ function linksText(): string {
       })
       .join("<br />")}
     <br /><br />
-    Note it, I will not provide any other links other than the links above and the external links that I include on the web pages at the links above. So, please always double-check the link URL you are visiting. okay!!!!<br />
+    Note it! First, I only provide links that use the three Top-Level Domains above (<span class="project-domains">dark red</span>), both for websites (<span class="project-websites">green</span>) and minisites (<span class="project-minisites">dark yellow</span>). So, please check the domain name of each link that I provide since there will be more new links from me. Second, in addition to my social network links (<span class="project-socials">pink</span>), there will be more external links that I will put on any pages of the websites and minisites above. So, please double-check the link URL you are visiting and where you get it from. Okay!!!!<br />
     <br />
     &nbsp;Regards,<br>
     &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />

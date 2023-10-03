@@ -34,7 +34,7 @@ export const links: Link[] = [
     name: "My Deep Links",
     title: "Please note that this link merely provides a list of my deep links and does not facilitate the access to or use of the deep links.",
     link: "https://deeplinks.straight-line.org/",
-    category: "websites",
+    category: "minisites",
   },
   {
     name: "My GitBook",
@@ -46,7 +46,7 @@ export const links: Link[] = [
     name: "My Working Progress",
     title: "Working progress of my creations. All of here is such a milestone for any version of me. It is not a work in progress or W.i.P. show-off.",
     link: "https://wp.straight-line.org/",
-    category: "websites",
+    category: "minisites",
   },
   {
     name: "My Online Store",
@@ -148,7 +148,7 @@ export const links: Link[] = [
     name: "My Console Prompts",
     title: "Hit this link if you want to open another NOTA's console on a new tab.",
     link: "https://prompt.straight-line.org/",
-    category: "minisites",
+    category: "websites",
   },
   {
     name: "Logo Pabrik Roti Minting Page",
@@ -156,24 +156,24 @@ export const links: Link[] = [
     link: "https://rotilogo.endhonesa.com/",
     category: "minisites",
   },
-  {
-    name: "The ROTY BROI's Website",
-    title: "The Melting Land story begins from here. Join with me and follow the journey!!!!",
-    link: "https://rotybroi.endhonesa.com/",
-    category: "minisites",
-  },
-  {
-    name: "ROTY BROI's Rarity Rank",
-    title: "Check the rarity score and rank of The ROTY BROI NFTs using this tools.",
-    link: "https://rotyrarity.endhonesa.com/",
-    category: "minisites",
-  },
-  {
-    name: "$OiOi Tokens Tutorial",
-    title: "Get it now since 1 $OiOi ~ 747 $MATIC ~ 0.747 $ETH ~ 747 $XTZ ~ 0.0747 $BTC in Prof. NOTA's Discord.",
-    link: "https://rotystaking.endhonesa.com/",
-    category: "minisites",
-  },
+  // {
+  //   name: "The ROTY BROI's Website",
+  //   title: "The Melting Land story begins from here. Join with me and follow the journey!!!!",
+  //   link: "https://rotybroi.endhonesa.com/",
+  //   category: "minisites",
+  // },
+  // {
+  //   name: "ROTY BROI's Rarity Rank",
+  //   title: "Check the rarity score and rank of The ROTY BROI NFTs using this tools.",
+  //   link: "https://rotyrarity.endhonesa.com/",
+  //   category: "minisites",
+  // },
+  // {
+  //   name: "$OiOi Tokens Tutorial",
+  //   title: "Get it now since 1 $OiOi ~ 747 $MATIC ~ 0.747 $ETH ~ 747 $XTZ ~ 0.0747 $BTC in Prof. NOTA's Discord.",
+  //   link: "https://rotystaking.endhonesa.com/",
+  //   category: "minisites",
+  // },
   {
     name: "Conserve ROTY BROI NFTs",
     title: "This is the conservation NFTs of The ROTY BROI NFTs. Get it to help me conserve The ROTY BROI NFTs.",

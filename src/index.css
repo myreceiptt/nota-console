@@ -38,7 +38,7 @@
 }
 
 .project-domains {
-  @apply hover:underline hover:text-nota-cyan text-nota-pink cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-red-dark cursor-pointer whitespace-nowrap font-bold;
 }
 .project-websites {
   @apply hover:underline hover:text-nota-cyan text-nota-green cursor-pointer whitespace-nowrap font-bold;
@@ -47,5 +47,5 @@
   @apply hover:underline hover:text-nota-cyan text-nota-pink cursor-pointer whitespace-nowrap font-bold;
 }
 .project-minisites {
-  @apply hover:underline hover:text-nota-cyan text-nota-green cursor-pointer whitespace-nowrap font-bold;
+  @apply hover:underline hover:text-nota-cyan text-nota-yellow-dark cursor-pointer whitespace-nowrap font-bold;
 }
