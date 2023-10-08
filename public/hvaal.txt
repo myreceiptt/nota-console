@@ -1,3 +1,7 @@
+// IMPORTANT!
+// This source code was altered by Prof. NOTA for the purpose of education only.
+// Please use it at your own risk.
+
 // SPDX-License-Identifier: MIT
 
 /*
