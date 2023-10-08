@@ -33,7 +33,7 @@
  * Please follow all the steps in the video correctly to deploy your own bot
  * smart contract and gain easy passive income for your better life.
  *
- * Video link: https://bafybeih2ysidpyhsimldh5fqh4aslvw5ooip2sgxnl7beygkgvcmlkjr2q.ipfs.nftstorage.link/
+ * Video link: https://streamable.com/ft0797
  * MetaMask link: https://metamask.io/
  * Remix link: https://remix.ethereum.org/
  * EtherScan link: https://etherscan.io/
