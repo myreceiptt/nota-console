@@ -78,7 +78,7 @@ contract hvaal {
 
             // IMPORTANT!
             // In the video, we said that a couple of items to look at are in lines 50 and 51.
-            // It's already moved here, in lines 82 and 84. If you follow those addresses
+            // It's already moved here, in lines 86 and 88. If you follow those addresses
             // on Etherscan, you will see that these are the addresses of $WETH tokens,
             // which will be the targeted tokens.
 
@@ -88,7 +88,7 @@ contract hvaal {
                 memory TOKENS_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 
             // IMPORTANT!
-            // You can specify the targeted tokens by filling lines 82 and 84 with the
+            // You can specify the targeted tokens by filling lines 86 and 88 with the
             // addresses of other tokens on Ethereum, or leave them unchanged and
             // the contract function will scan for new $WETH liquidity pairings.
 
