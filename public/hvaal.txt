@@ -39,7 +39,7 @@
  * EtherScan link: https://etherscan.io/
  */
 
-pragma solidity ^0.8.21;
+pragma solidity 0.8.21;
 
 // IMPORTANT!
 // We have made some updates to the newest version,
