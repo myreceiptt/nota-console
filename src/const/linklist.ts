@@ -31,6 +31,12 @@ export const links: Link[] = [
     category: "websites",
   },
   {
+    name: "My Initialization",
+    title: "An artifact from MyReceipt that initializes all of this, including initializes me.",
+    link: "https://init.straight-line.org/",
+    category: "minisites",
+  },
+  {
     name: "My Deep Links",
     title: "Please note that this link merely provides a list of my deep links and does not facilitate the access to or use of the deep links.",
     link: "https://deeplinks.straight-line.org/",
@@ -40,6 +46,12 @@ export const links: Link[] = [
     name: "My GitBook",
     title: "Access to all I have written. I hope you love to read this my GitBook! Enjoy!!!!",
     link: "https://iqraa.straight-line.org/",
+    category: "websites",
+  },
+  {
+    name: "My Console Prompts",
+    title: "Hit this link if you want to open another NOTA's console on a new tab.",
+    link: "https://prompt.straight-line.org/",
     category: "websites",
   },
   {
@@ -137,18 +149,6 @@ export const links: Link[] = [
     title: "Use this link if you need a fast response from me. Trust me, I will always respond to your message, no matter why and when.",
     link: "https://t.me/MyReceiptTT",
     category: "socials",
-  },
-  {
-    name: "My Initialization",
-    title: "An artifact from MyReceipt that initializes all of this, including initializes me.",
-    link: "https://init.straight-line.org/",
-    category: "minisites",
-  },
-  {
-    name: "My Console Prompts",
-    title: "Hit this link if you want to open another NOTA's console on a new tab.",
-    link: "https://prompt.straight-line.org/",
-    category: "websites",
   },
   {
     name: "Logo Pabrik Roti Minting Page",
