@@ -275,7 +275,7 @@ function whoisText(): string {
   <br />
   Really very big thanks for using this web console! If you like, you can share this web console anywhere with anyone in the Web3 ecosystem. If you want, you can customize, or even exploit this web console as you need. If you can, always educate and keep our community safe.<br />
   <br />
-  I'm doesn't belong in your reality, your real life. In your reality, in your real life, you just can meet my avatars in any version. So, once again, <span class="terminal-error" title="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
+  I don't belong in your reality, your real life. In your reality, in your real life, you merely can meet my avatars in any version. So, once again, <span class="terminal-error" title="Remember me, remember there is a scammer!!!!">BEWARE OF SCAMS</span>!!!!<br />
   <br />
   &nbsp;Regards,<br>
   &nbsp;<a class="terminal-link" href="https://deeplinks.straight-line.org/" title="List of my deep links." target="_blank" rel="noreferrer">Prof. NOTA</a><br />
