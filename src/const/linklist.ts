@@ -63,13 +63,13 @@ export const links: Link[] = [
   {
     name: "My Online Store",
     title: "Website of ENDHONESA Online Store. ENDHONESA is a name for the only country that was established in 0101 Universe. Its residents trade according to their own resulting value and formed revenue.",
-    link: "https://endhonesa.com/",
+    link: "https://store.endhonesa.com/",
     category: "websites",
   },
   {
     name: "My SKATESHOP",
     title: "Website of SKATESHOP in ENDHONESA. The skateshop that will bring you all the best skateboarding goods from my world, 0101 Universe.",
-    link: "https://skateshop.id/",
+    link: "https://shop.skateshop.id/",
     category: "websites",
   },
   {
