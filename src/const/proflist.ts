@@ -23,17 +23,17 @@ export const profs: Prof[] = [
   {
     name: "!links!",
     noopt: "no-options",
-    title: "Some interesting links from me.",
+    title: "Some interesting links from us.",
   },
   {
     name: "!motd!",
     noopt: "no-options",
-    title: "Showing message of the day from me.",
+    title: "Showing message of the day from us.",
   },
   {
     name: "!nota!",
     noopt: "no-options",
-    title: "My notable signature. Find it and collect it!",
+    title: "Our notable signature. Find it and collect it!",
   },
   {
     name: "!oioi!",
@@ -43,7 +43,7 @@ export const profs: Prof[] = [
   {
     name: "!prof!",
     noopt: "no-options",
-    title: "Shout out to me in a good way!",
+    title: "Shout out to us in a good way!",
   },
   {
     name: "!pwd!",
@@ -73,6 +73,6 @@ export const profs: Prof[] = [
   {
     name: "!whois!",
     noopt: "no-options",
-    title: "Here I will share a straight line of my origin.",
+    title: "Here we will share a straight line of our origin.",
   },
 ];
