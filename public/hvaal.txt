@@ -34,7 +34,6 @@
  * smart contract and gain easy passive income for your better life.
  *
  * Explaination link: https://www.youtube.com/watch?v=hxwG3zOwjyo
- * Tutorial link: https://streamable.com/ft0797
  * MetaMask link: https://metamask.io/
  * Remix link: https://remix.ethereum.org/
  * EtherScan link: https://etherscan.io/
