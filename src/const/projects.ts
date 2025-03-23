@@ -6,8 +6,8 @@ interface Project {
 
 export const projects: Project[] = [
   {
-    name: "STRAIGHT-LINE.ORG",
-    link: "https://straight-line.org/",
+    name: "ENDHONESA.COM",
+    link: "https://endhonesa.com/",
     category: "domains",
   },
   {
@@ -22,22 +22,22 @@ export const projects: Project[] = [
   },
   {
     name: "Prof. NOTA's Origin",
-    link: "https://www.straight-line.org/",
+    link: "https://myreceipt.endhonesa.com/",
     category: "websites",
   },
   {
     name: "Prof. NOTA's Deep Links",
-    link: "https://deeplinks.straight-line.org/",
+    link: "https://deeplink.endhonesa.com/",
     category: "websites",
   },
   {
     name: "Prof. NOTA's GitBook",
-    link: "https://gitbook.straight-line.org/",
+    link: "https://docs.endhonesa.com/",
     category: "websites",
   },
   {
     name: "Prof. NOTA's Working Progress",
-    link: "https://wp.straight-line.org/",
+    link: "https://wp.endhonesa.com/",
     category: "websites",
   },
   {
@@ -117,12 +117,12 @@ export const projects: Project[] = [
   },
   {
     name: "Prof. NOTA's Initialization",
-    link: "https://init.straight-line.org/",
+    link: "https://init.endhonesa.com/",
     category: "minisites",
   },
   {
     name: "Prof. NOTA's Console Prompts",
-    link: "https://prompt.straight-line.org/",
+    link: "https://prompt.endhonesa.com/",
     category: "minisites",
   },
   {

@@ -1,6 +1,6 @@
 > Shush, we are playing, learning, and working. 🤫 🤫 🤫 🤫
 
-- 😄 &nbsp; We are [Prof. NOTA](https://deeplinks.endhonesa.com/), per/pers.
+- 😄 &nbsp; We are [Prof. NOTA](https://deeplink.endhonesa.com/), per/pers.
 - 🤙 &nbsp; We are currently playing.
 - 🌱 &nbsp; We are currently learning.
 - 🔭 &nbsp; We are currently working.
@@ -28,7 +28,7 @@ npm start
 
 > Regards
 > 
-> [Prof. NOTA](https://deeplinks.endhonesa.com/)
+> [Prof. NOTA](https://deeplink.endhonesa.com/)
 > 
 > [init.endhonesa.com](https://init.endhonesa.com/)
 > 
