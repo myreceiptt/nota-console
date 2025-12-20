@@ -11,7 +11,7 @@
 ### Monthly checklist
 
 - `yarn outdated` (major updates available)
-- Minor/patch updates applied within current majors
+- `yarn install` (dependency updates applied)
 - Local sanity check: green
 
 ### Quarterly checklist
