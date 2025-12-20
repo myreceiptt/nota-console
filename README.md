@@ -10,6 +10,40 @@
 
 ### Monthly checklist
 
+- `yarn outdated`
+- `yarn install`
+- `yarn build` (green)
+- `yarn dev` (green)
+
+### Quarterly checklist
+
+- Migrated CRA -> Vite
+- Updated to latest stable majors
+  - `react`: 18.3.1 -> 19.2.3
+  - `react-dom`: 18.3.1 -> 19.2.3
+  - `@types/react`: 18.3.27 -> 19.2.7
+  - `@types/react-dom`: 18.3.7 -> 19.2.3
+  - `@types/node`: 16.18.126 -> 25.0.3
+  - `typescript`: 4.9.5 -> 5.9.3
+  - `react-icons`: 4.12.0 -> 5.5.0
+  - `tailwindcss`: 3.4.19 -> 4.1.18
+  - `prettier`: 2.8.8 -> 3.7.4
+  - `gh-pages`: 4.0.0 -> 6.3.0
+
+---
+
+---
+
+## Evergreen
+
+### Status
+
+- State: active
+- Last run: 2025-12-20
+- Package manager: yarn 1.22.22 (Node 24.12.0)
+
+### Monthly checklist
+
 - `yarn outdated` (major updates available)
 - `yarn install` (dependency updates applied)
 - Local sanity check: green
@@ -62,10 +96,10 @@ git clone https://github.com/myreceiptt/nota-console.git
 cd nota-console
 
 # 2. Install the necessary dependencies
-npm i
+yarn install
 
 # 3. Run the app
-npm start
+yarn dev
 ```
 
 > Regards

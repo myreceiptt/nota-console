@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   .terminal-scrollbar::-webkit-scrollbar {
@@ -12,7 +11,7 @@
   }
 
   .terminal-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-nota-gray/[.15] rounded-md transition-all border-[3px] 
+    @apply bg-nota-gray/[.15] rounded-md transition-all border-[3px]
       border-solid border-transparent bg-clip-content;
   }
 
