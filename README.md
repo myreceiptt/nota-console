@@ -1,78 +1,72 @@
 ---
-
-## Evergreen
-
-### Status
-
-- State: active
-- Last run: 2025-12-20
-- Package manager: yarn 1.22.22 (Node 24.12.0)
-
-### Monthly checklist
-
-- `yarn outdated`
-- `yarn install`
-- `yarn build` (green)
-- `yarn dev` (green)
-
-### Quarterly checklist
-
-- Migrated CRA -> Vite
-- Updated to latest stable majors
-  - `react`: 18.3.1 -> 19.2.3
-  - `react-dom`: 18.3.1 -> 19.2.3
-  - `@types/react`: 18.3.27 -> 19.2.7
-  - `@types/react-dom`: 18.3.7 -> 19.2.3
-  - `@types/node`: 16.18.126 -> 25.0.3
-  - `typescript`: 4.9.5 -> 5.9.3
-  - `react-icons`: 4.12.0 -> 5.5.0
-  - `tailwindcss`: 3.4.19 -> 4.1.18
-  - `prettier`: 2.8.8 -> 3.7.4
-  - `gh-pages`: 4.0.0 -> 6.3.0
-
 ---
 
+## Maintenance by Prof. NOTA Evergreen Standard
+
+This repo is intended to stay evergreen while remaining production-safe.
+
+### Runtime
+
+- Node: **24.x** (see `.nvmrc` and `package.json#engines`)
+
+  - ~~example alternatives: 22.x / 20.x (adjust if platform requires)~~
+
+- Package manager:
+
+  - **Yarn** (lockfile: `yarn.lock`)
+  - ~~PNPM (lockfile: `pnpm-lock.yaml`)~~
+  - ~~NPM (lockfile: `package-lock.json`)~~
+
+- Deploy target:
+
+  - **Vercel**
+  - ~~Netlify~~
+  - ~~Self-hosted / Docker~~
+  - ~~Other platform (document explicitly)~~
+
+### Monthly Safe Updates (recommended)
+
+1. Check what’s outdated:
+
+   - `yarn outdated`
+   - ~~pnpm outdated~~
+   - ~~npm outdated~~
+
+2. Upgrade safe (patch/minor) versions:
+
+   - `yarn upgrade`
+   - ~~pnpm update~~
+   - ~~npm update~~
+   - or upgrade specific packages shown as non-major
+
+3. Verify:
+
+   - `yarn audit --level moderate`
+   - ~~pnpm audit~~
+   - ~~npm audit~~
+   - `yarn build`
+   - ~~pnpm build~~
+   - ~~npm run build~~
+
+4. Deploy:
+
+   - **Vercel auto-deploy from `main`**
+   - ~~manual deploy according to platform workflow~~
+
+### Major Updates (quarterly / scheduled)
+
+Major upgrades (framework, runtime, or core tooling) must be done one at a time, with a dedicated PR and full testing.
+
+Examples:
+
+- Node major version
+- Next.js / React major version
+- Tailwind CSS major version
+- Package manager major version
+
+---
 ---
 
-## Evergreen
-
-### Status
-
-- State: active
-- Last run: 2025-12-20
-- Package manager: yarn 1.22.22 (Node 24.12.0)
-
-### Monthly checklist
-
-- `yarn outdated` (major updates available)
-- `yarn install` (dependency updates applied)
-- Local sanity check: green
-
-### Quarterly checklist
-
-- Dependency minors/patches updated to latest in current majors
-  - `@types/node`: 16.18.23 -> 16.18.126
-  - `@types/react`: 18.0.35 -> 18.3.27
-  - `@types/react-dom`: 18.0.11 -> 18.3.7
-  - `@vercel/analytics`: 1.0.2 -> 1.6.1
-  - `react`: 18.2.0 -> 18.3.1
-  - `react-dom`: 18.2.0 -> 18.3.1
-  - `react-icons`: 4.8.0 -> 4.12.0
-  - `typescript`: 4.9.4 -> 4.9.5
-  - `autoprefixer`: 10.4.13 -> 10.4.23
-  - `postcss`: 8.4.19 -> 8.5.6
-  - `prettier`: 2.8.1 -> 2.8.8
-  - `tailwindcss`: 3.2.4 -> 3.4.19
-- Package manager verified at latest stable
-- Major updates deferred (migration/compat required)
-  - React 19 + @types 19
-  - TypeScript 5 (react-scripts supports ^3.2.1 || ^4)
-  - Tailwind CSS 4
-  - react-icons 5
-  - Prettier 3
-  - gh-pages 6
-
----
 
 > Shush, we are playing, learning, and working. 🤫 🤫 🤫 🤫
 
@@ -103,10 +97,7 @@ yarn dev
 ```
 
 > Regards
-> 
+>
 > [Prof. NOTA](https://deeplink.endhonesa.com/)
-> 
+>
 > [init.endhonesa.com](https://init.endhonesa.com/)
-> 
-
-
