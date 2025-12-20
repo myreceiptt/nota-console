@@ -1,4 +1,7 @@
+# IMPROMPTU: Prof. NOTA's Console Prompt
+
 ---
+
 ---
 
 ## Maintenance by Prof. NOTA Evergreen Standard
@@ -8,17 +11,14 @@ This repo is intended to stay evergreen while remaining production-safe.
 ### Runtime
 
 - Node: **24.x** (see `.nvmrc` and `package.json#engines`)
-
   - ~~example alternatives: 22.x / 20.x (adjust if platform requires)~~
 
 - Package manager:
-
   - **Yarn** (lockfile: `yarn.lock`)
   - ~~PNPM (lockfile: `pnpm-lock.yaml`)~~
   - ~~NPM (lockfile: `package-lock.json`)~~
 
 - Deploy target:
-
   - **Vercel**
   - ~~Netlify~~
   - ~~Self-hosted / Docker~~
@@ -27,20 +27,17 @@ This repo is intended to stay evergreen while remaining production-safe.
 ### Monthly Safe Updates (recommended)
 
 1. Check what’s outdated:
-
    - `yarn outdated`
    - ~~pnpm outdated~~
    - ~~npm outdated~~
 
 2. Upgrade safe (patch/minor) versions:
-
    - `yarn upgrade`
    - ~~pnpm update~~
    - ~~npm update~~
    - or upgrade specific packages shown as non-major
 
 3. Verify:
-
    - `yarn audit --level moderate`
    - ~~pnpm audit~~
    - ~~npm audit~~
@@ -49,7 +46,6 @@ This repo is intended to stay evergreen while remaining production-safe.
    - ~~npm run build~~
 
 4. Deploy:
-
    - **Vercel auto-deploy from `main`**
    - ~~manual deploy according to platform workflow~~
 
@@ -65,8 +61,8 @@ Examples:
 - Package manager major version
 
 ---
----
 
+---
 
 > Shush, we are playing, learning, and working. 🤫 🤫 🤫 🤫
 
