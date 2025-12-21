@@ -4,47 +4,33 @@
   "private": true,
   "homepage": "https://deeplink.endhonesa.com/",
   "dependencies": {
-    "@types/node": "^16.18.126",
-    "@types/react": "^18.3.27",
-    "@types/react-dom": "^18.3.7",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@vercel/analytics": "^1.6.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^4.12.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-icons": "^5.5.0",
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "vite build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "deploy": "gh-pages -d dist",
+    "dev": "vite",
+    "preview": "vite preview",
+    "predeploy": "yarn build"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.23",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
-    "prettier": "^2.8.8",
-    "tailwindcss": "^3.4.19"
+    "prettier": "^3.7.4",
+    "tailwindcss": "^4.1.18",
+    "vite": "^6.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@tailwindcss/postcss": "^4.1.18"
   }
 }

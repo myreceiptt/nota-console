@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       backgroundImage: {
         kali: "url('./assets/kali-layers.png')",
-        nota: "url('./assets/prof-nota-v.1.20.jpg')",
+        nota: "url('/prof-nota-v.1.20.jpg')",
       },
       colors: {
         "kali-text-muted": "#7a7a7a",
