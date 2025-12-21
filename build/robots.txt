@@ -1,9 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow: /static/
-Disallow: /asset-manifest.json
-Disallow: /seedphrase.txt
-Disallow: /forkedchain.txt
-Disallow: /hvaal.txt
-Disallow: /revealed-resume.pdf
-# All human is allowed.
