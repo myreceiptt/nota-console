@@ -43,3 +43,7 @@ jspm_packages
 .DS_Store
 dist
 .vite
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
