@@ -11,17 +11,14 @@ This repo is intended to stay evergreen while remaining production-safe.
 ### Runtime
 
 - Node: **24.x** (see `.nvmrc` and `package.json#engines`)
-
   - ~~example alternatives: 22.x / 20.x (adjust if platform requires)~~
 
 - Package manager:
-
   - **Yarn** (lockfile: `yarn.lock`, repo-pinned to `yarn@4.12.0`)
   - ~~PNPM (lockfile: `pnpm-lock.yaml`)~~
   - ~~NPM (lockfile: `package-lock.json`)~~
 
 - Deploy target:
-
   - **Vercel**
   - ~~Netlify~~
   - ~~Self-hosted / Docker~~
@@ -30,20 +27,17 @@ This repo is intended to stay evergreen while remaining production-safe.
 ### Monthly Safe Updates (recommended)
 
 1. Check what’s outdated:
-
    - `yarn up -i` (interactive report)
    - ~~pnpm outdated~~
    - ~~npm outdated~~
 
 2. Upgrade safe (patch/minor) versions:
-
    - `yarn up -i` (apply non-major only)
    - ~~pnpm update~~
    - ~~npm update~~
    - or upgrade specific packages shown as non-major
 
 3. Verify:
-
    - `yarn npm audit --severity moderate`
    - ~~pnpm audit~~
    - ~~npm audit~~
@@ -52,7 +46,6 @@ This repo is intended to stay evergreen while remaining production-safe.
    - ~~npm run build~~
 
 4. Deploy:
-
    - **Vercel auto-deploy from `main`**
    - ~~manual deploy according to platform workflow~~
 
@@ -70,7 +63,6 @@ Examples:
 ---
 
 ---
-
 
 > Shush, we are playing, learning, and working. 🤫 🤫 🤫 🤫
 
