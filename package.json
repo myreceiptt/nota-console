@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://deeplink.endhonesa.com/",
   "dependencies": {
-    "@types/node": "^25.0.3",
+    "@types/node": "24.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vercel/analytics": "^1.6.1",
@@ -21,7 +21,8 @@
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "preview": "vite preview",
-    "predeploy": "yarn build"
+    "predeploy": "yarn build",
+    "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -36,5 +37,8 @@
   "packageManager": "yarn@4.12.0",
   "resolutions": {
     "semver": "6.3.1"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

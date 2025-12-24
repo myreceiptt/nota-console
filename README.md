@@ -16,7 +16,7 @@ This repo is intended to stay evergreen while remaining production-safe.
 
 - Package manager:
 
-  - **Yarn** (lockfile: `yarn.lock`)
+  - **Yarn** (lockfile: `yarn.lock`, repo-pinned to `yarn@4.12.0`)
   - ~~PNPM (lockfile: `pnpm-lock.yaml`)~~
   - ~~NPM (lockfile: `package-lock.json`)~~
 
