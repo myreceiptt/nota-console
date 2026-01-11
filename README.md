@@ -27,18 +27,18 @@ This repo is intended to stay evergreen while remaining production-safe.
 ### Monthly Safe Updates (recommended)
 
 1. Check what’s outdated:
-   - `yarn up -i` (interactive report)
+   - `yarn outdated`
    - ~~pnpm outdated~~
    - ~~npm outdated~~
 
 2. Upgrade safe (patch/minor) versions:
-   - `yarn up -i` (apply non-major only)
+   - `yarn upgrade`
    - ~~pnpm update~~
    - ~~npm update~~
    - or upgrade specific packages shown as non-major
 
 3. Verify:
-   - `yarn npm audit --severity moderate`
+   - `yarn audit --level moderate`
    - ~~pnpm audit~~
    - ~~npm audit~~
    - `yarn build`
