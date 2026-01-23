@@ -1,5 +1,27 @@
 # IMPROMPTU: Prof. NOTA's Console Prompt
 
+## About This Repo
+
+`nota-console` is a lightweight, production-deployed console-style web app for Prof. NOTA. It functions as a public prompt/console interface: a fast landing page that can present curated links, project entry points, and interactive UI components in a minimal, reliable package.
+
+### Purpose & Scope
+
+- Provide a single, stable entry point for Prof. NOTA’s public console/prompt experience.
+- Keep the UI intentionally minimal and fast, optimized for Vercel deployment.
+- Serve as a small frontend surface that can be iterated safely without introducing unnecessary complexity.
+
+### Technology
+
+- Frontend: **React** + **Vite**
+- Language: **TypeScript**
+- Tooling: **Yarn (modern)**, **Prettier**, **TypeScript typecheck** (`yarn lint`)
+- Deployment: **Vercel**
+
+### How We Maintain Quality
+
+- We follow **Prof. NOTA Evergreen Standard**: safe monthly updates and scheduled quarterly majors, keeping Node version for Vercel compatibility.
+- We validate changes with audit + typecheck + build, and document runs under `EVERGREENING/completion-log-*.md`.
+
 ---
 
 ---
