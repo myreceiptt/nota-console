@@ -22,7 +22,8 @@
     "dev": "vite",
     "preview": "vite preview",
     "predeploy": "yarn build",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:recovery": "node --test tests/scroll-effects.test.cjs"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

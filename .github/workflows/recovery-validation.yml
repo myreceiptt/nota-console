@@ -1,0 +1,49 @@
+name: IMPROMPTU Recovery Validation
+
+on:
+  pull_request:
+    paths:
+      - "src/components/terminal/TerminalContainer.tsx"
+      - "src/hooks/useScrollToBottom.ts"
+      - "tests/scroll-effects.test.cjs"
+      - "tests/browser-recovery.cjs"
+      - "package.json"
+      - "yarn.lock"
+      - ".github/workflows/recovery-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (read-only credentials)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Use repository Node.js runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable Corepack / Yarn
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: yarn install --immutable
+
+      - name: Typecheck
+        run: yarn lint
+
+      - name: Regression tests (Promise-returning and legacy scroll)
+        run: yarn test:recovery
+
+      - name: Production build
+        run: yarn build
+
+      - name: Browser recovery smoke test
+        run: node tests/browser-recovery.cjs
