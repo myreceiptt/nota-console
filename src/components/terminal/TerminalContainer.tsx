@@ -40,10 +40,9 @@ const TerminalContainer = () => {
     setIsMotdVisible(false);
   });
 
-  useEffect(
-    () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
-    [prompts, promptText]
-  );
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [prompts, promptText]);
 
   return (
     <section
