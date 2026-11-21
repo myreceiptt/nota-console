@@ -130,6 +130,24 @@ async function main() {
     }
 
     await reset();
+    // Web Analytics v2 must preserve the existing React component integration
+    // and inject exactly one production tracking script without UI changes.
+    await until(
+      () => evaluate('document.querySelectorAll("script[data-sdkn=\\\"@vercel/analytics/react\\\"]").length === 1'),
+      'Vercel Analytics v2 script injected once',
+    );
+    assert.equal(
+      await evaluate('document.querySelector("script[data-sdkn=\\\"@vercel/analytics/react\\\"]").dataset.sdkv'),
+      '2.0.1',
+      'React Analytics should use the approved v2.0.1 release',
+    );
+    assert.equal(
+      await evaluate('document.querySelector("script[data-sdkn=\\\"@vercel/analytics/react\\\"]").getAttribute("src")'),
+      '/_vercel/insights/script.js',
+      'Analytics should keep the existing default Vercel intake path',
+    );
+    await healthy('Vercel Analytics v2 single script injection');
+
     await type('x');
     await until(() => promptHas('x'), 'first character displayed');
     await healthy('first keystroke');
@@ -166,7 +184,7 @@ async function main() {
     await until(() => promptHas('x'), 'narrow viewport input');
     await healthy('narrow viewport input');
 
-    console.log('PASS: 6 browser smoke checks');
+    console.log('PASS: 7 browser smoke checks (6 terminal + 1 Analytics v2)');
   } finally {
     if (ws) ws.close();
     if (chrome) chrome.kill();
