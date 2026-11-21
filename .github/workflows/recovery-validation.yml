@@ -6,6 +6,7 @@ on:
       - "src/components/terminal/TerminalContainer.tsx"
       - "src/hooks/useScrollToBottom.ts"
       - "tests/scroll-effects.test.cjs"
+      - "tests/browser-recovery.cjs"
       - "package.json"
       - "yarn.lock"
       - ".github/workflows/recovery-validation.yml"
@@ -43,3 +44,6 @@ jobs:
 
       - name: Production build
         run: yarn build
+
+      - name: Browser recovery smoke test
+        run: node tests/browser-recovery.cjs
