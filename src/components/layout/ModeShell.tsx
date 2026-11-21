@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import TerminalContainer from "../terminal/TerminalContainer";
 import MockChat from "../ai/MockChat";
+import FoundationSandbox from "../ai/FoundationSandbox";
 
-type Mode = "console" | "ai";
+type Mode = "console" | "ai" | "foundation";
 
 export default function ModeShell() {
   const [mode, setMode] = useState<Mode>("console");
@@ -45,6 +46,17 @@ export default function ModeShell() {
         >
           AI CHAT <span className="text-[.65rem] opacity-80">MOCK</span>
         </button>
+        <button
+          type="button"
+          data-testid="mode-foundation"
+          aria-pressed={mode === "foundation"}
+          onClick={() => setMode("foundation")}
+          className={mode === "foundation"
+            ? "rounded-md border border-nota-yellow bg-nota-black px-3 py-1.5 font-nota text-xs font-bold text-nota-yellow"
+            : "rounded-md border border-nota-border bg-nota-black/[.75] px-3 py-1.5 font-nota text-xs font-bold text-nota-white hover:border-nota-yellow"}
+        >
+          FOUNDATION <span className="text-[.65rem] opacity-80">SANDBOX</span>
+        </button>
       </nav>
 
       <div
@@ -62,6 +74,13 @@ export default function ModeShell() {
         data-testid="ai-mode-panel"
       >
         <MockChat active={mode === "ai"} />
+      </div>
+      <div
+        className={mode === "foundation" ? "h-full w-full" : "hidden"}
+        aria-hidden={mode !== "foundation"}
+        data-testid="foundation-mode-panel"
+      >
+        <FoundationSandbox active={mode === "foundation"} />
       </div>
     </div>
   );
