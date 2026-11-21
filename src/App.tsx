@@ -1,5 +1,5 @@
 import Main from "./components/layout/Main";
-import TerminalContainer from "./components/terminal/TerminalContainer";
+import ModeShell from "./components/layout/ModeShell";
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
         bg-center bg-no-repeat flex items-center justify-center flex-col gap-6"
     >
       <Main>
-        <TerminalContainer />
+        <ModeShell />
       </Main>
     </div>
   );
