@@ -5,7 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
-const ts = require('typescript');
+// TypeScript 7 has a native compiler but no JS compiler API; keep legacy test harness on TS6.
+const ts = require('@typescript/typescript6');
 
 const root = path.join(__dirname, '..');
 
