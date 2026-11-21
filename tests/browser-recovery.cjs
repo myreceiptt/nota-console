@@ -190,7 +190,7 @@ async function main() {
     // Check that switching modes preserves Console drafts and its legacy commands.
     await reset();
     await type('!pro');
-    assert.equal(await promptHas('!pro'), true, 'Console draft exists before switching');
+    await until(() => promptHas('!pro'), 'Console draft exists before switching');
     await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mode-ai]").click()' });
     await until(
       () => evaluate('document.querySelector("[data-testid=ai-mode-panel]").getAttribute("aria-hidden") === "false"'),
@@ -241,7 +241,7 @@ async function main() {
       'Console mode restored',
     );
     await until(keyboardListenerReady, 'Console document key handler restored');
-    assert.equal(await promptHas('!pro'), true, 'Console draft preserved across mode switch');
+    await until(() => promptHas('!pro'), 'Console draft preserved across mode switch');
     await key('Tab', 'Tab', 9);
     await enter();
     await until(() => evaluate('document.body.innerText.includes("All Command Prompts")'), 'Console autocomplete after switch');
