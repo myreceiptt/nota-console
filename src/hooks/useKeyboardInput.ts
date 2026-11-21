@@ -3,18 +3,27 @@ import { getCommandNames } from "../const/commands";
 
 export const useKeyboardInput = (
   enterPress: (result: string) => void,
-  clearInputs: () => void
+  clearInputs: () => void,
+  enabled: boolean = true
 ): string => {
   const [result, setResult] = useState<string>("");
   const [cmdNames] = useState<string[]>(getCommandNames());
 
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
-      event.preventDefault();
-
       if (event.isComposing) {
         return;
       }
+
+      // The new mode buttons and future form controls must retain their native
+      // keyboard handling. Console keystrokes still work from the page itself.
+      if (event.target instanceof Element && event.target.closest('button, a, input, textarea, select, [contenteditable="true"]')) {
+        return;
+      }
+      if (event.code === "Tab" && result === "") {
+        return; // Enable keyboard navigation to the mode switch.
+      }
+      event.preventDefault();
 
       // enter press
       if (event.code === "Enter") {
@@ -67,12 +76,11 @@ export const useKeyboardInput = (
   );
 
   useEffect(() => {
-    // attach the event listener
+    // No global console interception while AI Chat Mode owns the keyboard.
+    if (!enabled) return;
     document.addEventListener("keydown", handleKeyPress);
-
-    // remove the event listener
     return () => document.removeEventListener("keydown", handleKeyPress);
-  }, [handleKeyPress]);
+  }, [handleKeyPress, enabled]);
 
   return result;
 };
