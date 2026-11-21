@@ -8,7 +8,7 @@ import ResultDiv from "./ResultDiv";
 import { motdText } from "../../const/commands";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
-const TerminalContainer = () => {
+const TerminalContainer = ({ active = true }: { active?: boolean }) => {
   const isMobile = useIsMobile();
 
   const [isMotdVisible, setIsMotdVisible] = useState<boolean>(true);
@@ -38,7 +38,7 @@ const TerminalContainer = () => {
   const promptText = useKeyboardInput(handleEnterPress, () => {
     setPrompts([new PromptSession()]);
     setIsMotdVisible(false);
-  });
+  }, active);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
