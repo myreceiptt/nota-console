@@ -252,6 +252,51 @@ async function main() {
     await healthy('P5.0 Console parity after mock AI return');
 
     console.log('PASS: 10 browser checks (7 baseline + 3 P5.0 mock tests)');
+
+    // P5.1: Browser-only controlled SSE fixture; real Vercel API is tested
+    // separately in Node and must never be assumed to run under Vite preview.
+    await reset();
+    await send('Runtime.evaluate', { expression: [
+      'window.__p51calls = 0;',
+      'window.__p51originalFetch = window.fetch;',
+      'window.fetch = async (url, options) => {',
+      '  if (url !== "/api/ai/chat") return window.__p51originalFetch(url, options);',
+      '  window.__p51calls++;',
+      '  const encoder = new TextEncoder();',
+      '  const frames = [',
+      '    "data: " + JSON.stringify({ type: "meta", mode: "scripted-preview" }) + "\\n\\n",',
+      '    "data: " + JSON.stringify({ type: "delta", text: "Scripted " }) + "\\n\\n",',
+      '    "data: " + JSON.stringify({ type: "delta", text: "backend response" }) + "\\n\\n",',
+      '    "data: " + JSON.stringify({ type: "done" }) + "\\n\\n"',
+      '  ];',
+      '  return new Response(new ReadableStream({ start(controller) {',
+      '    for (const frame of frames) controller.enqueue(encoder.encode(frame));',
+      '    controller.close();',
+      '  }}), { status: 200, headers: { "Content-Type": "text/event-stream; charset=utf-8" } });',
+      '};'
+    ].join('\n') });
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mode-foundation]").click()' });
+    await until(() => evaluate('document.querySelector("[data-testid=foundation-mode-panel]").getAttribute("aria-hidden") === "false"'), 'Foundation mode visible');
+    await until(() => evaluate('document.activeElement?.id === "foundation-input"'), 'Foundation input focused');
+    await send('Input.insertText', { text: '<img src=x onerror=alert(1)>' });
+    await enter();
+    await until(() => evaluate('document.querySelectorAll("[data-testid=foundation-visitor]").length === 1'), 'Foundation visitor added');
+    await until(() => evaluate('document.querySelectorAll("[data-testid=foundation-nota]").length === 2 && document.body.innerText.includes("Scripted backend response")'), 'Foundation stream parsed');
+    assert.equal(await evaluate('window.__p51calls'), 1, 'Foundation performs only one scoped backend fetch');
+    assert.equal(await evaluate('document.querySelectorAll("[data-testid=foundation-visitor] img").length'), 0, 'Foundation input rendered safely as text');
+    await healthy('P5.1 streamed SSE frontend and escaped input');
+
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=foundation-clear]").click()' });
+    await until(() => evaluate('document.querySelectorAll("[data-testid=foundation-visitor]").length === 0'), 'Foundation transcript cleared');
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mode-console]").click()' });
+    await until(() => evaluate('document.querySelector("[data-testid=console-mode-panel]").getAttribute("aria-hidden") === "false"'), 'Console restored after foundation');
+    await until(keyboardListenerReady, 'Console keyboard restored from foundation mode');
+    await type('!prof!');
+    await enter();
+    await until(() => evaluate('document.body.innerText.includes("All Command Prompts")'), 'Legacy Console after foundation');
+    await healthy('P5.1 Console restored after server sandbox');
+
+    console.log('PASS: 12 Chrome browser checks (7 baseline + 3 P5.0 + 2 P5.1 sandbox)');
   } finally {
     if (ws) ws.close();
     if (chrome) chrome.kill();

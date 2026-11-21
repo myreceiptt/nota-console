@@ -23,7 +23,8 @@
     "preview": "vite preview",
     "predeploy": "yarn build",
     "lint": "tsc --noEmit",
-    "test:recovery": "node --test tests/scroll-effects.test.cjs"
+    "test:recovery": "node --test tests/scroll-effects.test.cjs",
+    "test:foundation": "node --test tests/ai-foundation.test.cjs"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.5",
