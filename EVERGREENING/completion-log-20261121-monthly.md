@@ -8,7 +8,7 @@
 - Baseline: `main` at `fdb6f54a701957434238bf7ffdbe327460c7c8c2` (Recovery accepted in Production)
 - Maintenance branch: `evergreen/2026-11-monthly`
 - Pull Request: https://github.com/myreceiptt/nota-console/pull/16
-- **Status: Monthly changes verified in CI; pending Owner-approved Production release and live UX parity. Do not mark final Production DONE yet.**
+- **Status: MONTHLY DONE — 2026-11-21 (Asia/Jakarta).** Owner accepted the EVERGREEN Monthly Production release. This is a documentation-only acceptance update; the released application commit and deployment remain unchanged.
 
 ## Monthly — version inventory and changes
 
@@ -59,12 +59,27 @@ On Ubuntu runner using **Node 24**, new Yarn 4.18.1 and headless **Chrome 157.0.
 
 - [x] Recovery Production baseline confirmed working by Owner before maintenance.
 - [x] Updated dependency tree passes locked install, security audit, typecheck, unit and Chromium smoke checks.
-- [ ] Vercel Preview must build from the exact reviewed maintenance branch commit.
-- [ ] Owner visually verifies Preview remains identical in expected command behavior (including links / hidden commands).
-- [ ] Owner approves merge to main and Production deployment.
-- [ ] Verify Production commit, deployment, console and relevant links/assets after release.
-- [ ] Update this receipt from **PENDING** to **Monthly DONE** only after the release acceptance above.
+- [x] Vercel Preview built successfully from reviewed PR head `164b25f406d72c331d638db94f09c1186a677503` — deployment `dpl_3LHvT9tYDPy4wpUMszBP7twXK5v5` READY.
+- [x] Owner approved EVERGREEN Monthly Preview and its parity for the release. Individual hidden commands/links were not each separately demonstrated in CI.
+- [x] Owner authorized merge and Production deployment; PR #16 merged to `main` at `f7a5972b7484cf5b1b5102bd1d5a3ebff09d618c`.
+- [x] Vercel verified Production deployment `dpl_LptmN1VAtBz3yJ2u8ikXy725Vw1f` READY, custom domain alias `prompt.endhonesa.com` assigned, exact release SHA `f7a5972b7484cf5b1b5102bd1d5a3ebff09d618c`, alias error absent, and successful build. Owner explicitly approved the live Production version. This is owner-reported live acceptance, not an independent comprehensive HTTP/CSP or hidden-command audit.
+- [x] Following the Owner's exact confirmation **“EVERGREEN Monthly Production approved.”**, this receipt is finalized as **Monthly DONE**. Subsequent Quarterly major updates require separate PRs and approval.
 
 ## Governance
 
-Only dependency/tooling maintenance, audit scripts, CI and this receipt are included. No public UX/features, AI/LLM integrations, account connections, payments, billing or mainnet transactions. No merge, Production promotion or changes to paid services are authorized by this receipt.
+Only dependency/tooling maintenance, audit scripts, CI and this receipt were included in the approved Monthly release. No public UX/features, AI/LLM integrations, account connections, payments, billing or mainnet transactions. This acceptance receipt does not authorize further code changes, Quarterly updates, new paid services, or a new Production release.
+
+## Final Production Acceptance — 2026-11-21 WIB
+
+**Owner's approval (verbatim):** “EVERGREEN Monthly Production approved.”
+
+**Evidence:**
+- [Approved implementation PR #16](https://github.com/myreceiptt/nota-console/pull/16), merged to `main`.
+- GitHub merge commit: `f7a5972b7484cf5b1b5102bd1d5a3ebff09d618c`.
+- Production deployment: `dpl_LptmN1VAtBz3yJ2u8ikXy725Vw1f` (Vercel **READY**).
+- Public URL: https://prompt.endhonesa.com/ (verified domain alias).
+- [Final EVERGREEN CI run #44848159189](https://github.com/myreceiptt/nota-console/actions/runs/44848159189): successful immutable install, Yarn 4 recursive audit at moderate+, typecheck, Vite build, four regression cases, six Chrome 157 automated browser smoke checks.
+- [Final Recovery CI run #44848159101](https://github.com/myreceiptt/nota-console/actions/runs/44848159101): SUCCESS.
+- Owner-reported manual acceptance: production behavior and appearance approved. No independent post-release browser automation against the live hostname; no claim of comprehensive testing for every hidden command, external link or CSP header.
+
+**Decision: Monthly EVERGREEN COMPLETE.** Quarterly major-version maintenance is a separate next phase; the successful Monthly release is preserved as the baseline. This docs-only acceptance entry does not entail any changes to the live application.
