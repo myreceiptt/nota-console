@@ -185,6 +185,69 @@ async function main() {
     await healthy('narrow viewport input');
 
     console.log('PASS: 7 browser smoke checks (6 terminal + 1 Analytics v2)');
+
+    // P5.0 only: AI Chat is a local mock, with no provider/backend or raw HTML.
+    // Check that switching modes preserves Console drafts and its legacy commands.
+    await reset();
+    await type('!pro');
+    assert.equal(await promptHas('!pro'), true, 'Console draft exists before switching');
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mode-ai]").click()' });
+    await until(
+      () => evaluate('document.querySelector("[data-testid=ai-mode-panel]").getAttribute("aria-hidden") === "false"'),
+      'mock AI panel active',
+    );
+    await until(() => evaluate('document.activeElement && document.activeElement.id === "mock-chat-input"'), 'AI input focus');
+    assert.equal(await evaluate('document.querySelector("[data-testid=mode-ai]").getAttribute("aria-pressed")'), 'true');
+
+    // HTML-like visitor text must remain plain text in React, never executable markup.
+    const injection = '<img src=x onerror=alert(1)>';
+    await send('Input.insertText', { text: injection });
+    await until(
+      () => evaluate('document.querySelector("#mock-chat-input").value.includes("<img src=x")'),
+      'AI accepts literal text with angle brackets',
+    );
+    await enter();
+    await until(
+      () => evaluate('document.querySelectorAll("[data-testid=mock-message-visitor]").length === 1'),
+      'mock visitor message rendered',
+    );
+    assert.equal(
+      await evaluate('document.querySelectorAll("[data-testid=mock-message-visitor] img").length'),
+      0,
+      'Mock user input must never be parsed as HTML',
+    );
+    assert.equal(
+      await evaluate('document.querySelectorAll("[data-testid=mock-message-nota]").length'),
+      2,
+      'Mock assistant adds only scripted local text',
+    );
+    await healthy('P5.0 mock chat text escaping and keyboard focus');
+
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mock-retry]").click()' });
+    await until(
+      () => evaluate('document.querySelectorAll("[data-testid=mock-message-nota]").length === 3'),
+      'mock retry',
+    );
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mock-clear]").click()' });
+    await until(
+      () => evaluate('document.querySelectorAll("[data-testid=mock-message-visitor]").length === 0'),
+      'mock chat clear',
+    );
+    await healthy('P5.0 mock retry and clear');
+
+    await send('Runtime.evaluate', { expression: 'document.querySelector("[data-testid=mode-console]").click()' });
+    await until(
+      () => evaluate('document.querySelector("[data-testid=console-mode-panel]").getAttribute("aria-hidden") === "false"'),
+      'Console mode restored',
+    );
+    await until(keyboardListenerReady, 'Console document key handler restored');
+    assert.equal(await promptHas('!pro'), true, 'Console draft preserved across mode switch');
+    await key('Tab', 'Tab', 9);
+    await enter();
+    await until(() => evaluate('document.body.innerText.includes("All Command Prompts")'), 'Console autocomplete after switch');
+    await healthy('P5.0 Console parity after mock AI return');
+
+    console.log('PASS: 10 browser checks (7 baseline + 3 P5.0 mock tests)');
   } finally {
     if (ws) ws.close();
     if (chrome) chrome.kill();
