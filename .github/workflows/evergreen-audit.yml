@@ -1,0 +1,73 @@
+name: IMPROMPTU EVERGREEN Audit
+
+on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "yarn.lock"
+      - ".yarnrc.yml"
+      - ".nvmrc"
+      - ".yarn/releases/**"
+      - "scripts/evergreen-audit.cjs"
+      - "scripts/evergreen-refresh.cjs"
+      - "tests/browser-recovery.cjs"
+      - "tests/scroll-effects.test.cjs"
+      - ".github/workflows/evergreen-audit.yml"
+      - ".github/workflows/recovery-validation.yml"
+      - "EVERGREENING/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Node from .nvmrc
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable package manager
+        run: corepack enable
+
+      - name: Locked installation
+        run: yarn install --immutable
+
+      - name: Installed and latest versions (read-only)
+        run: node scripts/evergreen-audit.cjs
+
+      - name: Yarn 4 security audit (including transitive dependencies)
+        id: security
+        run: yarn npm audit -R --severity moderate
+        continue-on-error: true
+
+      - name: TypeScript typecheck
+        run: yarn lint
+
+      - name: Recovery regression tests
+        run: yarn test:recovery
+
+      - name: Vite production build
+        run: yarn build
+
+      - name: Chrome regression smoke
+        run: node tests/browser-recovery.cjs
+
+      - name: Flag security findings (do not silently mark clean)
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.security.outcome }}
+        run: |
+          echo "Security audit outcome: $AUDIT_OUTCOME"
+          if [ "$AUDIT_OUTCOME" != "success" ]; then
+            echo "Security findings/blocker: inspect audit step above."
+            exit 1
+          fi

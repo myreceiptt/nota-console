@@ -101,11 +101,22 @@ async function main() {
       }
     }
     const enter = () => key('Enter', 'Enter', 13);
+    async function keyboardListenerReady() {
+      // The terminal registers its document keydown handler in a React effect.
+      // DOM visibility alone does not prove that effect has run yet.
+      const doc = await send('Runtime.evaluate', { expression: 'document' });
+      const objectId = doc.result?.objectId;
+      if (!objectId) return false;
+      const { listeners } = await send('DOMDebugger.getEventListeners', { objectId });
+      return listeners.some((listener) => listener.type === 'keydown');
+    }
     let visit = 0;
     async function reset() {
       const n = ++visit;
       await send('Page.navigate', { url: url + '?recovery=' + n });
       await until(() => evaluate('location.search.includes("recovery=' + n + '") && !!document.querySelector("section") && document.body.innerText.includes("Message of The Day")'), 'terminal initial render');
+      await until(keyboardListenerReady, 'React document keyboard handler attached');
+      await send('Page.bringToFront');
       errors.length = 0;
     }
     async function healthy(label) {
