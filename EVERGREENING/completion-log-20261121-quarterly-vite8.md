@@ -8,7 +8,7 @@
 - Monthly-accepted Production baseline: `f7a5972b7484cf5b1b5102bd1d5a3ebff09d618c`
 - Baseline Vercel deployment: `dpl_LptmN1VAtBz3yJ2u8ikXy725Vw1f` (READY)
 - PR: https://github.com/myreceiptt/nota-console/pull/18
-- **Status: Quarterly CLUSTER 1 validated by updater CI; pending final CI / Vercel Preview / Owner approval. NOT merged, NOT deployed to Production.**
+- **Status: QUARTERLY CLUSTER 1 DONE — 2026-11-21 (Asia/Jakarta), Owner-accepted in Production.** This is a documentation-only acceptance update; the live application remains on the approved merge commit and Vercel deployment.
 - Quarterly completion across the entire repo: **NOT YET DONE** (other major clusters deferred).
 
 ## Scope / Major upgrade cluster 1 — Vite bundler and its React plugin
@@ -47,11 +47,11 @@ Checks performed in Node 24 / Yarn 4.18.1:
 - [x] Update manifest and lockfile; retain current UI and terminal source.
 - [x] Pass immutable install, audit, lint, four unit regressions, build, six Chrome smoke scenarios on updater run.
 - [x] Remove disposable write-enabled updater workflow.
-- [ ] Verify final head with **read-only** CI (both EVERGREEN and Recovery checks).
-- [ ] Deploy Vercel Preview from exact final PR head and confirm READY.
-- [ ] Owner checks Preview and explicitly approves merge and Production release.
-- [ ] Verify Production merge SHA / domain alias / build and owner-accepted terminal behavior.
-- [ ] Mark THIS CLUSTER **DONE** only after Production acceptance.
+- [x] Verify final reviewed PR head `bd801cd5241dcd20c45e74d351bd866390d5e870` with read-only CI: [EVERGREEN Audit #44852693294](https://github.com/myreceiptt/nota-console/actions/runs/44852693294) and [Recovery Validation #44852693266](https://github.com/myreceiptt/nota-console/actions/runs/44852693266), both SUCCESS.
+- [x] Vercel Preview `dpl_D8JBZ9UvZpvRPobMKy63Go85B1EF` READY for exact reviewed PR head; no alias error.
+- [x] Owner approved Preview and explicitly authorized merge and Production release: “Quarterly Cluster 1 Preview approved. Lanjutkan merge dan Production deployment.”
+- [x] Production PR #18 merged at `85ceb18c88f923ee60a2d60093a9b85de4b4ec09`; Vercel deployment `dpl_2WeHVH3fLAbraiwP2PdPxTK121mx` READY, `prompt.endhonesa.com` mapped to that exact SHA, Vite 8.3.8 build completed, aliasError null. Owner subsequently approved live Production. This user-reported acceptance is distinct from CI smoke testing, and does not individually prove all hidden commands or live-hostname CSP.
+- [x] This **QUARTERLY CLUSTER 1 is DONE** following Owner's final confirmation: “Quarterly Cluster 1 Production approved.” The *full Quarterly cycle* is not yet complete.
 - [ ] Evaluate next major clusters separately; do not label full Quarterly cycle COMPLETE prematurely.
 
 ## Deferred major upgrades
@@ -63,4 +63,18 @@ Checks performed in Node 24 / Yarn 4.18.1:
 
 ## Governance
 
-No app feature, command, agent, wallet transaction, authentication, LLM integration, billing, paid-plan change, or Production modification is authorized by this receipt. **Merge into `main` and Production deployment require explicit Owner approval.** Production continues to serve the previously approved Monthly release until those gates pass.
+No app feature, command, agent, wallet transaction, authentication, LLM integration, billing, or paid-plan change was introduced by this Quarterly toolchain release. The approved PR #18 merge and Production deployment have completed. This final acceptance receipt does **not** authorize further major upgrades, any new Production redeployment, or paid services; future clusters require their own approval.
+
+## Final Production Acceptance Receipt — 2026-11-21 WIB
+
+**Owner approval (verbatim):** “Quarterly Cluster 1 Production approved.”
+
+- Implementation PR [#18](https://github.com/myreceiptt/nota-console/pull/18) merged and reviewed; merge commit `85ceb18c88f923ee60a2d60093a9b85de4b4ec09`.
+- Released toolchain: Vite `8.3.8`, `@vitejs/plugin-react` `6.3.0`.
+- Production Vercel deployment `dpl_2WeHVH3fLAbraiwP2PdPxTK121mx` **READY**, pointing to approved SHA with Production alias `prompt.endhonesa.com` and no alias error.
+- Final CI evidence: [EVERGREEN Audit #44852693294](https://github.com/myreceiptt/nota-console/actions/runs/44852693294) and [Recovery Validation #44852693266](https://github.com/myreceiptt/nota-console/actions/runs/44852693266) **SUCCESS**; immutable install, Yarn moderate+ recursive security audit, TypeScript typecheck, 4/4 unit regression, Vite production build, 6/6 Chrome 157 browser smoke.
+- Owner reported live Production acceptance, separately from automated CI. No independent exhaustive live-browser check was carried out for every hidden command, offsite link, or HTTP/CSP header.
+- **Known non-blocking future compatibility warning:** `vite.config.ts` ESM syntax while package defaults to CommonJS may require explicit module format when native Vite config loading becomes standard; not a current build failure.
+- **Decision: Quarterly Cluster 1 DONE.** The entire Quarterly cycle still includes other major upgrade clusters evaluated independently with Owner-approved Preview/Production gates.
+
+This receipt is documentation-only. To avoid an unrequested Vercel rebuild, its merge into `main` should remain separately authorized; the corresponding acceptance is already recorded in [Issue #14](https://github.com/myreceiptt/nota-console/issues/14).
