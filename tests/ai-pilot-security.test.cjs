@@ -1,0 +1,114 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const auth = import('../lib/ai/pilot-auth.mjs');
+const budget = import('../lib/ai/pilot-budget.mjs');
+const sessionHandler = import('../api/ai/pilot-session.mjs');
+const OWNER_ID = '12345678-1234-4234-8234-123456789abc';
+
+function mockRes() {
+  const headers = {};
+  return {
+    statusCode: 200, headers,
+    setHeader(key, value) { headers[key.toLowerCase()] = value; },
+    end(text) { this.body = JSON.parse(text); }
+  };
+}
+function request(method, body = undefined) {
+  return {
+    method, headers: {
+      host: 'preview.example.com',
+      origin: 'https://preview.example.com',
+      'content-type': 'application/json'
+    },
+    body
+  };
+}
+function withConfig(fn) {
+  const keys = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_PUBLISHABLE_KEY',
+    'SUPABASE_SERVICE_ROLE_KEY', 'PILOT_OWNER_USER_ID', 'PILOT_OWNER_EMAIL'];
+  const before = Object.fromEntries(keys.map(k => [k, process.env[k]]));
+  Object.assign(process.env, {
+    VERCEL_ENV: 'preview',
+    SUPABASE_URL: 'https://example.supabase.co',
+    SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_test',
+    PILOT_OWNER_USER_ID: OWNER_ID,
+    PILOT_OWNER_EMAIL: 'owner@example.com'
+  });
+  delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return Promise.resolve().then(fn).finally(() => {
+    for (const [k, v] of Object.entries(before)) {
+      if (v === undefined) delete process.env[k]; else process.env[k] = v;
+    }
+  });
+}
+
+test('Owner identity checks immutable UID, email and email confirmation', async () => {
+  await withConfig(async () => {
+    const { isOwner, isOwnerEmail, sameOrigin } = await auth;
+    const owner = { id: OWNER_ID, email: 'owner@example.com', email_confirmed_at: '2026-01-01T00:00:00Z' };
+    assert.equal(isOwner(owner), true);
+    assert.equal(isOwner({ ...owner, id: '12345678-1234-4234-8234-999999999999' }), false);
+    assert.equal(isOwner({ ...owner, email: 'other@example.com' }), false);
+    assert.equal(isOwner({ ...owner, email_confirmed_at: null }), false);
+    assert.equal(isOwnerEmail('attacker@example.com'), false);
+    assert.equal(sameOrigin(request('POST')), true);
+    assert.equal(sameOrigin({ headers: { host: 'preview.example.com', origin: 'https://evil.example' } }), false);
+  });
+});
+
+test('Session endpoint rejects Production even when configured', async () => {
+  await withConfig(async () => {
+    process.env.VERCEL_ENV = 'production';
+    const handler = (await sessionHandler).default;
+    const res = mockRes();
+    await handler(request('POST', { action: 'request_otp', email: 'owner@example.com' }), res);
+    assert.equal(res.statusCode, 503);
+    assert.deepEqual(res.body, { error: 'pilot_not_enabled' });
+  });
+});
+
+test('Unknown email cannot trigger OTP provider call', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const original = global.fetch;
+    let called = false;
+    global.fetch = async () => { called = true; throw new Error('should not contact provider'); };
+    try {
+      const res = mockRes();
+      await handler(request('POST', { action: 'request_otp', email: 'unknown@example.com' }), res);
+      assert.equal(res.statusCode, 403);
+      assert.equal(called, false);
+    } finally { global.fetch = original; }
+  });
+});
+
+test('Budget adapter fails closed without service role and rejects invalid amounts', async () => {
+  await withConfig(async () => {
+    const { reserveBudget, settleBudget } = await budget;
+    assert.equal(await reserveBudget(OWNER_ID, 100000), false);
+    assert.equal(await reserveBudget(OWNER_ID, 0), false);
+    assert.equal(await reserveBudget(OWNER_ID, 1000001), false);
+    assert.equal(await reserveBudget('invalid', 100000), false);
+    assert.equal(await settleBudget(OWNER_ID, 0), false);
+  });
+});
+
+test('Budget adapter uses server-only RPC and defaults deny on connection failures', async () => {
+  await withConfig(async () => {
+    process.env.SUPABASE_SERVICE_ROLE_KEY = 'server-only-test';
+    const original = global.fetch;
+    let requests = 0;
+    global.fetch = async (url, options) => {
+      requests++;
+      assert.match(String(url), /\/rest\/v1\/rpc\/p51r_reserve$/);
+      assert.equal(options.headers.Authorization, 'Bearer server-only-test');
+      return { ok: true, json: async () => true };
+    };
+    try {
+      const { reserveBudget } = await budget;
+      assert.equal(await reserveBudget(OWNER_ID, 500000), true);
+      assert.equal(requests, 1);
+    } finally { global.fetch = original; }
+  });
+});
