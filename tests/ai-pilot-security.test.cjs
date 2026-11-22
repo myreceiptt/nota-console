@@ -112,3 +112,53 @@ test('Budget adapter uses server-only RPC and defaults deny on connection failur
     } finally { global.fetch = original; }
   });
 });
+
+test('Magic Link server exchange verifies immutable Owner before session cookie', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const token = 'a'.repeat(120);
+    const original = global.fetch;
+    let calls = 0;
+    global.fetch = async (url, options) => {
+      calls++;
+      assert.match(String(url), /\/auth\/v1\/user$/);
+      assert.equal(options.headers.Authorization, 'Bearer ' + token);
+      return { ok: true, json: async () => ({
+        id: OWNER_ID, email: 'owner@example.com', email_confirmed_at: '2026-01-01T00:00:00Z'
+      }) };
+    };
+    try {
+      const res = mockRes();
+      await handler(request('POST', { action: 'accept_magic_link', access_token: token }), res);
+      assert.equal(res.statusCode, 200);
+      assert.equal(res.body.authenticated, true);
+      assert.match(res.headers['set-cookie'], /HttpOnly; Secure; SameSite=Strict/);
+      assert.equal(calls, 1);
+    } finally { global.fetch = original; }
+  });
+});
+
+test('Magic Link rejects different valid Supabase user and forged token', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const original = global.fetch;
+    let calls = 0;
+    global.fetch = async () => {
+      calls++;
+      return { ok: true, json: async () => ({
+        id: '12345678-1234-4234-8234-999999999999',
+        email: 'other@example.com', email_confirmed_at: '2026-01-01T00:00:00Z'
+      }) };
+    };
+    try {
+      const res = mockRes();
+      await handler(request('POST', { action: 'accept_magic_link', access_token: 'a'.repeat(120) }), res);
+      assert.equal(res.statusCode, 403);
+      assert.equal(res.headers['set-cookie'], undefined);
+      const forged = mockRes();
+      await handler(request('POST', { action: 'accept_magic_link', access_token: '<invalid>' }), forged);
+      assert.equal(forged.statusCode, 400);
+      assert.equal(calls, 1);
+    } finally { global.fetch = original; }
+  });
+});
