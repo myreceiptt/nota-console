@@ -99,3 +99,19 @@ grant usage on schema pilot_private to service_role;
 grant select,insert,update on all tables in schema pilot_private to service_role;
 grant execute on function pilot_private.reserve_p51r(uuid,bigint) to service_role;
 grant execute on function pilot_private.settle_p51r(uuid,bigint) to service_role;
+
+-- PostgREST only exposes the default public schema. These thin wrappers are
+-- explicitly service-role-only. They are SECURITY INVOKER and keep all data
+-- in the non-exposed pilot_private schema.
+create or replace function public.p51r_reserve(
+  p_id uuid, p_worst_case_microusd bigint
+) returns boolean language sql security invoker set search_path = ''
+as $$ select pilot_private.reserve_p51r(p_id, p_worst_case_microusd); $$;
+create or replace function public.p51r_settle(
+  p_id uuid, p_actual_microusd bigint
+) returns boolean language sql security invoker set search_path = ''
+as $$ select pilot_private.settle_p51r(p_id, p_actual_microusd); $$;
+revoke all on function public.p51r_reserve(uuid,bigint) from public,anon,authenticated;
+revoke all on function public.p51r_settle(uuid,bigint) from public,anon,authenticated;
+grant execute on function public.p51r_reserve(uuid,bigint) to service_role;
+grant execute on function public.p51r_settle(uuid,bigint) to service_role;
