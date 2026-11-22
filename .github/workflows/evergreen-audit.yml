@@ -13,6 +13,7 @@ on:
       - "tests/browser-recovery.cjs"
       - "tests/ai-foundation.test.cjs"
       - "tests/ai-pilot-deny.test.cjs"
+      - "tests/ai-pilot-security.test.cjs"
       - "api/**"
       - "lib/ai/**"
       - "src/components/ai/**"
@@ -66,7 +67,7 @@ jobs:
         run: yarn test:foundation
 
       - name: P5.1R deny-first pilot HTTP contract tests (no provider calls)
-        run: node --test tests/ai-pilot-deny.test.cjs
+        run: node --test tests/ai-pilot-deny.test.cjs tests/ai-pilot-security.test.cjs
 
       - name: Vite production build
         run: yarn build
