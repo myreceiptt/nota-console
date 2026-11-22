@@ -56,8 +56,14 @@ export default async function handler(req, res) {
         typeof body.email === "string") {
       // No account creation and no external emails to arbitrary addresses.
       if (!isOwnerEmail(body.email)) return answer(res, 403, { error: "not_owner" });
-      const sent = await sendOtp(body.email.trim());
-      return answer(res, sent ? 200 : 429, { status: sent ? "otp_requested" : "otp_unavailable" });
+      const result = await sendOtp(body.email.trim());
+      if (result === "rate_limited") {
+        return answer(res, 429, { error: "email_rate_limited" });
+      }
+      if (result !== "sent") {
+        return answer(res, 503, { error: "email_delivery_unavailable" });
+      }
+      return answer(res, 200, { status: "otp_requested" });
     }
     if (body.action === "verify_otp" && Object.keys(body).length === 3 &&
         typeof body.email === "string" && typeof body.token === "string" &&
