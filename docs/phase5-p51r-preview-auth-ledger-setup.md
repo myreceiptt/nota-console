@@ -34,3 +34,14 @@
 The OTP endpoint is intentionally unavailable without complete Supabase settings. Supabase applies its own OTP send/verify limits; protected Preview and additional abuse throttling must be verified before real email traffic. Application logout clears the local session cookie; strict remote session revocation is a separate improvement to require if desired. Access token lifetime is bounded by Supabase (typically one hour). Session status revalidates against Supabase Auth over the network instead of trusting browser data.
 
 **No changes on `main`, no Production release, no billable LLM use.**
+
+## Execution receipt — 2026-11-22 (Supabase project created)
+
+- Owner explicitly approved creation of **`impromptu-ai-pilot-preview`** under **Prof. NOTA Inc.**, Singapore `ap-southeast-1`, quoted **US$0/month** at project creation. Supabase project ref: `cakfxuscjeicykizgkcr`; status verified **ACTIVE_HEALTHY** on PostgreSQL 17.
+- Applied the reviewed SQL migration to **that dedicated project only**: `20261122035238_p51r_private_budget_foundation`. No Transient Contract Manager or Alpha Radar project was modified.
+- SQL transaction smoke exercise reserved 700000 micro-USD, refused second reservation above daily cap, settled at 400000, refused duplicate settlement, and admitted further 600000 reservation based on released unused reserve. Entire smoke transaction was rolled back.
+- Post-rollback independent SQL verified `reserved_total=0`, `spent_total=0`, `reservation_count=0`, all **3 tables with RLS**, `anon_can_reserve=false`, `authenticated_can_reserve=false`, `service_role_can_reserve=true`.
+- Supabase Security Advisor reported only 3 informational `rls_enabled_no_policy` notices on deliberately private ledger tables. These represent intended **default-deny** behavior, not permission grants. Reference: https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy
+- Both exact-head PR #30 workflows at `4ed0b8528c6a0ecc9235fe16902fec46e70b1da2` **SUCCESS**: EVERGREEN Audit #44979599480 and Recovery Validation #44979599534.
+- **Not executed:** user account provisioning, real Owner email OTP, Vercel secrets/env rollout, isolated actual Preview validation, provider requests, model billing and Production changes. Current `/api/ai/pilot` remains 503.
+- Next: provision Owner email in dedicated Supabase Auth (not self-register), choose immutable Owner UID and set Preview-only Vercel environment variables via secure settings UI. Require explicit Vercel Preview deployment acceptance before any paid provider activation.
