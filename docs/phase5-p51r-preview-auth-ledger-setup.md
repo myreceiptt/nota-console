@@ -45,3 +45,16 @@ The OTP endpoint is intentionally unavailable without complete Supabase settings
 - Both exact-head PR #30 workflows at `4ed0b8528c6a0ecc9235fe16902fec46e70b1da2` **SUCCESS**: EVERGREEN Audit #44979599480 and Recovery Validation #44979599534.
 - **Not executed:** user account provisioning, real Owner email OTP, Vercel secrets/env rollout, isolated actual Preview validation, provider requests, model billing and Production changes. Current `/api/ai/pilot` remains 503.
 - Next: provision Owner email in dedicated Supabase Auth (not self-register), choose immutable Owner UID and set Preview-only Vercel environment variables via secure settings UI. Require explicit Vercel Preview deployment acceptance before any paid provider activation.
+
+## 2026-11-22 Auth delivery adjustment — No custom SMTP
+
+Owner screenshot shows Supabase hosted dashboard **Magic link or OTP** template editor is disabled and requires Custom SMTP to edit. The project's default SMTP sends **Magic Links** to eligible test/team addresses, not 6-digit OTP codes. We will **not activate an SMTP vendor or incur charges**.
+
+Updated implementation on this feature branch:
+- Keep `request_otp` API action as the Supabase Auth passwordless send API (naming retained for backward compatibility), but UI now says **Send Magic Link**.
+- On return from the Supabase email link, the allowlisted Preview URL receives a URL hash containing an access token. `ModeShell` opens Private Pilot; `PrivatePilotAccess` clears the fragment immediately and sends token to same-origin `POST /api/ai/pilot-session` action `accept_magic_link`.
+- The server verifies access token against **Supabase Auth /user**, checks both immutable Owner UUID and verified email, issues short-lived Secure HttpOnly SameSite=Strict cookie, and never stores refresh tokens.
+- Supabase Auth URL Configuration must keep Site URL and approved redirect URL pointing to the protected branch Preview hostname, **not localhost or Production**. Do not copy or reuse an invitation/Magic Link token in a chat.
+- Existing invitation is no longer needed: SQL confirmed Owner account exists, is email-confirmed and has signed in. UID was set securely as Preview-only `PILOT_OWNER_USER_ID`. No user migration or account creation performed.
+- Free default SMTP has delivery restrictions; test only with an allowed email address. No claim of production-grade email delivery.
+- Still requires a live authenticated browser test, same-origin/security review and session expiry checks. The real AI endpoint remains disabled and no billable AI model is connected.
