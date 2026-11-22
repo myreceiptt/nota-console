@@ -162,3 +162,38 @@ test('Magic Link rejects different valid Supabase user and forged token', async 
     } finally { global.fetch = original; }
   });
 });
+
+test('Supabase email quota HTTP 429 maps to explicit fail-closed rate-limit response', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const original = global.fetch;
+    let calls = 0;
+    global.fetch = async (url, options) => {
+      calls++;
+      assert.match(String(url), /\/auth\/v1\/otp$/);
+      assert.equal(options.method, 'POST');
+      return { ok: false, status: 429 };
+    };
+    try {
+      const res = mockRes();
+      await handler(request('POST', { action: 'request_otp', email: 'owner@example.com' }), res);
+      assert.equal(res.statusCode, 429);
+      assert.deepEqual(res.body, { error: 'email_rate_limited' });
+      assert.equal(calls, 1);
+    } finally { global.fetch = original; }
+  });
+});
+
+test('Other Supabase email send failures do not masquerade as exhausted quota', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const original = global.fetch;
+    global.fetch = async () => ({ ok: false, status: 500 });
+    try {
+      const res = mockRes();
+      await handler(request('POST', { action: 'request_otp', email: 'owner@example.com' }), res);
+      assert.equal(res.statusCode, 503);
+      assert.deepEqual(res.body, { error: 'email_delivery_unavailable' });
+    } finally { global.fetch = original; }
+  });
+});
