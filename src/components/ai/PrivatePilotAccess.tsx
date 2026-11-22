@@ -61,8 +61,12 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
       } else if (action === "logout") {
         setPhase("email");
       }
-    } catch {
-      setNotice("Request not completed. Check Owner authorization or service configuration.");
+    } catch (error) {
+      if (error instanceof Error && error.message === "email_rate_limited") {
+        setNotice("Supabase email sending limit reached. Do not retry repeatedly. Try again after the quota resets.");
+      } else {
+        setNotice("Magic Link request unavailable. Check Supabase Auth email delivery and Preview configuration.");
+      }
     } finally {
       setBusy(false);
     }
