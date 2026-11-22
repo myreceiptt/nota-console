@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import TerminalContainer from "../terminal/TerminalContainer";
 import MockChat from "../ai/MockChat";
 import FoundationSandbox from "../ai/FoundationSandbox";
+import PrivatePilotAccess from "../ai/PrivatePilotAccess";
 
-type Mode = "console" | "ai" | "foundation";
+// Build-time Preview-only opt-in; Production defaults to the original three modes.
+const pilotVisible = import.meta.env.VITE_P51R_PREVIEW_UI === "true";
+
+type Mode = "console" | "ai" | "foundation" | "pilot";
 
 export default function ModeShell() {
   const [mode, setMode] = useState<Mode>("console");
@@ -57,6 +61,15 @@ export default function ModeShell() {
         >
           FOUNDATION <span className="text-[.65rem] opacity-80">SANDBOX</span>
         </button>
+        {pilotVisible && <button
+          type="button"
+          data-testid="mode-pilot"
+          aria-pressed={mode === "pilot"}
+          onClick={() => setMode("pilot")}
+          className={mode === "pilot"
+            ? "rounded-md border border-nota-cyan bg-nota-black px-3 py-1.5 font-nota text-xs font-bold text-nota-cyan"
+            : "rounded-md border border-nota-border bg-nota-black/[.75] px-3 py-1.5 font-nota text-xs font-bold text-nota-white hover:border-nota-cyan"}
+        >PRIVATE PILOT</button>}
       </nav>
 
       <div
@@ -82,6 +95,13 @@ export default function ModeShell() {
       >
         <FoundationSandbox active={mode === "foundation"} />
       </div>
+      {pilotVisible && <div
+        className={mode === "pilot" ? "h-full w-full" : "hidden"}
+        aria-hidden={mode !== "pilot"}
+        data-testid="pilot-mode-panel"
+      >
+        <PrivatePilotAccess active={mode === "pilot"} />
+      </div>}
     </div>
   );
 }
