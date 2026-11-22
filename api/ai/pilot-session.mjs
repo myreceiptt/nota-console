@@ -3,7 +3,7 @@ import {
   isOwnerEmail, setSession, clearSession
 } from "../../lib/ai/pilot-auth.mjs";
 
-const MAX_BODY = 512;
+const MAX_BODY = 8192; // Encrypted Supabase access JWT is accepted once, then stored in HttpOnly cookie.
 function answer(res, status, payload) {
   res.statusCode = status;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -69,6 +69,28 @@ export default async function handler(req, res) {
       }
       // User object from verified OTP is checked against immutable owner UID/email.
       setSession(res, data.access_token, Math.min(3600, Math.max(1, data.expires_in || 3600)));
+      return answer(res, 200, { authenticated: true });
+    }
+    if (body.action === "accept_magic_link" && Object.keys(body).length === 2 &&
+        typeof body.access_token === "string" &&
+        /^[A-Za-z0-9_\\-.]{20,4096}$/.test(body.access_token)) {
+      // Do not trust URL fragment/token as identity. Ask Supabase Auth who
+      // owns this token and compare immutable Owner UID + verified email.
+      const url = new URL("/auth/v1/user", process.env.SUPABASE_URL);
+      const check = await fetch(url, {
+        method: "GET",
+        headers: {
+          apikey: process.env.SUPABASE_PUBLISHABLE_KEY,
+          Authorization: "Bearer " + body.access_token
+        },
+        signal: AbortSignal.timeout(5000)
+      });
+      if (!check.ok) return answer(res, 401, { error: "invalid_owner_session" });
+      const user = await check.json();
+      if (!isOwner(user)) return answer(res, 403, { error: "not_owner" });
+      // A short-lived cookie, with no refresh token storage. The token is
+      // revalidated against Supabase on every protected session request.
+      setSession(res, body.access_token, 1800);
       return answer(res, 200, { authenticated: true });
     }
     if (body.action === "logout" && Object.keys(body).length === 1) {
