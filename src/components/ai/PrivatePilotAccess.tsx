@@ -34,7 +34,7 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
     if (accessToken || fragment.has("error")) {
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
-    const validToken = !!accessToken && /^[A-Za-z0-9_\\-.]{20,4096}$/.test(accessToken);
+    const validToken = !!accessToken && /^[A-Za-z0-9_.-]{20,4096}$/.test(accessToken);
     const flow = validToken
       ? session({ action: "accept_magic_link", access_token: accessToken })
       : session();
