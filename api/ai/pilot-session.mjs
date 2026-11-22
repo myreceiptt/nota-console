@@ -14,6 +14,15 @@ function answer(res, status, payload) {
 }
 async function input(req) {
   if (Number(req.headers["content-length"] || 0) > MAX_BODY) return null;
+  // Vercel may pre-parse JSON before invoking the Function.
+  if (req.body !== undefined) {
+    try {
+      const raw = typeof req.body === "string" ? req.body : JSON.stringify(req.body);
+      if (Buffer.byteLength(raw, "utf8") > MAX_BODY) return null;
+      const value = JSON.parse(raw);
+      return value && !Array.isArray(value) && typeof value === "object" ? value : null;
+    } catch { return null; }
+  }
   const chunks = [];
   let bytes = 0;
   for await (const part of req) {
