@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         /^[0-9]{6,8}$/.test(body.token) && isOwnerEmail(body.email)) {
       const data = await verifyOtp(body.email.trim(), body.token);
       if (!data?.access_token || !isOwner(data.user) ||
-          !/^[A-Za-z0-9_\-.]{20,4096}$/.test(data.access_token)) {
+          !/^[A-Za-z0-9_.-]{20,4096}$/.test(data.access_token)) {
         return answer(res, 401, { error: "invalid_otp_or_owner" });
       }
       // User object from verified OTP is checked against immutable owner UID/email.
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
     }
     if (body.action === "accept_magic_link" && Object.keys(body).length === 2 &&
         typeof body.access_token === "string" &&
-        /^[A-Za-z0-9_\\-.]{20,4096}$/.test(body.access_token)) {
+        /^[A-Za-z0-9_.-]{20,4096}$/.test(body.access_token)) {
       // Do not trust URL fragment/token as identity. Ask Supabase Auth who
       // owns this token and compare immutable Owner UID + verified email.
       const url = new URL("/auth/v1/user", process.env.SUPABASE_URL);
