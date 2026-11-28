@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
 // Never put Supabase access tokens, OTP values, or service keys into localStorage.
 // The session is held only by the server's Secure HttpOnly same-site cookie.
 import PrivatePilotChat from "./PrivatePilotChat";
+import TerminalTitle from "../terminal/TerminalTitle";
 
 type Phase = "checking" | "email" | "signed-in";
 type Payload = { authenticated?: boolean; status?: string; error?: string };
@@ -24,6 +25,7 @@ async function session(body?: Record<string, string>): Promise<Payload> {
 }
 
 export default function PrivatePilotAccess({ active }: { active: boolean }) {
+  const [closed,setClosed]=useState(false);
   const [phase, setPhase] = useState<Phase>("checking");
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
@@ -70,18 +72,21 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
   }, []);
 
   useEffect(() => {
-    if (!active || phase !== "signed-in") return;
+    if (phase !== "signed-in") return;
     void checkLedger();
     const recheck = () => { if (document.visibilityState === "visible") void checkLedger(); };
     window.addEventListener("focus", recheck);
+    const timer=window.setInterval(recheck,30000);
     return () => {
       window.removeEventListener("focus", recheck);
+      window.clearInterval(timer);
       probe.current?.abort();
     };
-  }, [active, phase, checkLedger]);
+  }, [phase, checkLedger]);
 
   useEffect(() => {
     if (!active) return;
+    setClosed(false);
     let cancelled = false;
     // Supabase default Magic Link returns an access token as a URL fragment.
     // Clear it synchronously, then verify it server-side against Owner UID.
@@ -137,48 +142,46 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
     void handle("request_otp");
   }
 
-  return <section aria-label="P5.1R private AI pilot access" className="flex h-full flex-col gap-4 overflow-y-auto rounded-md border border-nota-border bg-nota-gray-dark p-5 font-nota text-sm text-nota-white">
-    <header className="border-b border-nota-border pb-3">
-      <p className="font-bold text-nota-cyan">IMPROMPTU · PRIVATE REAL AI PILOT</p>
-      <p className="mt-2 text-xs text-nota-yellow">Preview-only Magic Link · ModelArk free-only pilot · No paid fallback</p>
-    </header>
-    {phase === "checking" ? <p>Checking Owner session…</p> :
-      phase === "signed-in" ? <>
-        <p role="status">Owner session verified.</p>
-        <p>BytePlus ModelArk · Free Credits Only Mode confirmed by Owner. Provider quota remains authoritative.</p>
-        <div className="rounded border border-nota-border p-3" data-testid="pilot-budget-status">
-          <p role="status" className="text-nota-yellow">{ledgerNotice}</p>
-          {ledger && <div className="mt-2 flex flex-col gap-1">
-            <p>Ledger: CONNECTED</p>
-            <p>Total cap: USD {usd(ledger.total_cap_microusd)}</p>
-            <p>Daily cap: USD {usd(ledger.daily_cap_microusd)}</p>
-            <p>List-price equivalent used: USD {usd(ledger.spent_total_microusd)}</p>
-            <p>List-price equivalent reserved: USD {usd(ledger.reserved_total_microusd)}</p>
-            <p>Admission: {ledger.admission_enabled ? "ON" : "OFF"} · AI model: {modelReady ? "READY" : "UNAVAILABLE"}</p>
-          </div>}
-          {tokens && <div className="mt-2 flex flex-col gap-1">
-            <p>Local token cap: {tokens.token_cap.toLocaleString("en-US")}</p>
-            <p>Input / output: {tokens.input_tokens} / {tokens.output_tokens}</p>
-            <p>Token usage: {(tokens.input_tokens+tokens.output_tokens).toLocaleString("en-US")} · Reserved: {tokens.reserved_tokens}</p>
-            <p>Completed requests: {tokens.completed_requests}</p>
-            <p className="text-xs">Local usage is not the provider billing statement or remaining account quota.</p>
-          </div>}
-          <button type="button" disabled={ledgerBusy || busy} onClick={() => void checkLedger()} className="mt-3 rounded border border-nota-border px-3 py-2 disabled:opacity-50">Check budget ledger</button>
+  return <section aria-label="NOTAGENT terminal" data-testid="notagent-terminal" className={`rounded-md w-full h-full bg-nota-gray-dark/[.96] border border-solid border-nota-border font-nota text-sm shadow-terminal flex flex-col overflow-hidden cursor-default resize transition-all duration-100 ${closed?"scale-0 opacity-0":"scale-100 opacity-100"}`}>
+    <TerminalTitle closeTerminal={()=>setClosed(true)} />
+    {phase === "signed-in" ? <>
+      <div className="shrink-0 px-1 pt-1 text-nota-gray text-xs border-b border-nota-border">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="text-nota-green">Owner session verified.</span>
+          <span className={modelReady?"text-nota-green":"text-nota-yellow"}>{modelReady?"CONNECTED":"CHECK USAGE"}</span>
+          <button type="button" disabled={busy} onClick={()=>void handle("logout")} className="text-nota-yellow hover:text-nota-cyan">Sign out</button>
         </div>
-        <PrivatePilotChat active={active} ready={modelReady && !ledgerBusy} onRefresh={checkLedger} onSessionExpired={()=>{setPhase("email");setLedger(null);setTokens(null);setModelReady(false);setNotice("Owner session expired. Sign in again.");}} />
-        <button type="button" disabled={busy} onClick={() => void handle("logout")} className="w-fit rounded border border-nota-border px-3 py-2">Sign out</button>
-      </> :
-      <form onSubmit={submit} className="flex max-w-md flex-col gap-3">
-        <label htmlFor="pilot-owner-email">Owner email</label>
-        <input id="pilot-owner-email" type="email" autoComplete="email" required maxLength={254}
-          value={email} onChange={(event) => setEmail(event.target.value)}
-          disabled={busy}
-          className="rounded border border-nota-border bg-nota-black px-3 py-2 text-nota-white"/>
-        <button type="submit" disabled={busy} className="w-fit rounded bg-nota-cyan px-3 py-2 font-bold text-nota-black disabled:opacity-50">
-          Send Magic Link
-        </button>
+        <details data-testid="pilot-budget-status" className="pb-1">
+          <summary className="cursor-pointer text-nota-cyan">Usage · {tokens?((tokens.input_tokens+tokens.output_tokens).toLocaleString("en-US")+" / "+tokens.token_cap.toLocaleString("en-US")+" local tokens"):"Ledger"}</summary>
+          <p role="status" className="text-nota-yellow">{ledgerNotice}</p>
+          {ledger&&<div>
+            <p>Ledger: CONNECTED · Admission: {ledger.admission_enabled?"ON":"OFF"}</p>
+            <p>Nominal USD cap: {usd(ledger.total_cap_microusd)} total / {usd(ledger.daily_cap_microusd)} daily</p>
+            <p>Nominal USD used: {usd(ledger.spent_total_microusd)} · Reserved: {usd(ledger.reserved_total_microusd)}</p>
+          </div>}
+          {tokens&&<div>
+            <p>Input / output: {tokens.input_tokens} / {tokens.output_tokens} · Reserved: {tokens.reserved_tokens}</p>
+            <p>Completed requests: {tokens.completed_requests}</p>
+          </div>}
+          <p>BytePlus ModelArk · Dola-Seed-2.0-mini 260428 · Free-only, no paid fallback.</p>
+          <p>Local usage is not the provider invoice or remaining account quota.</p>
+          <button type="button" disabled={ledgerBusy||busy} onClick={()=>void checkLedger()} className="text-nota-yellow hover:text-nota-cyan disabled:opacity-40">Check budget ledger</button>
+        </details>
+        <p className="pb-1">AI-mediated · Public or dummy data only. Prompts go to BytePlus. Session-only history.</p>
+        {notice&&<p role="status" className="text-nota-red">{notice}</p>}
+      </div>
+      <PrivatePilotChat active={active&&!closed} ready={modelReady&&!ledgerBusy&&!busy} unresolved={!tokens||tokens.reserved_tokens>0} onRefresh={checkLedger} onSessionExpired={()=>{setPhase("email");setLedger(null);setTokens(null);setModelReady(false);setNotice("Owner session expired. Sign in again.");}}/>
+    </> : <div className="min-h-0 flex-1 overflow-y-auto terminal-scrollbar px-1 pt-1 pb-2 text-nota-blue">
+      <p className="terminal-title">==== NOTAGENT · Owner Access =======</p>
+      <p className="my-4">OiOi! Hi, we are <span className="font-bold text-nota-green">Prof. NOTA!</span></p>
+      <p className="mb-4">This AI-mediated conversation is available in the protected Preview.</p>
+      {phase==="checking"?<p>Checking Owner session…</p>:<form onSubmit={submit} className="flex max-w-md flex-col gap-2">
+        <label htmlFor="pilot-owner-email" className="text-nota-yellow">Owner email</label>
+        <input id="pilot-owner-email" type="email" autoComplete="email" required maxLength={254} value={email} onChange={e=>setEmail(e.target.value)} disabled={busy} className="rounded border border-nota-border bg-nota-black px-2 py-1 text-nota-gray"/>
+        <button type="submit" disabled={busy} className="w-fit font-bold text-nota-yellow hover:text-nota-cyan disabled:opacity-40">Send Magic Link</button>
       </form>}
-    {notice && <p role="status" className="text-nota-yellow">{notice}</p>}
-    <p className="mt-auto text-xs text-nota-gray">Never enter wallet seed phrases, passwords or private information. Authentication does not enable paid AI.</p>
+      {notice&&<p role="status" className="text-nota-yellow mt-2">{notice}</p>}
+      <p className="mt-4 text-nota-gray text-xs">Never enter seed phrases, credentials or private information. Authentication does not enable paid AI.</p>
+    </div>}
   </section>;
 }
