@@ -277,6 +277,38 @@ async function main() {
       await until(()=>evaluate('!!document.querySelector("#pilot-owner-email")&&!document.querySelector("#notagent-input")'),'logout removes transcript');
       assert.equal(await evaluate('JSON.stringify(localStorage).includes("Marker")||JSON.stringify(sessionStorage).includes("Marker")'),false);
       await healthy('P5.2 local logout and no transcript storage');
+      // Same terminal, new identity state; no external OAuth or inference calls.
+      await evaluate('('+(()=>{
+        const prior=window.fetch;window.__p53active=false;window.__p53refresh=0;
+        window.fetch=async(url,opt)=>{
+          if(url==='/api/ai/pilot-session'){
+            const action=opt?.body?JSON.parse(opt.body).action:null;
+            if(action==='refresh'&&window.__p53canRefresh){window.__p53active=true;window.__p53refresh++;}
+            if(action==='logout')window.__p53active=false;
+            return Response.json({google:true,authenticated:window.__p53active,role:'member',session_key:window.__p53active?'member-session':''});
+          }
+          if(url==='/api/ai/pilot-budget'){
+            if(!window.__p53active)return Response.json({error:'session_required'},{status:401});
+            return Response.json({role:'member',session_key:'member-session',member_usage:{input_tokens:123,output_tokens:20,reasoning_tokens:0,reserved_tokens:0,completed_requests:1,daily_requests:1},unresolved:false,model_enabled:true});
+          }
+          return prior(url,opt);
+        };
+      }).toString()+')()');
+      await click('[data-testid=mode-console]');await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.body.innerText.includes("Continue with Google")'),'P5.3 Google entry fixture');
+      assert.equal(await evaluate('!!document.querySelector("#pilot-owner-email")'),false);
+      await evaluate('window.__p53canRefresh=true;window.__p53active=true');
+      await click('[data-testid=mode-console]');await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.body.innerText.includes("Identity connected.") && !!document.querySelector("#notagent-input")'),'P5.3 member terminal');
+      await evaluate('document.querySelector("[data-testid=pilot-budget-status]").open=true');
+      assert.equal(await evaluate('document.body.innerText.includes("Owner access management")||document.body.innerText.includes("Nominal USD cap")'),false);
+      assert.ok(await evaluate('document.body.innerText.includes("Your requests today: 1 / 3")'));
+      await evaluate('window.__p53active=false');
+      await byText('Check budget ledger');
+      await until(()=>evaluate('window.__p53refresh===1 && document.body.innerText.includes("Budget ledger verified.")'),'P5.3 automatic refresh');
+      await healthy('P5.3 Google entry, private Member usage and refresh fixture');
+      await byText('Sign out');
+      await until(()=>evaluate('document.body.innerText.includes("Continue with Google")&&!document.querySelector("#notagent-input")'),'P5.3 logout clears transcript');
       return;
     }
 
