@@ -239,7 +239,9 @@ async function main() {
       assert.deepEqual(await evaluate(styles('[data-testid=notagent-terminal]')),consoleStyle);
       async function prompt(value){
         await evaluate('document.querySelector("#notagent-input").focus()');
-        await send('Input.insertText',{text:value});await enter();
+        await send('Input.insertText',{text:value});
+        await until(()=>evaluate('Array.from(document.querySelectorAll("[data-testid=notagent-terminal] button")).some(b=>b.textContent.trim()==="Send"&&!b.disabled)'), 'composer ready');
+        await enter();
       }
       async function completed(count){
         await until(()=>evaluate('window.__p52requests.length==='+count+' && document.body.innerText.includes("Response complete. Usage recorded.") && !document.querySelector("#notagent-input").disabled'),'completed turn '+count);
