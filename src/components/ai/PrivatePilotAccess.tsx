@@ -2,9 +2,12 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
 
 // Never put Supabase access tokens, OTP values, or service keys into localStorage.
 // The session is held only by the server's Secure HttpOnly same-site cookie.
+import PrivatePilotChat from "./PrivatePilotChat";
+
 type Phase = "checking" | "email" | "signed-in";
 type Payload = { authenticated?: boolean; status?: string; error?: string };
 type Ledger = { admission_enabled: boolean; total_cap_microusd: number; daily_cap_microusd: number; spent_total_microusd: number; reserved_total_microusd: number };
+type TokenLedger = { token_cap: number; input_tokens: number; output_tokens: number; reasoning_tokens: number; reserved_tokens: number; completed_requests: number };
 const usd = (micros: number) => (micros / 1000000).toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
 
 async function session(body?: Record<string, string>): Promise<Payload> {
@@ -26,6 +29,8 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [ledger, setLedger] = useState<Ledger | null>(null);
+  const [tokens, setTokens] = useState<TokenLedger | null>(null);
+  const [modelReady, setModelReady] = useState(false);
   const [ledgerNotice, setLedgerNotice] = useState("");
   const [ledgerBusy, setLedgerBusy] = useState(false);
   const probe = useRef<AbortController | null>(null);
@@ -34,28 +39,31 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
     probe.current?.abort();
     const controller = new AbortController();
     probe.current = controller;
-    setLedger(null);
     setLedgerBusy(true);
     setLedgerNotice("Checking budget ledger…");
     try {
       const response = await fetch("/api/ai/pilot-budget", {
         credentials: "same-origin", cache: "no-store", signal: controller.signal
       });
-      const data = await response.json() as { ledger?: Ledger; error?: string; model_enabled?: boolean };
+      const data = await response.json() as { ledger?: Ledger; tokens?: TokenLedger; error?: string; model_enabled?: boolean };
       if (controller.signal.aborted) return;
       if (response.status === 401) {
+        setLedger(null);setTokens(null);setModelReady(false);
         setPhase("email");
         setNotice("Owner session expired or missing. Request a new Magic Link on this Preview.");
         return;
       }
-      if (!response.ok || !data.ledger || data.model_enabled !== false) {
+      if (!response.ok || !data.ledger || typeof data.model_enabled !== "boolean") {
+        setLedger(null);setTokens(null);setModelReady(false);
         setLedgerNotice("Budget ledger unavailable (" + (data.error || "invalid_response") + "). AI remains disabled.");
         return;
       }
       setLedger(data.ledger);
+      setTokens(data.tokens||null);
+      setModelReady(data.model_enabled===true);
       setLedgerNotice("Budget ledger verified.");
     } catch {
-      if (!controller.signal.aborted) setLedgerNotice("Budget check unavailable. AI remains disabled.");
+      if (!controller.signal.aborted) {setLedger(null);setTokens(null);setModelReady(false);setLedgerNotice("Budget check unavailable. AI remains disabled.");}
     } finally {
       if (!controller.signal.aborted) setLedgerBusy(false);
     }
@@ -108,7 +116,7 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
         setNotice("Check your Owner email and open the newest Magic Link on this protected Preview.");
       } else if (action === "logout") {
         probe.current?.abort();
-        setLedger(null);
+        setLedger(null);setTokens(null);setModelReady(false);
         setLedgerNotice("");
         setLedgerBusy(false);
         setPhase("email");
@@ -132,24 +140,32 @@ export default function PrivatePilotAccess({ active }: { active: boolean }) {
   return <section aria-label="P5.1R private AI pilot access" className="flex h-full flex-col gap-4 overflow-y-auto rounded-md border border-nota-border bg-nota-gray-dark p-5 font-nota text-sm text-nota-white">
     <header className="border-b border-nota-border pb-3">
       <p className="font-bold text-nota-cyan">IMPROMPTU · PRIVATE REAL AI PILOT</p>
-      <p className="mt-2 text-xs text-nota-yellow">Preview-only Magic Link · AI model disconnected · No billable calls</p>
+      <p className="mt-2 text-xs text-nota-yellow">Preview-only Magic Link · ModelArk free-only pilot · No paid fallback</p>
     </header>
     {phase === "checking" ? <p>Checking Owner session…</p> :
       phase === "signed-in" ? <>
         <p role="status">Owner session verified.</p>
-        <p>Model integration remains disabled. This is a read-only budget check.</p>
+        <p>BytePlus ModelArk · Free Credits Only Mode confirmed by Owner. Provider quota remains authoritative.</p>
         <div className="rounded border border-nota-border p-3" data-testid="pilot-budget-status">
           <p role="status" className="text-nota-yellow">{ledgerNotice}</p>
           {ledger && <div className="mt-2 flex flex-col gap-1">
             <p>Ledger: CONNECTED</p>
             <p>Total cap: USD {usd(ledger.total_cap_microusd)}</p>
             <p>Daily cap: USD {usd(ledger.daily_cap_microusd)}</p>
-            <p>Spent: USD {usd(ledger.spent_total_microusd)}</p>
-            <p>Reserved: USD {usd(ledger.reserved_total_microusd)}</p>
-            <p>Admission: {ledger.admission_enabled ? "ON" : "OFF"} · AI model: OFF</p>
+            <p>List-price equivalent used: USD {usd(ledger.spent_total_microusd)}</p>
+            <p>List-price equivalent reserved: USD {usd(ledger.reserved_total_microusd)}</p>
+            <p>Admission: {ledger.admission_enabled ? "ON" : "OFF"} · AI model: {modelReady ? "READY" : "UNAVAILABLE"}</p>
+          </div>}
+          {tokens && <div className="mt-2 flex flex-col gap-1">
+            <p>Local token cap: {tokens.token_cap.toLocaleString("en-US")}</p>
+            <p>Input / output: {tokens.input_tokens} / {tokens.output_tokens}</p>
+            <p>Token usage: {(tokens.input_tokens+tokens.output_tokens).toLocaleString("en-US")} · Reserved: {tokens.reserved_tokens}</p>
+            <p>Completed requests: {tokens.completed_requests}</p>
+            <p className="text-xs">Local usage is not the provider billing statement or remaining account quota.</p>
           </div>}
           <button type="button" disabled={ledgerBusy || busy} onClick={() => void checkLedger()} className="mt-3 rounded border border-nota-border px-3 py-2 disabled:opacity-50">Check budget ledger</button>
         </div>
+        <PrivatePilotChat active={active} ready={modelReady && !ledgerBusy} onRefresh={checkLedger} onSessionExpired={()=>{setPhase("email");setLedger(null);setTokens(null);setModelReady(false);setNotice("Owner session expired. Sign in again.");}} />
         <button type="button" disabled={busy} onClick={() => void handle("logout")} className="w-fit rounded border border-nota-border px-3 py-2">Sign out</button>
       </> :
       <form onSubmit={submit} className="flex max-w-md flex-col gap-3">
