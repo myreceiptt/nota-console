@@ -246,3 +246,45 @@ test('Session refresh, invalid or expired bearer, cross-origin and local logout'
     } finally { global.fetch = original; }
   });
 });
+
+test('Read-only budget endpoint requires Owner, reports missing ledger and never reserves', async () => {
+  await withConfig(async () => {
+    const handler = (await import('../api/ai/pilot-budget.mjs')).default;
+    const token = 'a'.repeat(120);
+    const original = global.fetch;
+    const ledger = {admission_enabled:false,total_cap_microusd:5000000,daily_cap_microusd:1000000,spent_total_microusd:0,reserved_total_microusd:0};
+    let calls = [];
+    global.fetch = async (url) => {
+      calls.push(new URL(url).pathname);
+      if (String(url).endsWith('/auth/v1/user')) return {ok:true,json:async()=>({id:OWNER_ID,email:'owner@example.com',email_confirmed_at:'2026-01-01T00:00:00Z'})};
+      assert.match(String(url), /\/rest\/v1\/rpc\/p51r_status$/);
+      return {ok:true,json:async()=>ledger};
+    };
+    try {
+      const noOwner = mockRes();
+      await handler(request('GET'),noOwner);
+      assert.equal(noOwner.statusCode,401);
+      assert.equal(calls.length,0);
+      const req = request('GET');
+      req.headers.cookie = (await auth).COOKIE_NAME + '=' + token;
+      const noKey = mockRes();
+      await handler(req,noKey);
+      assert.equal(noKey.statusCode,503);
+      assert.equal(noKey.body.error,'ledger_unavailable');
+      process.env.SUPABASE_SERVICE_ROLE_KEY = 'server-only-test';
+      const ready = mockRes();
+      await handler(req,ready);
+      assert.equal(ready.statusCode,200);
+      assert.deepEqual(ready.body,{ledger,model_enabled:false});
+      assert.deepEqual(calls,['/auth/v1/user','/auth/v1/user','/rest/v1/rpc/p51r_status']);
+      const write = mockRes();
+      await handler(request('POST',{}),write);
+      assert.equal(write.statusCode,405);
+      process.env.VERCEL_ENV='production';
+      const prod = mockRes();
+      await handler(req,prod);
+      assert.equal(prod.statusCode,503);
+      assert.equal(calls.length,3);
+    } finally { global.fetch=original; }
+  });
+});
