@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { configured, sameOrigin, verifiedOwner } from "../../lib/ai/pilot-auth.mjs";
 import { arkConfigured, validPrompt, runArk, PilotError, MODEL } from "../../lib/ai/modelark.mjs";
+import { p53Enabled,p53Principal } from "../../lib/ai/p53-auth.mjs";
 import { buildContext } from "../../lib/ai/notagent-context.mjs";
 const MAX_BODY_BYTES=65536;
 function headers(res) {
@@ -33,8 +34,12 @@ export default async function handler(req,res) {
  if(!arkConfigured()||!configured())return reject(res,503,"pilot_not_enabled");
  if(!sameOrigin(req))return reject(res,403,"same_origin_required");
  if(!/^application\/json(?:\s*;|\s*$)/i.test(req.headers["content-type"]||""))return reject(res,415,"json_required");
+ let principal;
  try{
-  if(!await verifiedOwner(req))return reject(res,401,"owner_session_required");
+  if(p53Enabled()){
+   principal=await p53Principal(req);
+   if(!principal)return reject(res,401,"session_required");
+  }else if(!await verifiedOwner(req))return reject(res,401,"owner_session_required");
  }catch{return reject(res,503,"auth_unavailable");}
  const body=await readBody(req);
  if(!body||typeof body!=="object"||Array.isArray(body)||!Object.keys(body).every(k=>k==="message"||k==="history")||!validPrompt(body.message)||!buildContext(body.message,body.history))return reject(res,400,"invalid_message");
@@ -58,7 +63,7 @@ export default async function handler(req,res) {
  const disconnect=new AbortController();
  res.once?.("close",()=>{if(!res.writableEnded)disconnect.abort();});
  try{
-  const result=await runArk({id,message:body.message,history:body.history,onContext:value=>{context=value;},signal:disconnect.signal,onDelta:delta=>emit("delta",{text:delta})});
+  const result=await runArk({id,principal,message:body.message,history:body.history,onContext:value=>{context=value;},signal:disconnect.signal,onDelta:delta=>emit("delta",{text:delta})});
   emit("done",result);
   if(!res.destroyed)res.end();
  }catch(e){

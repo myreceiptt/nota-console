@@ -10,7 +10,7 @@ const pilotVisible = import.meta.env.VITE_P51R_PREVIEW_UI === "true";
 type Mode = "console" | "ai" | "foundation" | "pilot";
 
 export default function ModeShell() {
-  const [mode, setMode] = useState<Mode>(() => pilotVisible && /(?:^#|&)access_token=/.test(window.location.hash) ? "pilot" : "console");
+  const [mode, setMode] = useState<Mode>(() => pilotVisible && (/(?:^#|&)access_token=/.test(window.location.hash)||new URLSearchParams(window.location.search).get("notagent")==="1") ? "pilot" : "console");
   const consoleFocusRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

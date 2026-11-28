@@ -3,6 +3,8 @@ import {
   isOwnerEmail, setSession, clearSession
 } from "../../lib/ai/pilot-auth.mjs";
 
+import { p53Enabled, handleP53 } from "../../lib/ai/p53-auth.mjs";
+
 const MAX_BODY = 8192; // Encrypted Supabase access JWT is accepted once, then stored in HttpOnly cookie.
 function answer(res, status, payload) {
   res.statusCode = status;
@@ -38,6 +40,7 @@ async function input(req) {
 
 export default async function handler(req, res) {
   if (process.env.VERCEL_ENV !== "preview") return answer(res, 503, { error: "pilot_not_enabled" });
+  if (p53Enabled()) return handleP53(req,res,input);
   if (!configured()) return answer(res, 503, { error: "pilot_auth_not_configured" });
   // Session status is a GET, all mutations POST and strictly same-origin.
   if (req.method === "GET") {

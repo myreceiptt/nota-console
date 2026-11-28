@@ -44,7 +44,7 @@ export default function PrivatePilotChat({active,ready,unresolved,onRefresh,onSe
   let admitted=false,completed=false,answer="",usage:Usage|undefined,context="";
   try{
    const response=await fetch("/api/ai/pilot",{method:"POST",credentials:"same-origin",cache:"no-store",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:prompt,history}),signal:controller.signal});
-   if(response.status===401){onSessionExpired();return;}
+   if(response.status===401){onSessionExpired();throw new Error("session_expired");}
    if(!response.ok){const data=await response.json().catch(()=>({}));throw new Error(typeof data.error==="string"?data.error:"request_unavailable");}
    admitted=true;
    if(!response.body||!response.headers.get("content-type")?.includes("text/event-stream"))throw new Error("stream_unavailable");
