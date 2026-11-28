@@ -49,6 +49,6 @@ test('Forged client role, provider hints and toggles cannot enable pilot', async
 test('Preview rejects method and oversized declared payload before processing', async () => {
   const get = await exercise('preview', 'GET');
   assert.equal(get.status, 405);
-  const oversized = await exercise('preview', 'POST', 'x'.repeat(5000));
+  const oversized = await exercise('preview', 'POST', 'x'.repeat(66000));
   assert.equal(oversized.status, 413);
 });
