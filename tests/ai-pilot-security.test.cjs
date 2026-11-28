@@ -288,3 +288,106 @@ test('Read-only budget endpoint requires Owner, reports missing ledger and never
     } finally { global.fetch=original; }
   });
 });
+
+const ark = import('../lib/ai/modelark.mjs');
+async function withArk(fn) {
+  await withConfig(async()=>{
+    const {BRANCH}=await ark;
+    const names=['VERCEL_GIT_COMMIT_REF','P51R_ARK_FREE_ONLY','ARK_API_KEY','SUPABASE_SERVICE_ROLE_KEY'];
+    const before=Object.fromEntries(names.map(k=>[k,process.env[k]]));
+    Object.assign(process.env,{VERCEL_GIT_COMMIT_REF:BRANCH,P51R_ARK_FREE_ONLY:'true',ARK_API_KEY:'mock-test-key-not-a-credential',SUPABASE_SERVICE_ROLE_KEY:'server-only-test'});
+    try {await fn();}
+    finally {for(const k of names){if(before[k]===undefined)delete process.env[k];else process.env[k]=before[k];}}
+  });
+}
+function arkSSE({usage=true,model='seed-2-0-mini-260428',done=true}={}) {
+  const chunk=(x)=>'data: '+JSON.stringify(x)+'\n\n';
+  const data=chunk({id:'test-request',model,choices:[{delta:{content:'Hello'},finish_reason:null}]})+
+    chunk({id:'test-request',model,choices:[{delta:{content:' world'},finish_reason:'stop'}]})+
+    (usage?chunk({id:'test-request',model,choices:[],usage:{prompt_tokens:80,completion_tokens:20,total_tokens:100,completion_tokens_details:{reasoning_tokens:0}}}):'')+
+    (done?'data: [DONE]\n\n':'');
+  const buf=new TextEncoder().encode(data);
+  const stream=new ReadableStream({start(controller){for(let i=0;i<buf.length;i+=7)controller.enqueue(buf.slice(i,i+7));controller.close();}});
+  return new Response(stream,{headers:{'content-type':'text/event-stream'}});
+}
+test('ModelArk real adapter contract: reserve before provider, fixed model, fragmented SSE, settle actual usage',async()=>{
+ await withArk(async()=>{
+  const original=global.fetch;const calls=[];let out='';
+  global.fetch=async(url,opt)=>{
+   const p=new URL(url).pathname;calls.push(p);
+   if(p.endsWith('/p51r_ark_reserve'))return Response.json(true);
+   if(p.endsWith('/p51r_ark_settle')){
+    assert.deepEqual(JSON.parse(opt.body),{p_id:OWNER_ID,p_input:80,p_output:20,p_reasoning:0,p_provider_id:'test-request'});
+    return Response.json(true);
+   }
+   assert.equal(String(url),'https://ark.ap-southeast.bytepluses.com/api/v3/chat/completions');
+   assert.equal(opt.headers.Authorization,'Bearer mock-test-key-not-a-credential');
+   const b=JSON.parse(opt.body);
+   assert.equal(b.model,'seed-2-0-mini-260428');assert.equal(b.max_completion_tokens,800);
+   assert.equal(b.reasoning_effort,'minimal');assert.equal(b.thinking.type,'disabled');
+   assert.equal(b.service_tier,'default');assert.equal(b.stream_options.include_usage,true);
+   assert.equal(b.tools,undefined);assert.equal(b.messages.length,2);
+   return arkSSE();
+  };
+  try{
+   const r=await (await ark).runArk({id:OWNER_ID,message:'Test',onDelta:d=>out+=d});
+   assert.equal(out,'Hello world');assert.deepEqual(r.usage,{input:80,output:20,reasoning:0});
+   assert.deepEqual(calls,['/rest/v1/rpc/p51r_ark_reserve','/api/v3/chat/completions','/rest/v1/rpc/p51r_ark_settle']);
+  }finally{global.fetch=original;}
+ });
+});
+test('ModelArk rejects wrong environment, failed admission, quota error and missing usage without retry or release',async()=>{
+ await withArk(async()=>{
+  const original=global.fetch;const {runArk}=await ark;let calls=[];
+  try{
+   global.fetch=async(url)=>{calls.push(String(url));return Response.json(false);};
+   process.env.VERCEL_ENV='production';
+   await assert.rejects(runArk({id:OWNER_ID,message:'Test'}),{code:'pilot_not_enabled'});
+   assert.equal(calls.length,0);process.env.VERCEL_ENV='preview';
+   await assert.rejects(runArk({id:OWNER_ID,message:'Test'}),{code:'admission_denied'});
+   assert.equal(calls.length,1);
+   for(const [reply,code] of [[()=>new Response('',{status:429}),'provider_quota_or_rate_limit'],[()=>arkSSE({usage:false}),'usage_unverified'],[()=>arkSSE({model:'other-model'}),'model_mismatch'],[()=>arkSSE({done:false}),'usage_unverified']]){
+    calls=[];
+    global.fetch=async(url)=>{calls.push(String(url));return String(url).endsWith('p51r_ark_reserve')?Response.json(true):reply();};
+    await assert.rejects(runArk({id:OWNER_ID,message:'Test'}),{code});
+    assert.equal(calls.length,2);assert.ok(!calls.some(p=>p.endsWith('p51r_ark_settle')));
+   }
+  }finally{global.fetch=original;}
+ });
+});
+test('Live route rejects anonymous, cross-origin and client model overrides before reserve',async()=>{
+ await withArk(async()=>{
+  const handler=(await import('../api/ai/pilot.mjs')).default;
+  const original=global.fetch;let calls=0;
+  global.fetch=async()=>{calls++;return Response.json({id:OWNER_ID,email:'owner@example.com',email_confirmed_at:'2026-01-01T00:00:00Z'});};
+  try{
+   let req=request('POST',{message:'hello'}),res=mockRes();await handler(req,res);
+   assert.equal(res.statusCode,401);assert.equal(calls,0);
+   req=request('POST',{message:'hello'});req.headers.origin='https://foreign.example';res=mockRes();await handler(req,res);
+   assert.equal(res.statusCode,403);assert.equal(calls,0);
+   req=request('POST',{message:'hello',model:'other'});req.headers.cookie=(await auth).COOKIE_NAME+'='+'a'.repeat(120);
+   res=mockRes();await handler(req,res);assert.equal(res.statusCode,400);assert.equal(calls,1);
+  }finally{global.fetch=original;}
+ });
+});
+test('Live route streams sanitized deltas and reports settlement only after usage verified',async()=>{
+ await withArk(async()=>{
+  const handler=(await import('../api/ai/pilot.mjs')).default;
+  const original=global.fetch;let calls=[];
+  global.fetch=async(url)=>{
+   const p=new URL(url).pathname;calls.push(p);
+   if(p==='/auth/v1/user')return Response.json({id:OWNER_ID,email:'owner@example.com',email_confirmed_at:'2026-01-01T00:00:00Z'});
+   if(p.endsWith('p51r_ark_reserve')||p.endsWith('p51r_ark_settle'))return Response.json(true);
+   return arkSSE();
+  };
+  try{
+   const req=request('POST',{message:'hello'});req.headers.cookie=(await auth).COOKIE_NAME+'='+'a'.repeat(120);
+   const headers={};let output='';
+   const res={statusCode:200,setHeader(k,v){headers[k.toLowerCase()]=v;},write(s){output+=s;},end(s=''){output+=s;this.writableEnded=true;}};
+   await handler(req,res);
+   assert.equal(res.statusCode,200);assert.match(headers['content-type'],/text\/event-stream/);
+   assert.match(output,/event: meta/);assert.match(output,/event: delta/);assert.match(output,/event: done/);
+   assert.deepEqual(calls,['/auth/v1/user','/rest/v1/rpc/p51r_ark_reserve','/api/v3/chat/completions','/rest/v1/rpc/p51r_ark_settle']);
+  }finally{global.fetch=original;}
+ });
+});
