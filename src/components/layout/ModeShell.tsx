@@ -35,9 +35,9 @@ export default function ModeShell() {
               : "border-nota-border bg-nota-black/[.75] text-nota-white hover:border-nota-cyan"
           }`}
         >
-          CONSOLE
+          {pilotVisible ? "CONOTA" : "CONSOLE"}
         </button>
-        <button
+        {!pilotVisible && <button
           type="button"
           data-testid="mode-ai"
           aria-pressed={mode === "ai"}
@@ -49,8 +49,8 @@ export default function ModeShell() {
           }`}
         >
           AI CHAT <span className="text-[.65rem] opacity-80">MOCK</span>
-        </button>
-        <button
+        </button>}
+        {!pilotVisible && <button
           type="button"
           data-testid="mode-foundation"
           aria-pressed={mode === "foundation"}
@@ -60,7 +60,7 @@ export default function ModeShell() {
             : "rounded-md border border-nota-border bg-nota-black/[.75] px-3 py-1.5 font-nota text-xs font-bold text-nota-white hover:border-nota-yellow"}
         >
           FOUNDATION <span className="text-[.65rem] opacity-80">SANDBOX</span>
-        </button>
+        </button>}
         {pilotVisible && <button
           type="button"
           data-testid="mode-pilot"
@@ -69,7 +69,7 @@ export default function ModeShell() {
           className={mode === "pilot"
             ? "rounded-md border border-nota-cyan bg-nota-black px-3 py-1.5 font-nota text-xs font-bold text-nota-cyan"
             : "rounded-md border border-nota-border bg-nota-black/[.75] px-3 py-1.5 font-nota text-xs font-bold text-nota-white hover:border-nota-cyan"}
-        >PRIVATE PILOT</button>}
+        >NOTAGENT</button>}
       </nav>
 
       <div
