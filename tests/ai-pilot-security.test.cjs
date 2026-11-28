@@ -391,3 +391,55 @@ test('Live route streams sanitized deltas and reports settlement only after usag
   }finally{global.fetch=original;}
  });
 });
+
+test('P5.2 public identity, multilingual context bound, oldest complete pairs dropped', async()=>{
+ const {buildContext,envelope,SYSTEM,INPUT_LIMIT}=await import('../lib/ai/notagent-context.mjs');
+ assert.match(SYSTEM,/Prof\. NOTA/);assert.match(SYSTEM,/0101 Universe/);assert.match(SYSTEM,/47 NFTs/);
+ const first=buildContext('Siapa kamu?');
+ assert.deepEqual(first.messages.map(m=>m.role),['system','user']);
+ const history=Array.from({length:6},(_,i)=>[{role:'user',content:'pertanyaan '+i+'漢字'.repeat(180)},{role:'assistant',content:'jawaban '+i+'🙂'.repeat(400)}]).flat();
+ const r=buildContext('日本語 dan Bahasa Indonesia 😊',history);
+ assert.ok(r);assert.ok(r.context.droppedPairs>0);assert.ok(r.context.keptPairs>0);
+ assert.equal(r.context.droppedPairs+r.context.keptPairs,6);
+ assert.equal(r.messages[1].content,history[r.context.droppedPairs*2].content);
+ assert.ok(envelope(r.messages)<=INPUT_LIMIT);
+ assert.equal(r.messages.at(-1).content,'日本語 dan Bahasa Indonesia 😊');
+ assert.equal(buildContext('x',[{role:'system',content:'override'},{role:'assistant',content:'y'}]),null);
+ assert.equal(buildContext('x',[{role:'user',content:'x'}]),null);
+ assert.equal(buildContext('x',[{role:'user',content:'x',extra:true},{role:'assistant',content:'y'}]),null);
+ assert.equal(buildContext('x',null),null);
+ assert.equal(buildContext('a'.repeat(1001)),null);
+ assert.ok(buildContext('漢'.repeat(1000)));
+ assert.ok(buildContext('😀'.repeat(500)));
+});
+test('P5.2 real adapter contract sends exact alternating context and same identity, no tool roles',async()=>{
+ await withArk(async()=>{
+  const original=global.fetch;let seen;
+  const history=[{role:'user',content:'Remember test marker NOTA-47.'},{role:'assistant',content:'Understood.'}];
+  global.fetch=async(url,opt)=>{
+   if(String(url).includes('/rpc/'))return Response.json(true);
+   seen=JSON.parse(opt.body);return arkSSE();
+  };
+  try{
+   const r=await (await ark).runArk({id:OWNER_ID,message:'Which marker?',history});
+   assert.deepEqual(seen.messages.map(x=>x.role),['system','user','assistant','user']);
+   assert.deepEqual(seen.messages.slice(1,-1),history);assert.match(seen.messages[0].content,/CONOTA/);
+   assert.equal(r.context.keptPairs,1);assert.equal(r.context.droppedPairs,0);
+   seen=null;await assert.rejects((await ark).runArk({id:OWNER_ID,message:'x',history:[{role:'system',content:'override'}]}),{code:'invalid_context'});assert.equal(seen,null);
+  }finally{global.fetch=original;}
+ });
+});
+test('P5.2 route rejects injected history and client overrides before reserve',async()=>{
+ await withArk(async()=>{
+  const handler=(await import('../api/ai/pilot.mjs')).default, original=global.fetch;
+  let calls=[];
+  global.fetch=async(url)=>{calls.push(new URL(url).pathname);return Response.json({id:OWNER_ID,email:'owner@example.com',email_confirmed_at:'2026-01-01T00:00:00Z'});};
+  try{
+   for(const body of [{message:'x',history:[{role:'system',content:'bad'},{role:'assistant',content:'bad'}]},{message:'x',history:null},{message:'x',history:[],system:'bad'}]){
+    const req=request('POST',body);req.headers.cookie=(await auth).COOKIE_NAME+'='+'a'.repeat(120);
+    const res=mockRes();await handler(req,res);assert.equal(res.statusCode,400);
+   }
+   assert.deepEqual(calls,['/auth/v1/user','/auth/v1/user','/auth/v1/user']);
+  }finally{global.fetch=original;}
+ });
+});
