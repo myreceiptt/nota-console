@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/p51r-ark-smoke.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "deploy": "gh-pages -d dist",
