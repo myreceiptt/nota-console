@@ -197,3 +197,52 @@ test('Other Supabase email send failures do not masquerade as exhausted quota', 
     } finally { global.fetch = original; }
   });
 });
+
+test('Session refresh, invalid or expired bearer, cross-origin and local logout', async () => {
+  await withConfig(async () => {
+    const handler = (await sessionHandler).default;
+    const { COOKIE_NAME } = await auth;
+    const token = 'a'.repeat(120);
+    const original = global.fetch;
+    let status = 200, calls = 0;
+    global.fetch = async (url, options) => {
+      calls++;
+      assert.match(String(url), /\/auth\/v1\/user$/);
+      assert.equal(options.headers.Authorization, 'Bearer ' + token);
+      return { ok: status === 200, status, json: async () => ({
+        id: OWNER_ID, email: 'owner@example.com', email_confirmed_at: '2026-01-01T00:00:00Z'
+      }) };
+    };
+    try {
+      const anonymous = mockRes();
+      await handler(request('GET'), anonymous);
+      assert.deepEqual(anonymous.body, { authenticated: false });
+      assert.equal(calls, 0);
+      const authenticatedRequest = request('GET');
+      authenticatedRequest.headers.cookie = COOKIE_NAME + '=' + token;
+      for (let i = 0; i < 2; i++) {
+        const res = mockRes();
+        await handler(authenticatedRequest, res);
+        assert.deepEqual(res.body, { authenticated: true });
+      }
+      status = 401;
+      const expired = mockRes();
+      await handler(authenticatedRequest, expired);
+      assert.deepEqual(expired.body, { authenticated: false });
+      const cross = request('POST', { action: 'logout' });
+      cross.headers.origin = 'https://foreign.example';
+      const denied = mockRes();
+      await handler(cross, denied);
+      assert.equal(denied.statusCode, 403);
+      assert.equal(denied.headers['set-cookie'], undefined);
+      const logout = mockRes();
+      await handler(request('POST', { action: 'logout' }), logout);
+      assert.deepEqual(logout.body, { authenticated: false });
+      assert.match(logout.headers['set-cookie'], /Max-Age=0; HttpOnly; Secure; SameSite=Strict/);
+      const after = mockRes();
+      await handler(request('GET'), after);
+      assert.deepEqual(after.body, { authenticated: false });
+      assert.equal(calls, 3);
+    } finally { global.fetch = original; }
+  });
+});
