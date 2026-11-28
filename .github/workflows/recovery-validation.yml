@@ -61,3 +61,8 @@ jobs:
 
       - name: Browser recovery smoke test
         run: node tests/browser-recovery.cjs
+
+      - name: P5.2 protected-mode browser fixture (zero provider calls)
+        run: |
+          VITE_P51R_PREVIEW_UI=true yarn build
+          P52_BROWSER=1 node tests/browser-recovery.cjs
