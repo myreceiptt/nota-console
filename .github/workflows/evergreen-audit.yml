@@ -12,6 +12,10 @@ on:
       - "scripts/evergreen-refresh.cjs"
       - "tests/browser-recovery.cjs"
       - "tests/ai-foundation.test.cjs"
+      - "tests/ai-pilot-deny.test.cjs"
+      - "tests/ai-pilot-security.test.cjs"
+      - "tests/p53-auth.test.cjs"
+      - "tests/p54-canon.test.cjs"
       - "api/**"
       - "lib/ai/**"
       - "src/components/ai/**"
@@ -64,11 +68,19 @@ jobs:
       - name: Foundation sandbox HTTP contract tests (zero LLM calls)
         run: yarn test:foundation
 
+      - name: P5.1R deny-first pilot HTTP contract tests (no provider calls)
+        run: node --test tests/ai-pilot-deny.test.cjs tests/ai-pilot-security.test.cjs tests/p53-auth.test.cjs tests/p54-canon.test.cjs
+
       - name: Vite production build
         run: yarn build
 
       - name: Chrome regression smoke
         run: node tests/browser-recovery.cjs
+
+      - name: P5.2 protected-mode browser fixture (zero provider calls)
+        run: |
+          VITE_P51R_PREVIEW_UI=true yarn build
+          P52_BROWSER=1 node tests/browser-recovery.cjs
 
       - name: Flag security findings (do not silently mark clean)
         if: always()

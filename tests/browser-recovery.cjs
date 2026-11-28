@@ -190,6 +190,128 @@ async function main() {
 
     console.log('PASS: 7 browser smoke checks (6 terminal + 1 Analytics v2)');
 
+
+    if(process.env.P52_BROWSER==="1"){
+      await send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+      await reset();
+      assert.deepEqual(await evaluate('Array.from(document.querySelectorAll("nav button")).map(x=>x.textContent.trim())'),['CONOTA','NOTAGENT']);
+      const styles=selector=>'(()=>{const el=document.querySelector('+JSON.stringify(selector)+');const c=getComputedStyle(el);return [c.fontFamily,c.fontSize,c.lineHeight,c.backgroundColor,c.borderColor,c.borderRadius,c.boxShadow,el.getBoundingClientRect().width,el.getBoundingClientRect().height]})()';
+      const consoleStyle=await evaluate(styles('[data-testid=console-mode-panel] section'));
+      await type('!whois!');await enter();await until(()=>evaluate('document.body.innerText.includes("A Straight Line of Our Origin")'),'CONOTA canon');
+      await healthy('P5.2 CONOTA original canon and navigation');
+      const fixture=()=>{
+        window.__p52requests=[];
+        window.__p52authenticated=true;
+        window.__p52ledger={admission_enabled:true,total_cap_microusd:5000000,daily_cap_microusd:1000000,spent_total_microusd:154,reserved_total_microusd:0};
+        window.confirm=()=>true;
+        const original=window.fetch;
+        window.fetch=async(url,opt)=>{
+          if(url==='/api/ai/pilot-session'){
+            if(opt?.body&&JSON.parse(opt.body).action==='logout')window.__p52authenticated=false;
+            return Response.json({authenticated:window.__p52authenticated});
+          }
+          if(url==='/api/ai/pilot-budget'){
+            if(!window.__p52authenticated)return Response.json({error:'owner_session_required'},{status:401});
+            return Response.json({ledger:window.__p52ledger,tokens:{token_cap:490000,input_tokens:479,output_tokens:260,reasoning_tokens:0,reserved_tokens:0,completed_requests:4},model_enabled:true});
+          }
+          if(url==='/api/ai/pilot'){
+            const req=JSON.parse(opt.body);window.__p52requests.push(req);
+            if(req.message==='reject')return Response.json({error:'admission_denied'},{status:429});
+            const stop=req.message==='stop fixture';
+            const out=req.history.length?'Recalled '+req.history[0].content:'We are Prof. NOTA. <img src=x onerror=alert(1)>';
+            const encoder=new TextEncoder();
+            const frame=(event,data)=>encoder.encode('event: '+event+'\ndata: '+JSON.stringify(data)+'\n\n');
+            return new Response(new ReadableStream({start(controller){
+              controller.enqueue(frame('meta',{context:{droppedPairs:0}}));
+              controller.enqueue(frame('delta',{text:stop?'First fragment':out}));
+              const finish=()=>{if(stop)controller.enqueue(frame('delta',{text:'HIDDEN_LATE_FRAGMENT'}));controller.enqueue(frame('done',{usage:{input:100,output:20,reasoning:0},finish:'stop'}));controller.close();};
+              if(stop)setTimeout(finish,1200);else finish();
+            }}),{headers:{'content-type':'text/event-stream'}});
+          }
+          return original(url,opt);
+        };
+      };
+      await evaluate('('+fixture.toString()+')()');
+      const click=async sel=>evaluate('document.querySelector('+JSON.stringify(sel)+').click()');
+      const byText=async label=>evaluate('Array.from(document.querySelectorAll("[data-testid=notagent-terminal] button")).find(b=>b.textContent.trim()==='+JSON.stringify(label)+').click()');
+      await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.activeElement?.id==="notagent-input" && document.body.innerText.includes("CONNECTED")'),'NOTAGENT signed-in fixture');
+      assert.deepEqual(await evaluate(styles('[data-testid=notagent-terminal]')),consoleStyle);
+      async function prompt(value){
+        await evaluate('document.querySelector("#notagent-input").focus()');
+        await send('Input.insertText',{text:value});
+        await until(()=>evaluate('Array.from(document.querySelectorAll("[data-testid=notagent-terminal] button")).some(b=>b.textContent.trim()==="Send"&&!b.disabled)'), 'composer ready');
+        await enter();
+      }
+      async function completed(count){
+        await until(()=>evaluate('window.__p52requests.length==='+count+' && document.body.innerText.includes("Response complete. Usage recorded.") && !document.querySelector("#notagent-input").disabled'),'completed turn '+count);
+      }
+      await prompt('Marker <img src=x onerror=alert(1)>');
+      await completed(1);
+      assert.equal(await evaluate('document.querySelector("#notagent-input").value'),'');
+      assert.equal(await evaluate('document.querySelectorAll("[data-testid=notagent-user] img,[data-testid=notagent-answer] img").length'),0);
+      await prompt('What marker?');await completed(2);
+      assert.equal(await evaluate('window.__p52requests[1].history.length'),2);
+      assert.equal(await evaluate('document.querySelectorAll("[data-testid=notagent-answer]").length'),2);
+      await click('[data-testid=mode-console]');await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.querySelectorAll("[data-testid=notagent-answer]").length===2'),'switch preserves transcript');
+      await healthy('P5.2 shared visual styles, escaped text, multi-turn and switch retention');
+      await prompt('stop fixture');
+      await until(()=>evaluate('document.body.innerText.includes("First fragment")'),'stop fixture started');
+      await byText('Stop');
+      await until(()=>evaluate('document.body.innerText.includes("Provider usage settled")'),'stop drains and settles');
+      assert.equal(await evaluate('document.body.innerText.includes("HIDDEN_LATE_FRAGMENT")'),false);
+      await prompt('After stop');await completed(4);
+      assert.equal(await evaluate('window.__p52requests[3].history.length'),4);
+      await byText('New Chat');
+      await until(()=>evaluate('document.querySelectorAll("[data-testid=notagent-user]").length===0'),'new chat clears transcript');
+      await prompt('Fresh');await completed(5);
+      assert.equal(await evaluate('window.__p52requests[4].history.length'),0);
+      await prompt('reject');
+      await until(()=>evaluate('document.querySelector("#notagent-input").value==="reject" && document.body.innerText.includes("admission_denied")'),'rejected draft restored');
+      assert.equal(await evaluate('document.querySelectorAll("[data-testid=notagent-answer]").length'),1);
+      await send('Emulation.setDeviceMetricsOverride',{width:375,height:812,deviceScaleFactor:1,mobile:false});
+      assert.equal(await evaluate('(()=>{const r=document.querySelector("#notagent-input").getBoundingClientRect();return r.width>100&&r.right<=innerWidth&&r.bottom<=innerHeight})()'),true);
+      await healthy('P5.2 Stop, New Chat, rejected draft and narrow composer');
+      await byText('Sign out');
+      await until(()=>evaluate('!!document.querySelector("#pilot-owner-email")&&!document.querySelector("#notagent-input")'),'logout removes transcript');
+      assert.equal(await evaluate('JSON.stringify(localStorage).includes("Marker")||JSON.stringify(sessionStorage).includes("Marker")'),false);
+      await healthy('P5.2 local logout and no transcript storage');
+      // Same terminal, new identity state; no external OAuth or inference calls.
+      await evaluate('('+(()=>{
+        const prior=window.fetch;window.__p53active=false;window.__p53refresh=0;
+        window.fetch=async(url,opt)=>{
+          if(url==='/api/ai/pilot-session'){
+            const action=opt?.body?JSON.parse(opt.body).action:null;
+            if(action==='refresh'&&window.__p53canRefresh){window.__p53active=true;window.__p53refresh++;}
+            if(action==='logout')window.__p53active=false;
+            return Response.json({google:true,authenticated:window.__p53active,role:'member',session_key:window.__p53active?'member-session':''});
+          }
+          if(url==='/api/ai/pilot-budget'){
+            if(!window.__p53active)return Response.json({error:'session_required'},{status:401});
+            return Response.json({role:'member',session_key:'member-session',member_usage:{input_tokens:123,output_tokens:20,reasoning_tokens:0,reserved_tokens:0,completed_requests:1,daily_requests:1},unresolved:false,model_enabled:true});
+          }
+          return prior(url,opt);
+        };
+      }).toString()+')()');
+      await click('[data-testid=mode-console]');await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.body.innerText.includes("Continue with Google")'),'P5.3 Google entry fixture');
+      assert.equal(await evaluate('!!document.querySelector("#pilot-owner-email")'),false);
+      await evaluate('window.__p53canRefresh=true;window.__p53active=true');
+      await click('[data-testid=mode-console]');await click('[data-testid=mode-pilot]');
+      await until(()=>evaluate('document.body.innerText.includes("Identity connected.") && !!document.querySelector("#notagent-input")'),'P5.3 member terminal');
+      await evaluate('document.querySelector("[data-testid=pilot-budget-status]").open=true');
+      assert.equal(await evaluate('document.body.innerText.includes("Owner access management")||document.body.innerText.includes("Nominal USD cap")'),false);
+      assert.ok(await evaluate('document.body.innerText.includes("Your requests today: 1 / 3")'));
+      await evaluate('window.__p53active=false');
+      await byText('Check budget ledger');
+      await until(()=>evaluate('window.__p53refresh===1 && document.body.innerText.includes("Budget ledger verified.")'),'P5.3 automatic refresh');
+      await healthy('P5.3 Google entry, private Member usage and refresh fixture');
+      await byText('Sign out');
+      await until(()=>evaluate('document.body.innerText.includes("Continue with Google")&&!document.querySelector("#notagent-input")'),'P5.3 logout clears transcript');
+      return;
+    }
+
     // P5.0 only: AI Chat is a local mock, with no provider/backend or raw HTML.
     // Check that switching modes preserves Console drafts and its legacy commands.
     await reset();
