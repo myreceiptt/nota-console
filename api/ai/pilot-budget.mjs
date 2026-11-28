@@ -1,5 +1,5 @@
 import { configured, verifiedOwner,sameOrigin } from "../../lib/ai/pilot-auth.mjs";
-import { p53Enabled,p53Principal,p53Rpc } from "../../lib/ai/p53-auth.mjs";
+import { p53Enabled,p53Principal,p53Rpc,sessionKey } from "../../lib/ai/p53-auth.mjs";
 import { readBudgetStatus, readArkStatus } from "../../lib/ai/pilot-budget.mjs";
 
 import { arkConfigured, MODEL } from "../../lib/ai/modelark.mjs";
@@ -39,7 +39,7 @@ async function memberBudget(req,res){
  const [ledger,tokens,usage]=await Promise.all([readBudgetStatus(),readArkStatus(),p53Rpc("p53_usage",{p_uid:p.uid})]);
  if(!ledger||!tokens||!usage||!["input_tokens","output_tokens","reasoning_tokens","reserved_tokens","completed_requests","daily_requests"].every(k=>Number.isSafeInteger(usage[k])&&usage[k]>=0))return reply(res,503,{error:"ledger_unavailable",model_enabled:false});
  const ready=arkConfigured()&&ledger.admission_enabled&&tokens.reserved_tokens===0&&tokens.input_tokens+tokens.output_tokens+8192<=tokens.token_cap&&(p.role==="owner"||usage.daily_requests<3);
- return reply(res,200,{role:p.role,member_usage:usage,unresolved:tokens.reserved_tokens>0,model_enabled:ready,model:MODEL,billing_policy:"free_only_owner_attested",...(p.role==="owner"?{ledger,tokens}:{daily_limit:3})});
+ return reply(res,200,{role:p.role,session_key:sessionKey(p),member_usage:usage,unresolved:tokens.reserved_tokens>0,model_enabled:ready,model:MODEL,billing_policy:"free_only_owner_attested",...(p.role==="owner"?{ledger,tokens}:{daily_limit:3})});
 }
 // Legacy Owner-only diagnostic remains unchanged while P5.3 is gated off.
 export default async function handler(req, res) {

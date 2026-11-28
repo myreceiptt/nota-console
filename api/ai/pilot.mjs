@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { configured, sameOrigin, verifiedOwner } from "../../lib/ai/pilot-auth.mjs";
 import { arkConfigured, validPrompt, runArk, PilotError, MODEL } from "../../lib/ai/modelark.mjs";
-import { p53Enabled,p53Principal } from "../../lib/ai/p53-auth.mjs";
+import { p53Enabled,p53Principal,sessionKey } from "../../lib/ai/p53-auth.mjs";
 import { buildContext } from "../../lib/ai/notagent-context.mjs";
 const MAX_BODY_BYTES=65536;
 function headers(res) {
@@ -38,7 +38,7 @@ export default async function handler(req,res) {
  try{
   if(p53Enabled()){
    principal=await p53Principal(req);
-   if(!principal)return reject(res,401,"session_required");
+   if(!principal||req.headers["x-nota-session"]!==sessionKey(principal))return reject(res,401,"session_required");
   }else if(!await verifiedOwner(req))return reject(res,401,"owner_session_required");
  }catch{return reject(res,503,"auth_unavailable");}
  const body=await readBody(req);

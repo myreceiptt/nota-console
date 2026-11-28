@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
-type Props = { active: boolean; ready: boolean; unresolved: boolean; onRefresh: () => Promise<void>; onSessionExpired: () => void };
+type Props = { sessionKey?: string; active: boolean; ready: boolean; unresolved: boolean; onRefresh: () => Promise<void>; onSessionExpired: () => void };
 type Usage = { input: number; output: number; reasoning: number };
 type Turn = { id: number; prompt: string; answer: string; state: "pending"|"complete"|"incomplete"; usage?: Usage; context?: string };
 type Message = { role: "user"|"assistant"; content: string };
@@ -11,7 +11,7 @@ function PromptLine({children}:{children:React.ReactNode}) {
   <div className="flex min-w-0 gap-2"><span className="shrink-0 text-nota-blue">└─<b className="text-nota-white">#</b></span><div className="min-w-0 flex-1 text-nota-gray whitespace-pre-wrap break-words">{children}</div></div>
  </div>;
 }
-export default function PrivatePilotChat({active,ready,unresolved,onRefresh,onSessionExpired}:Props) {
+export default function PrivatePilotChat({sessionKey,active,ready,unresolved,onRefresh,onSessionExpired}:Props) {
  const [message,setMessage]=useState("");
  const [turns,setTurns]=useState<Turn[]>([]);
  const [notice,setNotice]=useState("");
@@ -43,7 +43,7 @@ export default function PrivatePilotChat({active,ready,unresolved,onRefresh,onSe
   setTurns(old=>[...old,{id,prompt,answer:"",state:"pending"}]);setMessage("");
   let admitted=false,completed=false,answer="",usage:Usage|undefined,context="";
   try{
-   const response=await fetch("/api/ai/pilot",{method:"POST",credentials:"same-origin",cache:"no-store",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:prompt,history}),signal:controller.signal});
+   const response=await fetch("/api/ai/pilot",{method:"POST",credentials:"same-origin",cache:"no-store",headers:{"Content-Type":"application/json",...(sessionKey?{"X-NOTA-Session":sessionKey}:{})},body:JSON.stringify({message:prompt,history}),signal:controller.signal});
    if(response.status===401){onSessionExpired();throw new Error("session_expired");}
    if(!response.ok){const data=await response.json().catch(()=>({}));throw new Error(typeof data.error==="string"?data.error:"request_unavailable");}
    admitted=true;
